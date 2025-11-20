@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simatelex.admin.mappers.xfstd01.TaskMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.simatelex.admin.pojo.TimingTask">
+        <id column="id" property="id" />
+        <!--property是映射到java bean中的,column是映射到数据库中的-->
+        <result column="task_type" property="taskType"/>
+        <result column="file_path" property="filePath"/>
+        <result column="period" property="period"/>
+        <result column="task_time" property="taskTime"/>
+        <result column="time_unit" property="timeUnit"/>
+        <result column="start_datetime" property="startDatetime"/>
+        <result column="end_datetime" property="endDatetime"/>
+        <result column="pc_name" property="pcName"/>
+        <result column="is_del" property="isDel"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_date" property="createDate"/>
+        <result column="update_date" property="updateDate"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, task_type, file_path, period, task_time, time_unit, start_datetime, end_datetime, pc_name, is_del, create_user, create_date, update_date
+    </sql>
+
+</mapper>
