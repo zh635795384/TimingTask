@@ -1,5 +1,7 @@
 package com.simatelex.admin.service;
 
+import com.simatelex.admin.pojo.Mail;
+
 /**
  * @Author Nancy Zhao
  * @Date 2023/01/11 11:52
@@ -23,6 +25,8 @@ public interface ISystemLogService {
      * @param username
      */
     void addToLog(String uri, String methodDescribe, String params, String username);
+
+    void addToLog(Mail mail, String sendLog);
 
     /**
      * 清除用户操作日志

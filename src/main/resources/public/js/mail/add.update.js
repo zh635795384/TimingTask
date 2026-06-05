@@ -42,13 +42,18 @@ layui.use(['form', 'layer'], function () {
         if ($("input[name='id']").val()) {
             url = ctx + "/mail/update";
         }
-        data.field.isExport = isExport != undefined && isExport != '' && isExport != null ? isExport :  false;
-        data.field.divExcel = divExcel != undefined && divExcel != '' && divExcel != null ? divExcel : false;
-        data.field.insertRow = insertRow != undefined && insertRow != '' && insertRow != null ? insertRow : false;
-        data.field.isRar = isRar != undefined && isRar != '' && isRar != null ? isRar : false;
-        data.field.isFtpUpload = isFtpUpload != undefined && isFtpUpload != '' && isFtpUpload != null ? isFtpUpload : false;
+        // data.field.isExport = isExport != undefined && isExport != '' && isExport != null ? isExport :  false;
+        data.field.isExport = !!(isExport && isExport !== 'false');
+        // data.field.divExcel = divExcel != undefined && divExcel != '' && divExcel != null ? divExcel : false;
+        data.field.divExcel = !!(divExcel && divExcel !== 'false');
+        // data.field.insertRow = insertRow != undefined && insertRow != '' && insertRow != null ? insertRow : false;
+        data.field.insertRow = !!(insertRow && insertRow !== 'false');
+        // data.field.isRar = isRar != undefined && isRar != '' && isRar != null ? isRar : false;
+        data.field.isRar = !!(isRar && isRar !== 'false');
+        // data.field.isFtpUpload = isFtpUpload != undefined && isFtpUpload != '' && isFtpUpload != null ? isFtpUpload : false;
+        data.field.isFtpUpload = !!(isFtpUpload && isFtpUpload !== 'false');
         data.field.tableStyle = selectTableStyle + ";" + (tableStyleDate != null && tableStyleDate != '' && tableStyleDate != undefined ? tableStyleDate : tableStyleDate + ";");
-        console.log(data.field)
+        // console.log(data.field)
         if (data.field.isFtpUpload) {
             if (data.field.ftpServer == null || data.field.ftpServer === '') {
                 layer.msg("请输入服务器名");

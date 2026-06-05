@@ -45,7 +45,7 @@ public class MailController {
     @RequestMapping("addOrUpdatePage")
     public String addOrUpdatePage(Integer id, Model model){
         model.addAttribute("mail", id != null ? mailService.getById(id) : null);
-        log.info("进入标准工时添加/更新页面！");
+        log.info("进入邮件添加/更新页面！");
         return "mail/add_update";//返回页面
     }
 
@@ -53,7 +53,8 @@ public class MailController {
     @ResponseBody
     public RespBean saveMail(Mail mail){
         mailService.saveMail(mail);
-        log.info("邮箱信息添加成功！");
+        log.info("邮箱"+mail.getTableName()+"信息添加成功！");
+        systemLogService.addToLog(mail, "邮箱添加成功");
         return RespBean.success("数据添加成功");
     }
 
@@ -61,7 +62,8 @@ public class MailController {
     @ResponseBody
     public RespBean updateMail(Mail mail,boolean isRun){
         mailService.updateMail(mail,isRun);
-        log.info("邮箱信息更新成功！");
+        log.info("邮箱"+mail.getTableName()+"信息更新成功！");
+        systemLogService.addToLog(mail, "邮箱更新成功");
         return RespBean.success("数据更新成功");
     }
 

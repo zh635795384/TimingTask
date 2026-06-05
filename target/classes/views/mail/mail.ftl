@@ -24,6 +24,7 @@
         </div>
     </script>
     <script id="mailListBar" type="text/html">
+        <a class="layui-btn layui-btn-primary layui-border-blue layui-btn-xs" id="add" lay-event="add">添加收件者</a>
         <a class="layui-btn layui-btn-primary layui-border-blue layui-btn-xs" id="edit" lay-event="edit">编辑</a>
         <a class="layui-btn layui-btn-primary layui-border-red layui-btn-xs" lay-event="del">删除</a>
     </script>

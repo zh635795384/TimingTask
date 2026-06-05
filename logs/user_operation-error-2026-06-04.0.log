@@ -1,0 +1,44 @@
+2026-06-04 14:05:38.920 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8898 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8898 or configure this application to listen on another port.
+
+2026-06-04 15:35:47.960 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+A component required a bean of type 'com.simatelex.admin.service.IMailService' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.simatelex.admin.service.IMailService' in your configuration.
+
+2026-06-04 15:38:52.350 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+A component required a bean of type 'com.simatelex.admin.service.IMailService' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.simatelex.admin.service.IMailService' in your configuration.
+

@@ -125,7 +125,7 @@
                 </select>
             </div>
             <div class="layui-input-inline" style="width: 320px">
-                <input type="text" class="layui-input sendTime" name="sendTime" id="sendTime" lay-verify="required" value="${(mail.sendTime)!}" placeholder="发送时间:月/星期填数字；时间填hh:mm:ss;多个用;隔开">
+                <input type="text" class="layui-input sendTime" name="sendTime" id="sendTime" <#--lay-verify="required"--> value="${(mail.sendTime)!}" placeholder="发送时间:月/星期填数字；时间填hh:mm:ss;多个用;隔开">
             </div>
         </div>
         <div class="layui-inline">

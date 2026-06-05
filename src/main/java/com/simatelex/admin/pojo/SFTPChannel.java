@@ -49,7 +49,7 @@ public class SFTPChannel {
         Properties config = new Properties();
         config.put("StrictHostKeyChecking", "no");
         session.setConfig(config); // 为Session对象设置properties
-//        session.setTimeout(timeout); // 设置timeout时间
+        session.setTimeout(timeout); // 设置timeout时间
         session.connect(); // 通过Session建立链接
         log.debug("Session connected.");
 

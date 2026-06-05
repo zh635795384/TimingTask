@@ -20,31 +20,21 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-@TableName("t_log")
+@TableName("t_mail_log")
 @Validated
 public class SysLog implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id",type = IdType.AUTO)
-    private Long id;
+    private Integer id;
 
-    private String uri;
+    private String tableName;
 
-    private String method;
-
-    private String methodDescribe;
-
-    private String params;
-
-    private String username;
-
-    private String os;
+    private String sendLog;
 
     private String ip;
 
-    private String createDate;
+    private String serverName;
 
     private String browser;
-
-    private String serverName;
 }

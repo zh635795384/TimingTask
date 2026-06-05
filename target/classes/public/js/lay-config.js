@@ -14,5 +14,6 @@ layui.config({
     version: true
 }).extend({
     layuimini: "layuimini/layuimini", // layuimini扩展
-    jquery_cookie:'jquery-cookie/jquery.cookie'
+    jquery_cookie:'jquery-cookie/jquery.cookie',
+    tableFilter: 'tableFilter/tableFilter', //表格过滤
 });

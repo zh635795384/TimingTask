@@ -2,9 +2,11 @@ package com.simatelex.admin.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.simatelex.admin.mappers.xfstd01.SysLogMapper;
+import com.simatelex.admin.pojo.Mail;
 import com.simatelex.admin.pojo.SysLog;
 import com.simatelex.admin.service.ISystemLogService;
 import com.simatelex.admin.util.DateUtil;
+import com.simatelex.admin.util.IpUtil;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,6 +48,11 @@ public class SystemLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> impl
         shareMethod(uri,methodDescribe,params,username);
     }
 
+    @Override
+    public void addToLog(Mail mail, String sendLog) {
+        shareMethod(mail,sendLog);
+    }
+
     /**
      * 清除用户操作日志
      */
@@ -63,7 +70,7 @@ public class SystemLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> impl
      * @param username
      */
     public void shareMethod(String uri, String methodDescribe, String params, String username){
-        HttpServletRequest request = null;
+        /*HttpServletRequest request = null;
         Map<String, String> mapLog = new HashMap<>();
 //        System.out.println(mapLog);
         SysLog sysLog = new SysLog();
@@ -78,6 +85,16 @@ public class SystemLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> impl
         //日期转换
         sysLog.setCreateDate(DateUtil.getFormatDateTime(LocalDateTime.now()));
         sysLog.setBrowser(mapLog.get("browser"));
-        this.baseMapper.insert(sysLog);
+        this.baseMapper.insert(sysLog);*/
+    }
+
+    public void shareMethod(Mail mail,String sendLog) {
+        Map<String, String> mapLog = IpUtil.setBrowser(IpUtil.getHttpServletRequest());
+        SysLog sysLog = new SysLog();
+        sysLog.setTableName(mail.getTableName());
+        sysLog.setIp(IpUtil.getLocalIp());
+        sysLog.setServerName(IpUtil.getHostName());
+        sysLog.setBrowser(mapLog.get("browser"));
+        sysLog.setSendLog(sendLog);
     }
 }

@@ -1,7 +1,8 @@
-﻿layui.use(['table', 'layer', 'element', "form"], function () {
+﻿layui.use(['table', 'layer', 'element', "form",'tableFilter'], function () {
     var layer = parent.layer === undefined ? layui.layer : top.layer,
         $ = layui.jquery,
         form = layui.form,
+        tableFilter = layui.tableFilter,
         table = layui.table;
     //邮箱信息列表展示
     var tableIns = table.render({
@@ -55,9 +56,9 @@
             {field: 'path', title: "导出路径", width: 86, align: "center", edit: 'text'},
             {field: 'subject', title: "主旨", width: 58, align: "center", edit: 'text'},
             {field: 'sender', title: "发件者", width: 217, align: "center", edit: 'text'},
-            {field: 'receiver', title: "收件者", width: 217, align: "center", edit: 'text'},
-            {field: 'cc', title: "CC", width: 58, align: "center", edit: 'text'},
-            {field: 'bcc', title: "BCC", width: 72, align: "center", edit: 'text'},
+            // {field: 'receiver', title: "收件者", width: 217, align: "center", edit: 'text'},
+            // {field: 'cc', title: "CC", width: 58, align: "center", edit: 'text'},
+            // {field: 'bcc', title: "BCC", width: 72, align: "center", edit: 'text'},
             {field: 'attach', title: "附件", width: 58, align: "center", edit: 'text'},
             {field: 'body', title: "主体内容", width: 86, align: "center", edit: 'text'},
             {field: 'contact', title: "合并报表", width: 86, align: "center", edit: 'text'},
@@ -249,4 +250,16 @@
             })
         });
     }
+
+    var tableFilterIns = tableFilter.render({
+        'elem' : '#mailList',//table的选择器
+        'mode' : 'local',//过滤模式
+        'filters' : [
+            {field: 'isDel', type:'checkbox'}
+        ],//过滤项配置
+        'done': function(filters){
+            //结果回调
+            console.log(filters)
+        }
+    })
 });

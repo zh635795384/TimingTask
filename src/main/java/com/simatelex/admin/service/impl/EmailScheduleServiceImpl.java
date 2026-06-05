@@ -42,8 +42,10 @@ public class EmailScheduleServiceImpl implements IEmailScheduleService {
         JobDetail jobDetail = JobBuilder.newJob(EmailJob.class)
                 .usingJobData(jobDataMap)
                 .withIdentity(jobName, jobGroup)
-                .usingJobData("retryCount", 0)  //初始化重试计数
-                .usingJobData("lastError", "")  // 初始化错误信息
+                //初始化重试计数
+                .usingJobData("retryCount", 0)
+                // 初始化错误信息
+                .usingJobData("lastError", "")
                 .storeDurably()
                 .build();
 
