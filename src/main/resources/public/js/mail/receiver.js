@@ -21,7 +21,7 @@ layui.use(['jquery','layer'], function(){
 
     // 邮箱正则：匹配单个合法邮箱
     function isEmail(str) {
-        let reg = /^[A-Za-z0-9._-]+@[A-Za-z0-9_-]+(\.[A-Za-z0-9_-]+){1,}$/;
+        let reg = /^[A-Za-z0-9._-]+@[A-Za-z0-9_-]+(\.[A-Za-z0-9_-]+)*$/;
         return reg.test(str.trim());
         /*let s = str.trim();
         let atIdx = s.indexOf('@');
@@ -33,7 +33,7 @@ layui.use(['jquery','layer'], function(){
     // 校验整串邮箱（英文逗号分隔多个）
     function checkEmailStr(emailStr) {
         if (!emailStr) return true; // 空字符串不校验（抄送/密送选填）
-        let emailArr = emailStr.split(',');
+        let emailArr = emailStr.split(';');
         for (let e of emailArr) {
             let val = e.trim();
             if (val && !isEmail(val)) {
@@ -44,7 +44,7 @@ layui.use(['jquery','layer'], function(){
     }
     // 拉取后台分组数据回显
     function loadConfig(){
-        $.get(ctx + "/mail/receiverList",{mailId: mailId},function(res){
+        $.get(ctx + "/mail/receiverList",{id: mailId},function(res){
             let html = '';
             if(res.data && res.data.length>0){
                 res.data.forEach(item=>{

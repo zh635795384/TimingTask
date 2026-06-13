@@ -10,8 +10,8 @@ import java.util.regex.Pattern;
  * @Version 1.0
  **/
 public class EmailUtil {
-    // 通用邮箱正则，兼容多级域名 com.hk / com.cn
-    private static final String EMAIL_REGEX = "^[A-Za-z0-9._-]+@[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+){1,}$";
+    // 兼容单段域名（如 simatelex）和多级域名（如 simatelex.com.hk）
+    private static final String EMAIL_REGEX = "^[A-Za-z0-9._-]+@[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*$";
     private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
 
     /**
@@ -22,15 +22,10 @@ public class EmailUtil {
             return false;
         }
         return EMAIL_PATTERN.matcher(email.trim()).matches();
-        /*String trimEmail = email.trim();
-        // 简单规则：必须有 @ 且 @ 前后有内容，必须有 . 且 . 在 @ 之后
-        int atIndex = trimEmail.indexOf("@");
-        int dotIndex = trimEmail.lastIndexOf(".");
-        return atIndex > 0 && dotIndex > atIndex && dotIndex < trimEmail.length() - 1;*/
     }
 
     /**
-     * 校验多邮箱（英文逗号分隔）
+     * 校验多邮箱（英文分号分隔）
      * @param emailStr 邮箱字符串
      * @return true=全部合法
      */
@@ -42,8 +37,8 @@ public class EmailUtil {
         String[] emailArr = emailStr.split(";");
         for (String e : emailArr) {
             String val = e.trim();
-            // 存在空串 或 格式非法，直接返回不合法
-            if (!StringUtils.hasText(val) || !isSingleEmail(val)) {
+            // 空串（末尾分号导致）或格式非法，返回false
+            if (StringUtils.hasText(val) && !isSingleEmail(val)) {
                 return false;
             }
         }
