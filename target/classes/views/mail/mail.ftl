@@ -14,12 +14,12 @@
         </div>
         <div class="layui-input-inline">
             <div class="layui-btn-container">
-                <a class="layui-btn layui-btn-primary layui-border-blue layui-btn-sm addNews_btn" lay-event="add"><i class="layui-icon">&#xe608;</i>添加</a>
+                <a class="layui-btn layui-btn-primary layui-border-blue layui-btn-sm" lay-event="add"><i class="layui-icon">&#xe608;</i>添加</a>
             </div>
         </div>
         <div class="layui-input-inline">
             <div class="layui-btn-container">
-                <a class="layui-btn layui-btn-primary layui-border-red layui-btn-sm delNews_btn" lay-event="del"><i class="layui-icon">&#xe608;</i>删除</a>
+                <a class="layui-btn layui-btn-primary layui-border-red layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe608;</i>删除</a>
             </div>
         </div>
     </script>
@@ -27,6 +27,7 @@
         <a class="layui-btn layui-btn-primary layui-border-blue layui-btn-xs" id="add" lay-event="add">添加收件者</a>
         <a class="layui-btn layui-btn-primary layui-border-blue layui-btn-xs" id="edit" lay-event="edit">编辑</a>
         <a class="layui-btn layui-btn-primary layui-border-red layui-btn-xs" lay-event="del">删除</a>
+        <a class="layui-btn layui-btn-primary layui-border-blue layui-btn-xs" lay-event="restore">恢复</a>
     </script>
 </form>
 <script type="text/javascript" src="${ctx.contextPath}/js/mail/mail.js"></script>

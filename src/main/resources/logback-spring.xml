@@ -189,5 +189,13 @@
             <appender-ref ref="WARN_FILE" />
         </root>
     </springProfile> -->
+    <!--&lt;!&ndash; 单独放行 Mapper 层：打印 MyBatis SQL 语句 &ndash;&gt;
+    <logger name="com.simatelex.admin.mappers" level="DEBUG" additivity="true">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="DEBUG_FILE"/>
+    </logger>
 
+    &lt;!&ndash; 放行 MyBatis 核心日志（参数、执行详情） &ndash;&gt;
+    <logger name="org.apache.ibatis" level="DEBUG" additivity="true"/>
+    <logger name="com.baomidou.mybatisplus" level="DEBUG" additivity="true"/>-->
 </configuration>

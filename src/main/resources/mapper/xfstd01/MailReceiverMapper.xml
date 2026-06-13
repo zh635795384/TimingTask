@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simatelex.admin.mappers.xfstd01.MailReceiverMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.simatelex.admin.pojo.MailReceiver">
+        <id column="id" property="id" />
+        <!--property是映射到java bean中的,column是映射到数据库中的-->
+        <result column="mail_id" property="mailId"/>
+        <result column="group_key" property="groupKey"/>
+        <result column="receiver" property="receiver"/>
+        <result column="cc" property="cc"/>
+        <result column="bcc" property="bcc"/>
+        <result column="is_del" property="isDel"/>
+        <result column="create_date" property="createDate"/>
+        <result column="update_date" property="updateDate"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, mail_id, group_key, receiver, receiver, cc, bcc, is_del, create_date, update_date
+    </sql>
+
+</mapper>

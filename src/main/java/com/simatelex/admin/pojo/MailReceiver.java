@@ -1,13 +1,13 @@
 package com.simatelex.admin.pojo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.validation.annotation.Validated;
+
+import java.time.LocalDateTime;
 
 /**
  * @Author Nancy Zhao
@@ -30,6 +30,17 @@ public class MailReceiver {
     //报表id
     private Integer mailId;
 
+    //报表名
+    @TableField(exist = false)
+    private String tableName;
+
+    //导出路径
+    @TableField(exist = false)
+    private String path;
+
+    //分组值
+    private String groupKey;
+
     //收件者
     private String receiver;
 
@@ -38,4 +49,13 @@ public class MailReceiver {
 
     //秘密抄送
     private String bcc;
+
+    //是否删除
+    private Boolean isDel;
+
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createDate;
+
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateDate;
 }

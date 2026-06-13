@@ -1,11 +1,10 @@
 package com.simatelex.admin.util;
 
-import org.apache.poi.ss.usermodel.BorderStyle;
-import org.apache.poi.ss.usermodel.DataFormat;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.*;
 
-import java.awt.*;
+import java.awt.Color;
 
 import static org.apache.poi.ss.usermodel.VerticalAlignment.CENTER;
 import static org.apache.poi.ss.usermodel.VerticalAlignment.TOP;
@@ -26,8 +25,8 @@ public class ExcelStyleUtil {
         return cellStyle;
     }
     //样式2
-    public static XSSFCellStyle getCellStyle2(XSSFWorkbook workbook, XSSFFont xssfFont) {
-        XSSFCellStyle cellStyle = workbook.createCellStyle(); //设置工作表样式
+    public static CellStyle getCellStyle2(SXSSFWorkbook workbook, Font xssfFont) {
+        CellStyle cellStyle = workbook.createCellStyle(); //设置工作表样式
         cellStyle.setFont(xssfFont); //向样式里添加字体设置
         cellStyle.setAlignment(HorizontalAlignment.LEFT);   //水平对齐
         cellStyle.setVerticalAlignment(CENTER); //垂直对齐
@@ -247,19 +246,19 @@ public class ExcelStyleUtil {
         return xssfFont;
     }
     //字体15
-    public static XSSFFont getXssfFont15(XSSFWorkbook workbook, String fonts, Double fontSize) {
-        XSSFFont xssfFont = workbook.createFont(); //设置工作表字体
+    public static Font getXssfFont15(Workbook workbook, String fonts, Double fontSize) {
+        Font xssfFont = workbook.createFont(); //设置工作表字体
         xssfFont.setFontName(fonts); //设置字体
         xssfFont.setFontHeightInPoints(fontSize.shortValue()); //设置字体大小
         xssfFont.setBold(true); //加粗
         return xssfFont;
     }
     //字体16
-    public static XSSFFont getXssfFont16(XSSFWorkbook workbook, String fonts, Double fontSize) {
-        XSSFFont xssfFont = workbook.createFont(); //设置工作表字体
-        xssfFont.setFontName(fonts); //设置字体
-        xssfFont.setFontHeightInPoints(fontSize.shortValue()); //设置字体大小
-        return xssfFont;
+    public static Font getXssfFont16(SXSSFWorkbook workbook, String fonts, Double fontSize) {
+        Font font = workbook.createFont(); //设置工作表字体
+        font.setFontName(fonts); //设置字体
+        font.setFontHeightInPoints(fontSize.shortValue()); //设置字体大小
+        return font;
     }
     //设置边框
     public static void setBorder1(XSSFCellStyle cellStyle) {
@@ -298,7 +297,9 @@ public class ExcelStyleUtil {
         while (col > 0)
         {
             int mod = col % system;
-            if (mod == 0) mod = system;
+            if (mod == 0) {
+                mod = system;
+            }
             digArr[ind++] = dig2Char(mod);
             col = (col - 1) / 26;
         }

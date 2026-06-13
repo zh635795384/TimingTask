@@ -31,6 +31,7 @@
         <result column="body" property="body"/>
         <result column="contact" property="contact"/>
         <result column="is_export" property="isExport"/>
+        <result column="empty_attach" property="emptyAttach"/>
         <result column="is_del" property="isDel"/>
         <result column="create_user" property="createUser"/>
         <result column="create_date" property="createDate"/>
@@ -39,7 +40,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, table_name, table_prefix, table_suffix, table_style, post_prefix, send_target, send_time, is_rar, group_by, file_name, div_excel, out_column, fonts, font_size, insert_row, path, subject, sender, receiver, cc, bcc, attach, body, contact, is_export, is_del, create_user, create_date, update_date
+        id, table_name, table_prefix, table_suffix, table_style, post_prefix, send_target, send_time, is_rar, group_by, file_name, div_excel, out_column, fonts, font_size, insert_row, path, subject, sender, receiver, cc, bcc, attach, body, contact, is_export, empty_attach, is_del, create_user, create_date, update_date
     </sql>
 
 </mapper>

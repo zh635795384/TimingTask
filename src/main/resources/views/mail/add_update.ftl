@@ -76,32 +76,6 @@
             </div>
         </div>
         <div class="layui-inline">
-            <label class="layui-form-label">是否压缩*</label>
-            <div class="layui-input-inline" style="width: 70px;">
-                <input type="checkbox" id="isRar" lay-skin="switch" value="${(mail.isRar?string("true","false"))!}" lay-filter="isRar" lay-text="是|否" <#if '${(mail.isRar?string("true","false"))!}'='true'>checked</#if>>
-            </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">是否插入行*</label>
-            <div class="layui-input-inline" style="width: 70px;">
-                <input type="checkbox" id="insertRow" lay-skin="switch" value="${(mail.insertRow?string("true","false"))!}" lay-filter="insertRow" lay-text="是|否" <#if '${(mail.insertRow?string("true","false"))!}'='true'>checked</#if>>
-            </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">分sheet*</label>
-            <div class="layui-input-inline" style="width: 70px;">
-                <input type="checkbox" id="divExcel" lay-skin="switch" value="${(mail.divExcel?string("true","false"))!}" lay-filter="divExcel" lay-text="是|否" <#if '${(mail.divExcel?string("true","false"))!}'='true'>checked</#if>>
-            </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">是否只导出*</label>
-            <div class="layui-input-inline" style="width: 70px;">
-                <input type="checkbox" id="isExport" lay-skin="switch" value="${(mail.isExport?string("true","false"))!}" lay-filter="isExport" lay-text="是|否" <#if '${(mail.isExport?string("true","false"))!}'='true'>checked</#if>>
-            </div>
-        </div>
-    </div>
-    <div class="layui-form-item layui-row layui-col-xs12">
-        <div class="layui-inline">
             <label class="layui-form-label">连接报表</label>
             <div class="layui-input-inline contactLine">
                 <input type="text" class="layui-input contact" name="contact" id="contact" value="${(mail.contact)!}" placeholder="请输入连接报表">
@@ -113,6 +87,8 @@
                 <input type="text" class="layui-input path" name="path" id="path" value="${(mail.path)!}" placeholder="请输入导出路径">
             </div>
         </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12">
         <div class="layui-inline">
             <label class="layui-form-label">发送周期*</label>
             <div class="layui-input-inline" style="width: 140px;">
@@ -124,7 +100,7 @@
                     <option id="sendTarget4" class="sendTarget4" name="sendTarget" value="每年" <#if '${(mail.sendTarget)!}'='每年'>selected</#if>>每年</option>
                 </select>
             </div>
-            <div class="layui-input-inline" style="width: 320px">
+            <div class="layui-input-inline" style="width: 360px">
                 <input type="text" class="layui-input sendTime" name="sendTime" id="sendTime" <#--lay-verify="required"--> value="${(mail.sendTime)!}" placeholder="发送时间:月/星期填数字；时间填hh:mm:ss;多个用;隔开">
             </div>
         </div>
@@ -139,7 +115,8 @@
                     <option id="tableStyle5" class="tableStyle5" name="tableStyle" value="yyyyMMddHHmm" <#if '${(mail.tableStyle?substring(0,mail.tableStyle?index_of(";")))!}' = 'yyyyMMddHHmm'>selected</#if>>yyyyMMddHHmm</option>
                     <option id="tableStyle6" class="tableStyle6" name="tableStyle" value="yyyyMMddHHmmss" <#if '${(mail.tableStyle?substring(0,mail.tableStyle?index_of(";")))!}' = 'yyyyMMddHHmmss'>selected</#if>>yyyyMMddHHmmss</option>
                     <option id="tableStyle7" class="tableStyle7" name="tableStyle" value="MMddyyyy" <#if '${(mail.tableStyle?substring(0,mail.tableStyle?index_of(";")))!}' = 'MMddyyyy'>selected</#if>>MMddyyyy</option>
-                    <option id="tableStyle7" class="tableStyle7" name="tableStyle" value="ddMMyyyy" <#if '${(mail.tableStyle?substring(0,mail.tableStyle?index_of(";")))!}' = 'MMddyyyy'>selected</#if>>MMddyyyy</option>
+                    <option id="tableStyle8" class="tableStyle8" name="tableStyle" value="ddMMyyyy" <#if '${(mail.tableStyle?substring(0,mail.tableStyle?index_of(";")))!}' = 'ddMMyyyy'>selected</#if>>ddMMyyyy</option>
+                    <option id="tableStyle9" class="tableStyle9" name="tableStyle" value="yyMMdd" <#if '${(mail.tableStyle?substring(0,mail.tableStyle?index_of(";")))!}' = 'yyMMdd'>selected</#if>>yyMMdd</option>
                 </select>
             </div>
             <div class="layui-input-inline" style="width: 170px;">
@@ -163,7 +140,7 @@
             </div>
         </div>
     </div>
-    <div class="layui-form-item layui-row layui-col-xs12">
+    <#--<div class="layui-form-item layui-row layui-col-xs12">
         <div class="layui-inline" style="width: 100%;">
             <label class="layui-form-label">收件者</label>
             <div class="layui-input-inline" style="width: 90%;">
@@ -186,8 +163,7 @@
                 <textarea placeholder="请输入秘密抄送者" class="layui-textarea bcc" name="bcc" id="bcc">${(mail.bcc)!}</textarea>
             </div>
         </div>
-
-    </div>
+    </div>-->
     <div class="layui-form-item layui-row layui-col-xs12">
         <div class="layui-inline" style="width: 100%;">
             <label class="layui-form-label">主题内容</label>
@@ -198,11 +174,43 @@
     </div>
     <div class="layui-form-item layui-row layui-col-xs12">
         <div class="layui-inline">
-            <label class="layui-form-label">是否FTP上传*</label>
+            <label class="layui-form-label">是否压缩*</label>
+            <div class="layui-input-inline" style="width: 70px;">
+                <input type="checkbox" id="isRar" lay-skin="switch" value="${(mail.isRar?string("true","false"))!}" lay-filter="isRar" lay-text="是|否" <#if '${(mail.isRar?string("true","false"))!}'='true'>checked</#if>>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">是否插入行*</label>
+            <div class="layui-input-inline" style="width: 70px;">
+                <input type="checkbox" id="insertRow" lay-skin="switch" value="${(mail.insertRow?string("true","false"))!}" lay-filter="insertRow" lay-text="是|否" <#if '${(mail.insertRow?string("true","false"))!}'='true'>checked</#if>>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">分sheet*</label>
+            <div class="layui-input-inline" style="width: 70px;">
+                <input type="checkbox" id="divExcel" lay-skin="switch" value="${(mail.divExcel?string("true","false"))!}" lay-filter="divExcel" lay-text="是|否" <#if '${(mail.divExcel?string("true","false"))!}'='true'>checked</#if>>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">是否只导出*</label>
+            <div class="layui-input-inline" style="width: 70px;">
+                <input type="checkbox" id="isExport" lay-skin="switch" value="${(mail.isExport?string("true","false"))!}" lay-filter="isExport" lay-text="是|否" <#if '${(mail.isExport?string("true","false"))!}'='true'>checked</#if>>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">是否空附件*</label>
+            <div class="layui-input-inline" style="width: 70px;">
+                <input type="checkbox" id="emptyAttach" lay-skin="switch" value="${(mail.emptyAttach?string("true","false"))!}" lay-filter="emptyAttach" lay-text="是|否" <#if '${(mail.emptyAttach?string("true","false"))!}'='true'>checked</#if>>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label" style="width: 88px;">是否FTP上传*</label>
             <div class="layui-input-inline" style="width: 70px;">
                 <input type="checkbox" id="isFtpUpload" name="isFtpUpload" lay-skin="switch" value="${(mail.isFtpUpload?string("true","false"))!}" lay-filter="isFtpUpload" lay-text="是|否" <#if '${(mail.isFtpUpload?string("true","false"))!}'='true'>checked</#if>>
             </div>
         </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12">
         <div class="layui-inline" id="hiddenFtpServer" style="visibility: hidden">
             <label class="layui-form-label">FTP服务器*</label>
             <div class="layui-input-inline">

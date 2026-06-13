@@ -1,0 +1,409 @@
+2026-06-10 09:23:10.320 [schedulerFactoryBean_Worker-1] ERROR com.simatelex.admin.config.mail.EmailJob - 达到最大重试次数，停止重试
+2026-06-10 09:26:06.905 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+A component required a bean of type 'com.simatelex.admin.service.IMailService' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.simatelex.admin.service.IMailService' in your configuration.
+
+2026-06-10 09:26:59.968 [schedulerFactoryBean_Worker-1] ERROR com.simatelex.admin.config.mail.EmailJob - 达到最大重试次数，停止重试
+2026-06-10 09:31:37.644 [schedulerFactoryBean_Worker-1] ERROR com.simatelex.admin.config.mail.EmailJob - 达到最大重试次数，停止重试
+2026-06-10 09:32:39.769 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+A component required a bean of type 'com.simatelex.admin.service.IMailService' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.simatelex.admin.service.IMailService' in your configuration.
+
+2026-06-10 09:33:09.350 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+A component required a bean of type 'com.simatelex.admin.service.IMailService' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.simatelex.admin.service.IMailService' in your configuration.
+
+2026-06-10 09:53:16.958 [schedulerFactoryBean_Worker-1] ERROR com.simatelex.admin.config.mail.EmailJob - 达到最大重试次数，停止重试
+2026-06-10 11:14:11.254 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+A component required a bean of type 'com.simatelex.admin.service.IMailService' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.simatelex.admin.service.IMailService' in your configuration.
+
+2026-06-10 11:26:00.087 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+A component required a bean of type 'com.simatelex.admin.service.IMailService' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.simatelex.admin.service.IMailService' in your configuration.
+
+2026-06-10 11:35:11.226 [schedulerFactoryBean_Worker-1] ERROR com.simatelex.admin.config.mail.EmailJob - 达到最大重试次数，停止重试
+2026-06-10 11:36:11.237 [schedulerFactoryBean_Worker-1] ERROR com.simatelex.admin.config.mail.EmailJob - 达到最大重试次数，停止重试
+2026-06-10 11:36:41.282 [schedulerFactoryBean_Worker-1] ERROR com.simatelex.admin.config.mail.EmailJob - 达到最大重试次数，停止重试
+2026-06-10 11:52:52.472 [schedulerFactoryBean_Worker-1] ERROR com.simatelex.admin.config.mail.EmailJob - 达到最大重试次数，停止重试
+2026-06-10 11:59:47.815 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+A component required a bean of type 'com.simatelex.admin.service.IMailService' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.simatelex.admin.service.IMailService' in your configuration.
+
+2026-06-10 12:00:01.398 [schedulerFactoryBean_Worker-1] ERROR com.simatelex.admin.config.mail.EmailJob - 达到最大重试次数，停止重试
+2026-06-10 12:01:06.182 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+A component required a bean of type 'com.simatelex.admin.service.IMailService' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.simatelex.admin.service.IMailService' in your configuration.
+
+2026-06-10 12:01:20.490 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+A component required a bean of type 'com.simatelex.admin.service.IMailService' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.simatelex.admin.service.IMailService' in your configuration.
+
+2026-06-10 12:02:38.925 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+A component required a bean of type 'com.simatelex.admin.service.ISystemLogService' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.simatelex.admin.service.ISystemLogService' in your configuration.
+
+2026-06-10 12:03:25.989 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+A component required a bean of type 'com.simatelex.admin.service.ISystemLogService' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.simatelex.admin.service.ISystemLogService' in your configuration.
+
+2026-06-10 12:03:39.738 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+A component required a bean of type 'com.simatelex.admin.service.ISystemLogService' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.simatelex.admin.service.ISystemLogService' in your configuration.
+
+2026-06-10 12:03:50.366 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+A component required a bean of type 'com.simatelex.admin.service.ISystemLogService' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.simatelex.admin.service.ISystemLogService' in your configuration.
+
+2026-06-10 12:03:55.265 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+A component required a bean of type 'com.simatelex.admin.service.ISystemLogService' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.simatelex.admin.service.ISystemLogService' in your configuration.
+
+2026-06-10 12:04:12.059 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+A component required a bean of type 'com.simatelex.admin.service.ISystemLogService' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.simatelex.admin.service.ISystemLogService' in your configuration.
+
+2026-06-10 12:05:49.214 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+A component required a bean of type 'com.simatelex.admin.service.IMailService' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.simatelex.admin.service.IMailService' in your configuration.
+
+2026-06-10 12:11:59.491 [restartedMain] ERROR org.springframework.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'mailController': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'systemLogServiceImpl' defined in file [H:\Program\TimingTask\target\classes\com\simatelex\admin\service\impl\SystemLogServiceImpl.class]: Instantiation of bean failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.simatelex.admin.service.impl.SystemLogServiceImpl]: Constructor threw exception; nested exception is java.lang.TypeNotPresentException: Type com.simatelex.admin.pojo.SysLog not present
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:321)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1422)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:594)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:895)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:878)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:550)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:758)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:750)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1237)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226)
+	at com.simatelex.admin.TimingTaskApplication.main(TimingTaskApplication.java:21)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'systemLogServiceImpl' defined in file [H:\Program\TimingTask\target\classes\com\simatelex\admin\service\impl\SystemLogServiceImpl.class]: Instantiation of bean failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.simatelex.admin.service.impl.SystemLogServiceImpl]: Constructor threw exception; nested exception is java.lang.TypeNotPresentException: Type com.simatelex.admin.pojo.SysLog not present
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1320)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1214)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:557)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1306)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1226)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.autowireResource(CommonAnnotationBeanPostProcessor.java:521)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.getResource(CommonAnnotationBeanPostProcessor.java:497)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor$ResourceElement.getResourceToInject(CommonAnnotationBeanPostProcessor.java:650)
+	at org.springframework.beans.factory.annotation.InjectionMetadata$InjectedElement.inject(InjectionMetadata.java:239)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:130)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:318)
+	... 23 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.simatelex.admin.service.impl.SystemLogServiceImpl]: Constructor threw exception; nested exception is java.lang.TypeNotPresentException: Type com.simatelex.admin.pojo.SysLog not present
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:217)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:87)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1312)
+	... 39 common frames omitted
+Caused by: java.lang.TypeNotPresentException: Type com.simatelex.admin.pojo.SysLog not present
+	at java.base/sun.reflect.generics.factory.CoreReflectionFactory.makeNamedType(CoreReflectionFactory.java:117)
+	at java.base/sun.reflect.generics.visitor.Reifier.visitClassTypeSignature(Reifier.java:125)
+	at java.base/sun.reflect.generics.tree.ClassTypeSignature.accept(ClassTypeSignature.java:49)
+	at java.base/sun.reflect.generics.visitor.Reifier.reifyTypeArguments(Reifier.java:68)
+	at java.base/sun.reflect.generics.visitor.Reifier.visitClassTypeSignature(Reifier.java:138)
+	at java.base/sun.reflect.generics.tree.ClassTypeSignature.accept(ClassTypeSignature.java:49)
+	at java.base/sun.reflect.generics.repository.ClassRepository.computeSuperclass(ClassRepository.java:104)
+	at java.base/sun.reflect.generics.repository.ClassRepository.getSuperclass(ClassRepository.java:86)
+	at java.base/java.lang.Class.getGenericSuperclass(Class.java:949)
+	at com.baomidou.mybatisplus.core.toolkit.ReflectionKit.getSuperClassGenericType(ReflectionKit.java:105)
+	at com.baomidou.mybatisplus.extension.service.impl.ServiceImpl.currentModelClass(ServiceImpl.java:87)
+	at com.baomidou.mybatisplus.extension.service.impl.ServiceImpl.<init>(ServiceImpl.java:61)
+	at com.simatelex.admin.service.impl.SystemLogServiceImpl.<init>(SystemLogServiceImpl.java:19)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:204)
+	... 41 common frames omitted
+Caused by: java.lang.ClassNotFoundException: com.simatelex.admin.pojo.SysLog
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:581)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:178)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521)
+	at java.base/java.lang.Class.forName0(Native Method)
+	at java.base/java.lang.Class.forName(Class.java:398)
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:144)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521)
+	at java.base/java.lang.Class.forName0(Native Method)
+	at java.base/java.lang.Class.forName(Class.java:398)
+	at java.base/sun.reflect.generics.factory.CoreReflectionFactory.makeNamedType(CoreReflectionFactory.java:114)
+	... 58 common frames omitted
+2026-06-10 12:14:35.834 [schedulerFactoryBean_Worker-1] ERROR com.simatelex.admin.config.mail.EmailJob - 达到最大重试次数，停止重试
+2026-06-10 13:39:36.907 [schedulerFactoryBean_Worker-1] ERROR com.simatelex.admin.config.mail.EmailJob - 达到最大重试次数，停止重试
+2026-06-10 15:13:00.838 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+A component required a bean of type 'com.simatelex.admin.service.IMailService' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.simatelex.admin.service.IMailService' in your configuration.
+
+2026-06-10 15:25:25.293 [schedulerFactoryBean_Worker-1] ERROR com.simatelex.admin.config.mail.EmailJob - 达到最大重试次数，停止重试
+2026-06-10 16:09:20.884 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+A component required a bean of type 'com.simatelex.admin.service.IMailService' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.simatelex.admin.service.IMailService' in your configuration.
+
+2026-06-10 16:13:20.236 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+A component required a bean of type 'com.simatelex.admin.service.IMailService' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.simatelex.admin.service.IMailService' in your configuration.
+
+2026-06-10 17:32:35.087 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+A component required a bean of type 'com.simatelex.admin.service.IMailService' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.simatelex.admin.service.IMailService' in your configuration.
+
+2026-06-10 17:34:17.767 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+A component required a bean of type 'com.simatelex.admin.service.IMailService' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.simatelex.admin.service.IMailService' in your configuration.
+
+2026-06-10 17:34:28.770 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+A component required a bean of type 'com.simatelex.admin.service.IMailService' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.simatelex.admin.service.IMailService' in your configuration.
+

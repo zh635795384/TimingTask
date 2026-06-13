@@ -1,0 +1,912 @@
+2026-06-06 13:37:25.845 [http-nio-8898-exec-10] INFO  com.simatelex.admin.controller.MailController - 进入邮件收件者添加/更新页面！
+2026-06-06 13:47:10.123 [Thread-16] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 13:47:10.566 [Thread-16] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2026-06-06 13:47:10.579 [Thread-16] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Shutting down Quartz Scheduler
+2026-06-06 13:47:10.579 [Thread-16] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutting down.
+2026-06-06 13:47:10.581 [Thread-16] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 13:47:10.581 [Thread-16] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutdown complete.
+2026-06-06 13:47:11.038 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Starting TimingTaskApplication on SZMIS-W11-01 with PID 18588 (H:\Program\TimingTask\target\classes started by Nancy Zhao in H:\Program\TimingTask)
+2026-06-06 13:47:11.040 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - No active profile set, falling back to default profiles: default
+2026-06-06 13:47:11.647 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8898 (http)
+2026-06-06 13:47:11.647 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8898"]
+2026-06-06 13:47:11.647 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-06 13:47:11.647 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.35]
+2026-06-06 13:47:11.682 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-06 13:47:11.682 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 625 ms
+2026-06-06 13:47:12.624 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+2026-06-06 13:47:12.624 [restartedMain] INFO  org.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2026-06-06 13:47:12.624 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.3.2 created.
+2026-06-06 13:47:12.624 [restartedMain] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+2026-06-06 13:47:12.626 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.3.2) 'schedulerFactoryBean' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2026-06-06 13:47:12.626 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'schedulerFactoryBean' initialized from an externally provided properties instance.
+2026-06-06 13:47:12.626 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.3.2
+2026-06-06 13:47:12.626 [restartedMain] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@68722b4d
+2026-06-06 13:47:12.784 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2026-06-06 13:47:12.807 [restartedMain] INFO  o.s.b.a.web.servlet.WelcomePageHandlerMapping - Adding welcome page template: index
+2026-06-06 13:47:12.950 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8898"]
+2026-06-06 13:47:12.953 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8898 (http) with context path ''
+2026-06-06 13:47:12.953 [restartedMain] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Starting Quartz Scheduler now
+2026-06-06 13:47:12.953 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED started.
+2026-06-06 13:47:12.956 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Started TimingTaskApplication in 2.004 seconds (JVM running for 71823.983)
+2026-06-06 13:47:12.956 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2026-06-06 13:51:50.411 [Thread-21] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 13:51:50.705 [Thread-21] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2026-06-06 13:51:50.707 [Thread-21] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Shutting down Quartz Scheduler
+2026-06-06 13:51:50.707 [Thread-21] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutting down.
+2026-06-06 13:51:50.707 [Thread-21] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 13:51:50.707 [Thread-21] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutdown complete.
+2026-06-06 13:51:50.791 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Starting TimingTaskApplication on SZMIS-W11-01 with PID 18588 (H:\Program\TimingTask\target\classes started by Nancy Zhao in H:\Program\TimingTask)
+2026-06-06 13:51:50.791 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - No active profile set, falling back to default profiles: default
+2026-06-06 13:51:51.058 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8898 (http)
+2026-06-06 13:51:51.058 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8898"]
+2026-06-06 13:51:51.058 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-06 13:51:51.058 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.35]
+2026-06-06 13:51:51.078 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-06 13:51:51.078 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 284 ms
+2026-06-06 13:51:51.506 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+2026-06-06 13:51:51.508 [restartedMain] INFO  org.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2026-06-06 13:51:51.508 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.3.2 created.
+2026-06-06 13:51:51.508 [restartedMain] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+2026-06-06 13:51:51.508 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.3.2) 'schedulerFactoryBean' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2026-06-06 13:51:51.508 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'schedulerFactoryBean' initialized from an externally provided properties instance.
+2026-06-06 13:51:51.508 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.3.2
+2026-06-06 13:51:51.508 [restartedMain] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@3e72289c
+2026-06-06 13:51:52.007 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2026-06-06 13:51:52.026 [restartedMain] INFO  o.s.b.a.web.servlet.WelcomePageHandlerMapping - Adding welcome page template: index
+2026-06-06 13:51:52.139 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8898"]
+2026-06-06 13:51:52.140 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8898 (http) with context path ''
+2026-06-06 13:51:52.142 [restartedMain] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Starting Quartz Scheduler now
+2026-06-06 13:51:52.142 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED started.
+2026-06-06 13:51:52.143 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Started TimingTaskApplication in 1.38 seconds (JVM running for 72103.162)
+2026-06-06 13:51:52.145 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2026-06-06 13:51:59.419 [Thread-26] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 13:51:59.867 [Thread-26] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2026-06-06 13:51:59.867 [Thread-26] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Shutting down Quartz Scheduler
+2026-06-06 13:51:59.867 [Thread-26] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutting down.
+2026-06-06 13:51:59.867 [Thread-26] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 13:51:59.867 [Thread-26] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutdown complete.
+2026-06-06 13:52:00.002 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Starting TimingTaskApplication on SZMIS-W11-01 with PID 18588 (H:\Program\TimingTask\target\classes started by Nancy Zhao in H:\Program\TimingTask)
+2026-06-06 13:52:00.002 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - No active profile set, falling back to default profiles: default
+2026-06-06 13:52:00.606 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8898 (http)
+2026-06-06 13:52:00.606 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8898"]
+2026-06-06 13:52:00.606 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-06 13:52:00.606 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.35]
+2026-06-06 13:52:00.634 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-06 13:52:00.634 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 626 ms
+2026-06-06 13:52:01.253 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+2026-06-06 13:52:01.254 [restartedMain] INFO  org.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2026-06-06 13:52:01.254 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.3.2 created.
+2026-06-06 13:52:01.254 [restartedMain] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+2026-06-06 13:52:01.254 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.3.2) 'schedulerFactoryBean' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2026-06-06 13:52:01.256 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'schedulerFactoryBean' initialized from an externally provided properties instance.
+2026-06-06 13:52:01.256 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.3.2
+2026-06-06 13:52:01.256 [restartedMain] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@7de7ae74
+2026-06-06 13:52:01.273 [restartedMain] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Shutting down Quartz Scheduler
+2026-06-06 13:52:01.273 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutting down.
+2026-06-06 13:52:01.273 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 13:52:01.273 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutdown complete.
+2026-06-06 13:52:01.274 [restartedMain] INFO  org.apache.catalina.core.StandardService - Stopping service [Tomcat]
+2026-06-06 13:52:01.305 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2026-06-06 13:57:06.150 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Starting TimingTaskApplication on SZMIS-W11-01 with PID 18588 (H:\Program\TimingTask\target\classes started by Nancy Zhao in H:\Program\TimingTask)
+2026-06-06 13:57:06.150 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - No active profile set, falling back to default profiles: default
+2026-06-06 13:57:10.361 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Starting TimingTaskApplication on SZMIS-W11-01 with PID 18588 (H:\Program\TimingTask\target\classes started by Nancy Zhao in H:\Program\TimingTask)
+2026-06-06 13:57:10.361 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - No active profile set, falling back to default profiles: default
+2026-06-06 13:57:10.644 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8898 (http)
+2026-06-06 13:57:10.646 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8898"]
+2026-06-06 13:57:10.646 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-06 13:57:10.646 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.35]
+2026-06-06 13:57:10.667 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat-1].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-06 13:57:10.667 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 303 ms
+2026-06-06 13:57:11.077 [restartedMain] INFO  org.apache.catalina.core.StandardService - Stopping service [Tomcat]
+2026-06-06 13:57:11.083 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2026-06-06 13:57:22.722 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Starting TimingTaskApplication on SZMIS-W11-01 with PID 18588 (H:\Program\TimingTask\target\classes started by Nancy Zhao in H:\Program\TimingTask)
+2026-06-06 13:57:22.724 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - No active profile set, falling back to default profiles: default
+2026-06-06 13:57:23.018 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8898 (http)
+2026-06-06 13:57:23.019 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8898"]
+2026-06-06 13:57:23.019 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-06 13:57:23.019 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.35]
+2026-06-06 13:57:23.039 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat-2].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-06 13:57:23.039 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 312 ms
+2026-06-06 13:57:24.641 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+2026-06-06 13:57:24.642 [restartedMain] INFO  org.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2026-06-06 13:57:24.649 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.3.2 created.
+2026-06-06 13:57:24.649 [restartedMain] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+2026-06-06 13:57:24.649 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.3.2) 'schedulerFactoryBean' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2026-06-06 13:57:24.649 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'schedulerFactoryBean' initialized from an externally provided properties instance.
+2026-06-06 13:57:24.649 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.3.2
+2026-06-06 13:57:24.650 [restartedMain] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@4b3560a1
+2026-06-06 13:57:24.902 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2026-06-06 13:57:24.937 [restartedMain] INFO  o.s.b.a.web.servlet.WelcomePageHandlerMapping - Adding welcome page template: index
+2026-06-06 13:57:25.104 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8898"]
+2026-06-06 13:57:25.108 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8898 (http) with context path ''
+2026-06-06 13:57:25.110 [restartedMain] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Starting Quartz Scheduler now
+2026-06-06 13:57:25.110 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED started.
+2026-06-06 13:57:25.113 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Started TimingTaskApplication in 2.434 seconds (JVM running for 72436.123)
+2026-06-06 13:57:25.113 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2026-06-06 13:57:29.187 [Thread-31] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 13:57:29.621 [Thread-31] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2026-06-06 13:57:29.621 [Thread-31] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Shutting down Quartz Scheduler
+2026-06-06 13:57:29.621 [Thread-31] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutting down.
+2026-06-06 13:57:29.621 [Thread-31] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 13:57:29.621 [Thread-31] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutdown complete.
+2026-06-06 13:57:29.731 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Starting TimingTaskApplication on SZMIS-W11-01 with PID 18588 (H:\Program\TimingTask\target\classes started by Nancy Zhao in H:\Program\TimingTask)
+2026-06-06 13:57:29.731 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - No active profile set, falling back to default profiles: default
+2026-06-06 13:57:30.149 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8898 (http)
+2026-06-06 13:57:30.149 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8898"]
+2026-06-06 13:57:30.149 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-06 13:57:30.151 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.35]
+2026-06-06 13:57:30.171 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat-2].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-06 13:57:30.171 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 437 ms
+2026-06-06 13:57:30.699 [restartedMain] INFO  org.apache.catalina.core.StandardService - Stopping service [Tomcat]
+2026-06-06 13:57:30.707 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2026-06-06 13:57:38.068 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Starting TimingTaskApplication on SZMIS-W11-01 with PID 18588 (H:\Program\TimingTask\target\classes started by Nancy Zhao in H:\Program\TimingTask)
+2026-06-06 13:57:38.068 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - No active profile set, falling back to default profiles: default
+2026-06-06 13:57:38.314 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8898 (http)
+2026-06-06 13:57:38.314 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8898"]
+2026-06-06 13:57:38.314 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-06 13:57:38.314 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.35]
+2026-06-06 13:57:38.334 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat-3].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-06 13:57:38.334 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 265 ms
+2026-06-06 13:57:39.051 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+2026-06-06 13:57:39.051 [restartedMain] INFO  org.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2026-06-06 13:57:39.051 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.3.2 created.
+2026-06-06 13:57:39.051 [restartedMain] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+2026-06-06 13:57:39.051 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.3.2) 'schedulerFactoryBean' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2026-06-06 13:57:39.051 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'schedulerFactoryBean' initialized from an externally provided properties instance.
+2026-06-06 13:57:39.051 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.3.2
+2026-06-06 13:57:39.051 [restartedMain] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@7161027c
+2026-06-06 13:57:39.172 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2026-06-06 13:57:39.196 [restartedMain] INFO  o.s.b.a.web.servlet.WelcomePageHandlerMapping - Adding welcome page template: index
+2026-06-06 13:57:39.306 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8898"]
+2026-06-06 13:57:39.309 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8898 (http) with context path ''
+2026-06-06 13:57:39.309 [restartedMain] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Starting Quartz Scheduler now
+2026-06-06 13:57:39.309 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED started.
+2026-06-06 13:57:39.312 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Started TimingTaskApplication in 1.276 seconds (JVM running for 72450.322)
+2026-06-06 13:57:39.312 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2026-06-06 13:58:31.945 [Thread-44] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 13:58:32.259 [Thread-44] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2026-06-06 13:58:32.261 [Thread-44] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Shutting down Quartz Scheduler
+2026-06-06 13:58:32.261 [Thread-44] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutting down.
+2026-06-06 13:58:32.261 [Thread-44] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 13:58:32.261 [Thread-44] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutdown complete.
+2026-06-06 13:58:32.338 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Starting TimingTaskApplication on SZMIS-W11-01 with PID 18588 (H:\Program\TimingTask\target\classes started by Nancy Zhao in H:\Program\TimingTask)
+2026-06-06 13:58:32.338 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - No active profile set, falling back to default profiles: default
+2026-06-06 13:58:32.596 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8898 (http)
+2026-06-06 13:58:32.596 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8898"]
+2026-06-06 13:58:32.596 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-06 13:58:32.596 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.35]
+2026-06-06 13:58:32.615 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat-3].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-06 13:58:32.615 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 274 ms
+2026-06-06 13:58:32.693 [restartedMain] INFO  org.apache.catalina.core.StandardService - Stopping service [Tomcat]
+2026-06-06 13:58:32.696 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2026-06-06 14:01:09.726 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Starting TimingTaskApplication on SZMIS-W11-01 with PID 18588 (H:\Program\TimingTask\target\classes started by Nancy Zhao in H:\Program\TimingTask)
+2026-06-06 14:01:09.727 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - No active profile set, falling back to default profiles: default
+2026-06-06 14:01:09.982 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8898 (http)
+2026-06-06 14:01:09.984 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8898"]
+2026-06-06 14:01:09.984 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-06 14:01:09.984 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.35]
+2026-06-06 14:01:10.004 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat-4].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-06 14:01:10.004 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 271 ms
+2026-06-06 14:01:10.760 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+2026-06-06 14:01:10.761 [restartedMain] INFO  org.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2026-06-06 14:01:10.761 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.3.2 created.
+2026-06-06 14:01:10.761 [restartedMain] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+2026-06-06 14:01:10.761 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.3.2) 'schedulerFactoryBean' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2026-06-06 14:01:10.761 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'schedulerFactoryBean' initialized from an externally provided properties instance.
+2026-06-06 14:01:10.761 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.3.2
+2026-06-06 14:01:10.761 [restartedMain] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@644def64
+2026-06-06 14:01:10.895 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2026-06-06 14:01:10.914 [restartedMain] INFO  o.s.b.a.web.servlet.WelcomePageHandlerMapping - Adding welcome page template: index
+2026-06-06 14:01:11.033 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8898"]
+2026-06-06 14:01:11.042 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8898 (http) with context path ''
+2026-06-06 14:01:11.042 [restartedMain] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Starting Quartz Scheduler now
+2026-06-06 14:01:11.042 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED started.
+2026-06-06 14:01:11.045 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Started TimingTaskApplication in 1.394 seconds (JVM running for 72662.05)
+2026-06-06 14:01:11.047 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2026-06-06 14:01:48.496 [Thread-52] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 14:01:48.790 [Thread-52] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2026-06-06 14:01:48.790 [Thread-52] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Shutting down Quartz Scheduler
+2026-06-06 14:01:48.790 [Thread-52] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutting down.
+2026-06-06 14:01:48.790 [Thread-52] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 14:01:48.790 [Thread-52] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutdown complete.
+2026-06-06 14:01:48.860 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Starting TimingTaskApplication on SZMIS-W11-01 with PID 18588 (H:\Program\TimingTask\target\classes started by Nancy Zhao in H:\Program\TimingTask)
+2026-06-06 14:01:48.862 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - No active profile set, falling back to default profiles: default
+2026-06-06 14:01:49.093 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8898 (http)
+2026-06-06 14:01:49.093 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8898"]
+2026-06-06 14:01:49.093 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-06 14:01:49.093 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.35]
+2026-06-06 14:01:49.111 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat-4].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-06 14:01:49.111 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 247 ms
+2026-06-06 14:01:49.776 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+2026-06-06 14:01:49.776 [restartedMain] INFO  org.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2026-06-06 14:01:49.776 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.3.2 created.
+2026-06-06 14:01:49.776 [restartedMain] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+2026-06-06 14:01:49.776 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.3.2) 'schedulerFactoryBean' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2026-06-06 14:01:49.776 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'schedulerFactoryBean' initialized from an externally provided properties instance.
+2026-06-06 14:01:49.776 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.3.2
+2026-06-06 14:01:49.776 [restartedMain] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@5d7a00fc
+2026-06-06 14:01:49.908 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2026-06-06 14:01:49.926 [restartedMain] INFO  o.s.b.a.web.servlet.WelcomePageHandlerMapping - Adding welcome page template: index
+2026-06-06 14:01:50.037 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8898"]
+2026-06-06 14:01:50.040 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8898 (http) with context path ''
+2026-06-06 14:01:50.042 [restartedMain] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Starting Quartz Scheduler now
+2026-06-06 14:01:50.042 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED started.
+2026-06-06 14:01:50.043 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Started TimingTaskApplication in 1.21 seconds (JVM running for 72701.047)
+2026-06-06 14:01:50.045 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2026-06-06 14:02:42.750 [Thread-60] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 14:02:43.068 [Thread-60] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2026-06-06 14:02:43.068 [Thread-60] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Shutting down Quartz Scheduler
+2026-06-06 14:02:43.068 [Thread-60] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutting down.
+2026-06-06 14:02:43.068 [Thread-60] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 14:02:43.068 [Thread-60] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutdown complete.
+2026-06-06 14:02:43.143 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Starting TimingTaskApplication on SZMIS-W11-01 with PID 18588 (H:\Program\TimingTask\target\classes started by Nancy Zhao in H:\Program\TimingTask)
+2026-06-06 14:02:43.143 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - No active profile set, falling back to default profiles: default
+2026-06-06 14:02:43.371 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8898 (http)
+2026-06-06 14:02:43.371 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8898"]
+2026-06-06 14:02:43.371 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-06 14:02:43.371 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.35]
+2026-06-06 14:02:43.403 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat-4].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-06 14:02:43.403 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 257 ms
+2026-06-06 14:02:44.132 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+2026-06-06 14:02:44.132 [restartedMain] INFO  org.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2026-06-06 14:02:44.132 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.3.2 created.
+2026-06-06 14:02:44.132 [restartedMain] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+2026-06-06 14:02:44.132 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.3.2) 'schedulerFactoryBean' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2026-06-06 14:02:44.133 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'schedulerFactoryBean' initialized from an externally provided properties instance.
+2026-06-06 14:02:44.133 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.3.2
+2026-06-06 14:02:44.133 [restartedMain] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@67e2bb4a
+2026-06-06 14:02:44.278 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2026-06-06 14:02:44.299 [restartedMain] INFO  o.s.b.a.web.servlet.WelcomePageHandlerMapping - Adding welcome page template: index
+2026-06-06 14:02:44.408 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8898"]
+2026-06-06 14:02:44.411 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8898 (http) with context path ''
+2026-06-06 14:02:44.412 [restartedMain] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Starting Quartz Scheduler now
+2026-06-06 14:02:44.412 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED started.
+2026-06-06 14:02:44.414 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Started TimingTaskApplication in 1.299 seconds (JVM running for 72755.416)
+2026-06-06 14:02:44.415 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2026-06-06 14:03:58.249 [Thread-65] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 14:03:58.597 [Thread-65] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2026-06-06 14:03:58.598 [Thread-65] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Shutting down Quartz Scheduler
+2026-06-06 14:03:58.598 [Thread-65] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutting down.
+2026-06-06 14:03:58.598 [Thread-65] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 14:03:58.598 [Thread-65] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutdown complete.
+2026-06-06 14:03:58.667 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Starting TimingTaskApplication on SZMIS-W11-01 with PID 18588 (H:\Program\TimingTask\target\classes started by Nancy Zhao in H:\Program\TimingTask)
+2026-06-06 14:03:58.667 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - No active profile set, falling back to default profiles: default
+2026-06-06 14:03:58.892 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8898 (http)
+2026-06-06 14:03:58.892 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8898"]
+2026-06-06 14:03:58.894 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-06 14:03:58.894 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.35]
+2026-06-06 14:03:58.912 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat-4].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-06 14:03:58.912 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 243 ms
+2026-06-06 14:03:59.637 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+2026-06-06 14:03:59.637 [restartedMain] INFO  org.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2026-06-06 14:03:59.637 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.3.2 created.
+2026-06-06 14:03:59.637 [restartedMain] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+2026-06-06 14:03:59.638 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.3.2) 'schedulerFactoryBean' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2026-06-06 14:03:59.638 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'schedulerFactoryBean' initialized from an externally provided properties instance.
+2026-06-06 14:03:59.638 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.3.2
+2026-06-06 14:03:59.638 [restartedMain] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@1a318f0f
+2026-06-06 14:03:59.808 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2026-06-06 14:03:59.834 [restartedMain] INFO  o.s.b.a.web.servlet.WelcomePageHandlerMapping - Adding welcome page template: index
+2026-06-06 14:03:59.951 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8898"]
+2026-06-06 14:03:59.954 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8898 (http) with context path ''
+2026-06-06 14:03:59.954 [restartedMain] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Starting Quartz Scheduler now
+2026-06-06 14:03:59.954 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED started.
+2026-06-06 14:03:59.957 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Started TimingTaskApplication in 1.317 seconds (JVM running for 72830.958)
+2026-06-06 14:03:59.959 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2026-06-06 14:05:23.946 [Thread-70] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 14:05:24.308 [Thread-70] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2026-06-06 14:05:24.310 [Thread-70] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Shutting down Quartz Scheduler
+2026-06-06 14:05:24.310 [Thread-70] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutting down.
+2026-06-06 14:05:24.310 [Thread-70] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 14:05:24.310 [Thread-70] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutdown complete.
+2026-06-06 14:05:24.404 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Starting TimingTaskApplication on SZMIS-W11-01 with PID 18588 (H:\Program\TimingTask\target\classes started by Nancy Zhao in H:\Program\TimingTask)
+2026-06-06 14:05:24.404 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - No active profile set, falling back to default profiles: default
+2026-06-06 14:05:24.641 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8898 (http)
+2026-06-06 14:05:24.641 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8898"]
+2026-06-06 14:05:24.641 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-06 14:05:24.641 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.35]
+2026-06-06 14:05:24.661 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat-4].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-06 14:05:24.661 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 255 ms
+2026-06-06 14:05:25.401 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+2026-06-06 14:05:25.401 [restartedMain] INFO  org.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2026-06-06 14:05:25.401 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.3.2 created.
+2026-06-06 14:05:25.401 [restartedMain] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+2026-06-06 14:05:25.401 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.3.2) 'schedulerFactoryBean' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2026-06-06 14:05:25.401 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'schedulerFactoryBean' initialized from an externally provided properties instance.
+2026-06-06 14:05:25.401 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.3.2
+2026-06-06 14:05:25.401 [restartedMain] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@56b61686
+2026-06-06 14:05:25.550 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2026-06-06 14:05:25.573 [restartedMain] INFO  o.s.b.a.web.servlet.WelcomePageHandlerMapping - Adding welcome page template: index
+2026-06-06 14:05:25.699 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8898"]
+2026-06-06 14:05:25.702 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8898 (http) with context path ''
+2026-06-06 14:05:25.702 [restartedMain] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Starting Quartz Scheduler now
+2026-06-06 14:05:25.702 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED started.
+2026-06-06 14:05:25.705 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Started TimingTaskApplication in 1.329 seconds (JVM running for 72916.703)
+2026-06-06 14:05:25.705 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2026-06-06 14:11:04.048 [Thread-75] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 14:11:05.110 [Thread-75] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2026-06-06 14:11:05.110 [Thread-75] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Shutting down Quartz Scheduler
+2026-06-06 14:11:05.110 [Thread-75] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutting down.
+2026-06-06 14:11:05.110 [Thread-75] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 14:11:05.110 [Thread-75] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutdown complete.
+2026-06-06 14:11:05.201 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Starting TimingTaskApplication on SZMIS-W11-01 with PID 18588 (H:\Program\TimingTask\target\classes started by Nancy Zhao in H:\Program\TimingTask)
+2026-06-06 14:11:05.202 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - No active profile set, falling back to default profiles: default
+2026-06-06 14:11:05.938 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8898 (http)
+2026-06-06 14:11:05.938 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8898"]
+2026-06-06 14:11:05.938 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-06 14:11:05.939 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.35]
+2026-06-06 14:11:05.978 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat-4].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-06 14:11:05.978 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 773 ms
+2026-06-06 14:11:06.656 [restartedMain] INFO  org.apache.catalina.core.StandardService - Stopping service [Tomcat]
+2026-06-06 14:11:06.663 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2026-06-06 14:11:14.004 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Starting TimingTaskApplication on SZMIS-W11-01 with PID 18588 (H:\Program\TimingTask\target\classes started by Nancy Zhao in H:\Program\TimingTask)
+2026-06-06 14:11:14.004 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - No active profile set, falling back to default profiles: default
+2026-06-06 14:11:14.229 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8898 (http)
+2026-06-06 14:11:14.229 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8898"]
+2026-06-06 14:11:14.229 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-06 14:11:14.229 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.35]
+2026-06-06 14:11:14.257 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat-5].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-06 14:11:14.257 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 250 ms
+2026-06-06 14:11:14.972 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+2026-06-06 14:11:14.972 [restartedMain] INFO  org.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2026-06-06 14:11:14.972 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.3.2 created.
+2026-06-06 14:11:14.972 [restartedMain] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+2026-06-06 14:11:14.972 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.3.2) 'schedulerFactoryBean' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2026-06-06 14:11:14.972 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'schedulerFactoryBean' initialized from an externally provided properties instance.
+2026-06-06 14:11:14.972 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.3.2
+2026-06-06 14:11:14.972 [restartedMain] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@19ae6226
+2026-06-06 14:11:15.134 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2026-06-06 14:11:15.162 [restartedMain] INFO  o.s.b.a.web.servlet.WelcomePageHandlerMapping - Adding welcome page template: index
+2026-06-06 14:11:15.288 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8898"]
+2026-06-06 14:11:15.291 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8898 (http) with context path ''
+2026-06-06 14:11:15.291 [restartedMain] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Starting Quartz Scheduler now
+2026-06-06 14:11:15.291 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED started.
+2026-06-06 14:11:15.292 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Started TimingTaskApplication in 1.332 seconds (JVM running for 73266.282)
+2026-06-06 14:11:15.294 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2026-06-06 14:15:19.482 [Thread-80] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 14:15:19.802 [Thread-80] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2026-06-06 14:15:19.802 [Thread-80] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Shutting down Quartz Scheduler
+2026-06-06 14:15:19.802 [Thread-80] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutting down.
+2026-06-06 14:15:19.802 [Thread-80] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 14:15:19.802 [Thread-80] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutdown complete.
+2026-06-06 14:15:19.877 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Starting TimingTaskApplication on SZMIS-W11-01 with PID 18588 (H:\Program\TimingTask\target\classes started by Nancy Zhao in H:\Program\TimingTask)
+2026-06-06 14:15:19.877 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - No active profile set, falling back to default profiles: default
+2026-06-06 14:15:20.154 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8898 (http)
+2026-06-06 14:15:20.154 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8898"]
+2026-06-06 14:15:20.154 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-06 14:15:20.154 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.35]
+2026-06-06 14:15:20.172 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat-5].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-06 14:15:20.172 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 293 ms
+2026-06-06 14:15:20.883 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+2026-06-06 14:15:20.885 [restartedMain] INFO  org.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2026-06-06 14:15:20.885 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.3.2 created.
+2026-06-06 14:15:20.885 [restartedMain] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+2026-06-06 14:15:20.885 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.3.2) 'schedulerFactoryBean' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2026-06-06 14:15:20.885 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'schedulerFactoryBean' initialized from an externally provided properties instance.
+2026-06-06 14:15:20.885 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.3.2
+2026-06-06 14:15:20.885 [restartedMain] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@4190126a
+2026-06-06 14:15:21.020 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2026-06-06 14:15:21.040 [restartedMain] INFO  o.s.b.a.web.servlet.WelcomePageHandlerMapping - Adding welcome page template: index
+2026-06-06 14:15:21.158 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8898"]
+2026-06-06 14:15:21.159 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8898 (http) with context path ''
+2026-06-06 14:15:21.159 [restartedMain] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Starting Quartz Scheduler now
+2026-06-06 14:15:21.159 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED started.
+2026-06-06 14:15:21.162 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Started TimingTaskApplication in 1.315 seconds (JVM running for 73512.146)
+2026-06-06 14:15:21.164 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2026-06-06 14:20:54.910 [Thread-88] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 14:20:55.250 [Thread-88] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2026-06-06 14:20:55.250 [Thread-88] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Shutting down Quartz Scheduler
+2026-06-06 14:20:55.250 [Thread-88] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutting down.
+2026-06-06 14:20:55.250 [Thread-88] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 14:20:55.250 [Thread-88] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutdown complete.
+2026-06-06 14:20:55.321 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Starting TimingTaskApplication on SZMIS-W11-01 with PID 18588 (H:\Program\TimingTask\target\classes started by Nancy Zhao in H:\Program\TimingTask)
+2026-06-06 14:20:55.322 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - No active profile set, falling back to default profiles: default
+2026-06-06 14:20:55.583 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8898 (http)
+2026-06-06 14:20:55.584 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8898"]
+2026-06-06 14:20:55.584 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-06 14:20:55.584 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.35]
+2026-06-06 14:20:55.603 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat-5].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-06 14:20:55.603 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 279 ms
+2026-06-06 14:20:56.314 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+2026-06-06 14:20:56.315 [restartedMain] INFO  org.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2026-06-06 14:20:56.315 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.3.2 created.
+2026-06-06 14:20:56.315 [restartedMain] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+2026-06-06 14:20:56.315 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.3.2) 'schedulerFactoryBean' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2026-06-06 14:20:56.315 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'schedulerFactoryBean' initialized from an externally provided properties instance.
+2026-06-06 14:20:56.315 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.3.2
+2026-06-06 14:20:56.315 [restartedMain] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@5fa5d0a7
+2026-06-06 14:20:56.436 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2026-06-06 14:20:56.455 [restartedMain] INFO  o.s.b.a.web.servlet.WelcomePageHandlerMapping - Adding welcome page template: index
+2026-06-06 14:20:56.575 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8898"]
+2026-06-06 14:20:56.576 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8898 (http) with context path ''
+2026-06-06 14:20:56.576 [restartedMain] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Starting Quartz Scheduler now
+2026-06-06 14:20:56.576 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED started.
+2026-06-06 14:20:56.579 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Started TimingTaskApplication in 1.286 seconds (JVM running for 73847.555)
+2026-06-06 14:20:56.579 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2026-06-06 14:24:06.094 [Thread-93] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 14:24:06.383 [Thread-93] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2026-06-06 14:24:06.383 [Thread-93] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Shutting down Quartz Scheduler
+2026-06-06 14:24:06.383 [Thread-93] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutting down.
+2026-06-06 14:24:06.383 [Thread-93] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 14:24:06.383 [Thread-93] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutdown complete.
+2026-06-06 14:24:06.468 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Starting TimingTaskApplication on SZMIS-W11-01 with PID 18588 (H:\Program\TimingTask\target\classes started by Nancy Zhao in H:\Program\TimingTask)
+2026-06-06 14:24:06.468 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - No active profile set, falling back to default profiles: default
+2026-06-06 14:24:06.724 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8898 (http)
+2026-06-06 14:24:06.724 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8898"]
+2026-06-06 14:24:06.724 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-06 14:24:06.724 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.35]
+2026-06-06 14:24:06.743 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat-5].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-06 14:24:06.743 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 274 ms
+2026-06-06 14:24:07.139 [restartedMain] INFO  org.apache.catalina.core.StandardService - Stopping service [Tomcat]
+2026-06-06 14:24:07.144 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2026-06-06 14:24:51.090 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Starting TimingTaskApplication on SZMIS-W11-01 with PID 18588 (H:\Program\TimingTask\target\classes started by Nancy Zhao in H:\Program\TimingTask)
+2026-06-06 14:24:51.090 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - No active profile set, falling back to default profiles: default
+2026-06-06 14:24:51.345 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8898 (http)
+2026-06-06 14:24:51.346 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8898"]
+2026-06-06 14:24:51.346 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-06 14:24:51.346 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.35]
+2026-06-06 14:24:51.363 [restartedMain] INFO  o.a.c.c.ContainerBase.[Tomcat-6].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-06 14:24:51.363 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 272 ms
+2026-06-06 14:24:52.239 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+2026-06-06 14:24:52.240 [restartedMain] INFO  org.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2026-06-06 14:24:52.240 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.3.2 created.
+2026-06-06 14:24:52.240 [restartedMain] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+2026-06-06 14:24:52.240 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.3.2) 'schedulerFactoryBean' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2026-06-06 14:24:52.240 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'schedulerFactoryBean' initialized from an externally provided properties instance.
+2026-06-06 14:24:52.240 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.3.2
+2026-06-06 14:24:52.240 [restartedMain] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@4399198d
+2026-06-06 14:24:52.389 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2026-06-06 14:24:52.412 [restartedMain] INFO  o.s.b.a.web.servlet.WelcomePageHandlerMapping - Adding welcome page template: index
+2026-06-06 14:24:52.527 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8898"]
+2026-06-06 14:24:52.530 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8898 (http) with context path ''
+2026-06-06 14:24:52.530 [restartedMain] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Starting Quartz Scheduler now
+2026-06-06 14:24:52.530 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED started.
+2026-06-06 14:24:52.533 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Started TimingTaskApplication in 1.47 seconds (JVM running for 74083.504)
+2026-06-06 14:24:52.533 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2026-06-06 14:25:06.230 [http-nio-8898-exec-1] INFO  o.a.c.c.ContainerBase.[Tomcat-6].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-06 14:25:06.231 [http-nio-8898-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-06-06 14:25:06.245 [http-nio-8898-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 14 ms
+2026-06-06 14:25:06.797 [http-nio-8898-exec-9] INFO  com.simatelex.admin.controller.MailController - 邮件列表展示！
+2026-06-06 14:25:08.280 [http-nio-8898-exec-7] INFO  com.simatelex.admin.controller.MailController - 邮件列表展示！
+2026-06-06 14:25:09.453 [http-nio-8898-exec-3] INFO  com.simatelex.admin.controller.MailController - 进入邮件收件者添加/更新页面！
+2026-06-06 14:25:09.567 [http-nio-8898-exec-8] INFO  com.simatelex.admin.controller.MailController - 收件者列表展示！
+2026-06-06 14:26:24.124 [http-nio-8898-exec-4] INFO  com.simatelex.admin.controller.MailController - 邮件列表展示！
+2026-06-06 14:26:26.179 [http-nio-8898-exec-9] INFO  com.simatelex.admin.controller.MailController - 邮件列表展示！
+2026-06-06 14:26:28.568 [http-nio-8898-exec-7] INFO  com.simatelex.admin.controller.MailController - 进入邮件收件者添加/更新页面！
+2026-06-06 14:26:28.659 [http-nio-8898-exec-2] INFO  com.simatelex.admin.controller.MailController - 收件者列表展示！
+2026-06-06 14:30:02.084 [http-nio-8898-exec-7] INFO  com.simatelex.admin.controller.MailController - 邮件列表展示！
+2026-06-06 14:30:10.219 [http-nio-8898-exec-3] INFO  com.simatelex.admin.controller.MailController - 进入邮件收件者添加/更新页面！
+2026-06-06 14:31:07.521 [http-nio-8898-exec-8] INFO  com.simatelex.admin.controller.MailController - 收件者列表展示！
+2026-06-06 14:31:09.071 [http-nio-8898-exec-2] INFO  com.simatelex.admin.controller.MailController - 邮件列表展示！
+2026-06-06 14:31:10.369 [http-nio-8898-exec-6] INFO  com.simatelex.admin.controller.MailController - 邮件列表展示！
+2026-06-06 14:31:21.154 [http-nio-8898-exec-1] INFO  com.simatelex.admin.controller.MailController - 进入邮件收件者添加/更新页面！
+2026-06-06 14:31:21.240 [http-nio-8898-exec-9] INFO  com.simatelex.admin.controller.MailController - 收件者列表展示！
+2026-06-06 14:31:31.270 [http-nio-8898-exec-1] INFO  com.simatelex.admin.controller.MailController - 邮件列表展示！
+2026-06-06 14:31:33.591 [http-nio-8898-exec-2] INFO  com.simatelex.admin.controller.MailController - 邮件列表展示！
+2026-06-06 14:31:36.805 [http-nio-8898-exec-3] INFO  com.simatelex.admin.controller.MailController - 邮件列表展示！
+2026-06-06 16:13:21.000 [http-nio-8898-exec-10] INFO  com.simatelex.admin.controller.MailController - 进入邮件收件者添加/更新页面！
+2026-06-06 16:13:21.480 [http-nio-8898-exec-6] INFO  com.simatelex.admin.controller.MailController - 收件者列表展示！
+2026-06-06 16:13:23.433 [SpringContextShutdownHook] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 16:13:23.915 [SpringContextShutdownHook] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2026-06-06 16:13:23.917 [SpringContextShutdownHook] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Shutting down Quartz Scheduler
+2026-06-06 16:13:23.917 [SpringContextShutdownHook] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutting down.
+2026-06-06 16:13:23.917 [SpringContextShutdownHook] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 16:13:23.917 [SpringContextShutdownHook] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutdown complete.
+2026-06-06 16:14:27.508 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Starting TimingTaskApplication on SZMIS-W11-01 with PID 28724 (H:\Program\TimingTask\target\classes started by Nancy Zhao in H:\Program\TimingTask)
+2026-06-06 16:14:27.510 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - No active profile set, falling back to default profiles: default
+2026-06-06 16:14:28.011 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-06-06 16:14:28.011 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-06-06 16:14:31.551 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8898 (http)
+2026-06-06 16:14:31.583 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8898"]
+2026-06-06 16:14:31.583 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-06 16:14:31.583 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.35]
+2026-06-06 16:14:31.739 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-06 16:14:31.739 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3728 ms
+2026-06-06 16:14:33.829 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+2026-06-06 16:14:33.840 [restartedMain] INFO  org.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2026-06-06 16:14:33.840 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.3.2 created.
+2026-06-06 16:14:33.841 [restartedMain] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+2026-06-06 16:14:33.841 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.3.2) 'schedulerFactoryBean' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2026-06-06 16:14:33.841 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'schedulerFactoryBean' initialized from an externally provided properties instance.
+2026-06-06 16:14:33.841 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.3.2
+2026-06-06 16:14:33.843 [restartedMain] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@356f76c3
+2026-06-06 16:14:34.304 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2026-06-06 16:14:34.390 [restartedMain] INFO  o.s.b.a.web.servlet.WelcomePageHandlerMapping - Adding welcome page template: index
+2026-06-06 16:14:34.806 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-06-06 16:14:34.827 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8898"]
+2026-06-06 16:14:34.851 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8898 (http) with context path ''
+2026-06-06 16:14:34.852 [restartedMain] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Starting Quartz Scheduler now
+2026-06-06 16:14:34.852 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED started.
+2026-06-06 16:14:34.910 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Started TimingTaskApplication in 9.334 seconds (JVM running for 13.956)
+2026-06-06 16:18:51.569 [http-nio-8898-exec-1] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-06 16:18:51.570 [http-nio-8898-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-06-06 16:18:51.619 [http-nio-8898-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 49 ms
+2026-06-06 16:18:53.623 [http-nio-8898-exec-5] INFO  com.simatelex.admin.controller.MailController - 邮件列表展示！
+2026-06-06 16:19:34.765 [http-nio-8898-exec-2] INFO  org.apache.coyote.http11.Http11Processor - Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level.
+java.lang.IllegalArgumentException: Invalid character found in the request target [/mail/addReceiverPage?mail=[object%20Object]]. The valid characters are defined in RFC 7230 and RFC 3986
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:491)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:260)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:868)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1590)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2026-06-06 16:20:09.168 [Thread-5] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 16:20:09.552 [Thread-5] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2026-06-06 16:20:09.553 [Thread-5] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Shutting down Quartz Scheduler
+2026-06-06 16:20:09.553 [Thread-5] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutting down.
+2026-06-06 16:20:09.553 [Thread-5] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 16:20:09.553 [Thread-5] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutdown complete.
+2026-06-06 16:20:09.807 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Starting TimingTaskApplication on SZMIS-W11-01 with PID 28724 (H:\Program\TimingTask\target\classes started by Nancy Zhao in H:\Program\TimingTask)
+2026-06-06 16:20:09.807 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - No active profile set, falling back to default profiles: default
+2026-06-06 16:20:10.338 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8898 (http)
+2026-06-06 16:20:10.339 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8898"]
+2026-06-06 16:20:10.339 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-06 16:20:10.339 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.35]
+2026-06-06 16:20:10.369 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-06 16:20:10.369 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 547 ms
+2026-06-06 16:20:10.880 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+2026-06-06 16:20:10.881 [restartedMain] INFO  org.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2026-06-06 16:20:10.881 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.3.2 created.
+2026-06-06 16:20:10.881 [restartedMain] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+2026-06-06 16:20:10.881 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.3.2) 'schedulerFactoryBean' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2026-06-06 16:20:10.881 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'schedulerFactoryBean' initialized from an externally provided properties instance.
+2026-06-06 16:20:10.881 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.3.2
+2026-06-06 16:20:10.881 [restartedMain] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@1f64fbb7
+2026-06-06 16:20:11.369 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2026-06-06 16:20:11.388 [restartedMain] INFO  o.s.b.a.web.servlet.WelcomePageHandlerMapping - Adding welcome page template: index
+2026-06-06 16:20:11.493 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-06-06 16:20:11.502 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8898"]
+2026-06-06 16:20:11.505 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8898 (http) with context path ''
+2026-06-06 16:20:11.505 [restartedMain] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Starting Quartz Scheduler now
+2026-06-06 16:20:11.505 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED started.
+2026-06-06 16:20:11.508 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Started TimingTaskApplication in 1.785 seconds (JVM running for 350.551)
+2026-06-06 16:20:11.510 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2026-06-06 16:24:58.391 [Thread-8] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 16:24:58.684 [Thread-8] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2026-06-06 16:24:58.684 [Thread-8] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Shutting down Quartz Scheduler
+2026-06-06 16:24:58.684 [Thread-8] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutting down.
+2026-06-06 16:24:58.684 [Thread-8] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 16:24:58.684 [Thread-8] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutdown complete.
+2026-06-06 16:24:58.759 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Starting TimingTaskApplication on SZMIS-W11-01 with PID 28724 (H:\Program\TimingTask\target\classes started by Nancy Zhao in H:\Program\TimingTask)
+2026-06-06 16:24:58.759 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - No active profile set, falling back to default profiles: default
+2026-06-06 16:24:59.035 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8898 (http)
+2026-06-06 16:24:59.036 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8898"]
+2026-06-06 16:24:59.036 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-06 16:24:59.036 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.35]
+2026-06-06 16:24:59.053 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-06 16:24:59.054 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 292 ms
+2026-06-06 16:24:59.477 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+2026-06-06 16:24:59.477 [restartedMain] INFO  org.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2026-06-06 16:24:59.477 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.3.2 created.
+2026-06-06 16:24:59.479 [restartedMain] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+2026-06-06 16:24:59.479 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.3.2) 'schedulerFactoryBean' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2026-06-06 16:24:59.479 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'schedulerFactoryBean' initialized from an externally provided properties instance.
+2026-06-06 16:24:59.479 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.3.2
+2026-06-06 16:24:59.479 [restartedMain] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@2d1d24d1
+2026-06-06 16:24:59.920 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2026-06-06 16:24:59.940 [restartedMain] INFO  o.s.b.a.web.servlet.WelcomePageHandlerMapping - Adding welcome page template: index
+2026-06-06 16:25:00.048 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-06-06 16:25:00.057 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8898"]
+2026-06-06 16:25:00.059 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8898 (http) with context path ''
+2026-06-06 16:25:00.060 [restartedMain] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Starting Quartz Scheduler now
+2026-06-06 16:25:00.060 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED started.
+2026-06-06 16:25:00.062 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Started TimingTaskApplication in 1.338 seconds (JVM running for 639.102)
+2026-06-06 16:25:00.063 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2026-06-06 16:26:23.766 [http-nio-8898-exec-4] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-06 16:26:23.767 [http-nio-8898-exec-4] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-06-06 16:26:23.774 [http-nio-8898-exec-4] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 7 ms
+2026-06-06 16:26:30.526 [Thread-13] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 16:26:30.890 [Thread-13] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2026-06-06 16:26:30.890 [Thread-13] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Shutting down Quartz Scheduler
+2026-06-06 16:26:30.890 [Thread-13] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutting down.
+2026-06-06 16:26:30.890 [Thread-13] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 16:26:30.890 [Thread-13] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutdown complete.
+2026-06-06 16:26:31.052 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Starting TimingTaskApplication on SZMIS-W11-01 with PID 28724 (H:\Program\TimingTask\target\classes started by Nancy Zhao in H:\Program\TimingTask)
+2026-06-06 16:26:31.054 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - No active profile set, falling back to default profiles: default
+2026-06-06 16:26:32.041 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8898 (http)
+2026-06-06 16:26:32.041 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8898"]
+2026-06-06 16:26:32.041 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-06 16:26:32.042 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.35]
+2026-06-06 16:26:32.064 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-06 16:26:32.064 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 1004 ms
+2026-06-06 16:26:32.853 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+2026-06-06 16:26:32.853 [restartedMain] INFO  org.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2026-06-06 16:26:32.853 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.3.2 created.
+2026-06-06 16:26:32.853 [restartedMain] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+2026-06-06 16:26:32.853 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.3.2) 'schedulerFactoryBean' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2026-06-06 16:26:32.853 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'schedulerFactoryBean' initialized from an externally provided properties instance.
+2026-06-06 16:26:32.853 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.3.2
+2026-06-06 16:26:32.853 [restartedMain] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@44a55e32
+2026-06-06 16:26:32.986 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2026-06-06 16:26:33.012 [restartedMain] INFO  o.s.b.a.web.servlet.WelcomePageHandlerMapping - Adding welcome page template: index
+2026-06-06 16:26:33.131 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-06-06 16:26:33.142 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8898"]
+2026-06-06 16:26:33.145 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8898 (http) with context path ''
+2026-06-06 16:26:33.145 [restartedMain] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Starting Quartz Scheduler now
+2026-06-06 16:26:33.145 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED started.
+2026-06-06 16:26:33.148 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Started TimingTaskApplication in 2.182 seconds (JVM running for 732.187)
+2026-06-06 16:26:33.150 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2026-06-06 16:27:19.066 [http-nio-8898-exec-1] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-06 16:27:19.067 [http-nio-8898-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-06-06 16:27:19.073 [http-nio-8898-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 6 ms
+2026-06-06 16:27:19.429 [http-nio-8898-exec-1] INFO  com.simatelex.admin.controller.MailController - 邮件列表展示！
+2026-06-06 16:27:31.824 [http-nio-8898-exec-4] INFO  com.simatelex.admin.controller.MailController - 进入邮件收件者添加/更新页面！
+2026-06-06 16:27:37.372 [http-nio-8898-exec-9] INFO  com.simatelex.admin.controller.MailController - 收件者列表展示！
+2026-06-06 16:29:57.136 [http-nio-8898-exec-3] INFO  com.simatelex.admin.controller.MailController - 邮件列表展示！
+2026-06-06 16:30:03.394 [Thread-18] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 16:30:03.691 [Thread-18] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2026-06-06 16:30:03.691 [Thread-18] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Shutting down Quartz Scheduler
+2026-06-06 16:30:03.691 [Thread-18] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutting down.
+2026-06-06 16:30:03.691 [Thread-18] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 16:30:03.691 [Thread-18] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutdown complete.
+2026-06-06 16:30:03.764 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Starting TimingTaskApplication on SZMIS-W11-01 with PID 28724 (H:\Program\TimingTask\target\classes started by Nancy Zhao in H:\Program\TimingTask)
+2026-06-06 16:30:03.766 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - No active profile set, falling back to default profiles: default
+2026-06-06 16:30:03.999 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8898 (http)
+2026-06-06 16:30:04.001 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8898"]
+2026-06-06 16:30:04.001 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-06 16:30:04.001 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.35]
+2026-06-06 16:30:04.022 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-06 16:30:04.022 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 255 ms
+2026-06-06 16:30:04.707 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+2026-06-06 16:30:04.708 [restartedMain] INFO  org.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2026-06-06 16:30:04.708 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.3.2 created.
+2026-06-06 16:30:04.708 [restartedMain] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+2026-06-06 16:30:04.708 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.3.2) 'schedulerFactoryBean' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2026-06-06 16:30:04.708 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'schedulerFactoryBean' initialized from an externally provided properties instance.
+2026-06-06 16:30:04.708 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.3.2
+2026-06-06 16:30:04.708 [restartedMain] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@27e61fcf
+2026-06-06 16:30:04.834 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2026-06-06 16:30:04.852 [restartedMain] INFO  o.s.b.a.web.servlet.WelcomePageHandlerMapping - Adding welcome page template: index
+2026-06-06 16:30:04.952 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-06-06 16:30:04.960 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8898"]
+2026-06-06 16:30:04.963 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8898 (http) with context path ''
+2026-06-06 16:30:04.963 [restartedMain] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Starting Quartz Scheduler now
+2026-06-06 16:30:04.963 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED started.
+2026-06-06 16:30:04.966 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Started TimingTaskApplication in 1.233 seconds (JVM running for 944.002)
+2026-06-06 16:30:04.966 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2026-06-06 16:30:11.605 [http-nio-8898-exec-3] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-06 16:30:11.607 [http-nio-8898-exec-3] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-06-06 16:30:11.615 [http-nio-8898-exec-3] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 8 ms
+2026-06-06 16:30:11.768 [http-nio-8898-exec-3] INFO  com.simatelex.admin.controller.MailController - 进入邮件收件者添加/更新页面！
+2026-06-06 16:31:28.011 [Thread-23] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 16:31:28.338 [Thread-23] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2026-06-06 16:31:28.339 [Thread-23] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Shutting down Quartz Scheduler
+2026-06-06 16:31:28.339 [Thread-23] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutting down.
+2026-06-06 16:31:28.339 [Thread-23] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 16:31:28.339 [Thread-23] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutdown complete.
+2026-06-06 16:31:28.444 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Starting TimingTaskApplication on SZMIS-W11-01 with PID 28724 (H:\Program\TimingTask\target\classes started by Nancy Zhao in H:\Program\TimingTask)
+2026-06-06 16:31:28.444 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - No active profile set, falling back to default profiles: default
+2026-06-06 16:31:28.765 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8898 (http)
+2026-06-06 16:31:28.766 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8898"]
+2026-06-06 16:31:28.766 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-06 16:31:28.766 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.35]
+2026-06-06 16:31:28.789 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-06 16:31:28.789 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 341 ms
+2026-06-06 16:31:29.771 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+2026-06-06 16:31:29.772 [restartedMain] INFO  org.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2026-06-06 16:31:29.772 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.3.2 created.
+2026-06-06 16:31:29.772 [restartedMain] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+2026-06-06 16:31:29.772 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.3.2) 'schedulerFactoryBean' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2026-06-06 16:31:29.772 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'schedulerFactoryBean' initialized from an externally provided properties instance.
+2026-06-06 16:31:29.772 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.3.2
+2026-06-06 16:31:29.772 [restartedMain] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@460fa9bc
+2026-06-06 16:31:29.934 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2026-06-06 16:31:29.956 [restartedMain] INFO  o.s.b.a.web.servlet.WelcomePageHandlerMapping - Adding welcome page template: index
+2026-06-06 16:31:30.068 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-06-06 16:31:30.079 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8898"]
+2026-06-06 16:31:30.082 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8898 (http) with context path ''
+2026-06-06 16:31:30.082 [restartedMain] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Starting Quartz Scheduler now
+2026-06-06 16:31:30.082 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED started.
+2026-06-06 16:31:30.085 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Started TimingTaskApplication in 1.686 seconds (JVM running for 1029.12)
+2026-06-06 16:31:30.085 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2026-06-06 16:32:04.553 [Thread-28] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 16:32:04.864 [Thread-28] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2026-06-06 16:32:04.864 [Thread-28] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Shutting down Quartz Scheduler
+2026-06-06 16:32:04.866 [Thread-28] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutting down.
+2026-06-06 16:32:04.866 [Thread-28] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 16:32:04.866 [Thread-28] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutdown complete.
+2026-06-06 16:32:04.938 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Starting TimingTaskApplication on SZMIS-W11-01 with PID 28724 (H:\Program\TimingTask\target\classes started by Nancy Zhao in H:\Program\TimingTask)
+2026-06-06 16:32:04.938 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - No active profile set, falling back to default profiles: default
+2026-06-06 16:32:05.175 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8898 (http)
+2026-06-06 16:32:05.176 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8898"]
+2026-06-06 16:32:05.176 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-06 16:32:05.176 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.35]
+2026-06-06 16:32:05.196 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-06 16:32:05.198 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 257 ms
+2026-06-06 16:32:05.883 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+2026-06-06 16:32:05.883 [restartedMain] INFO  org.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2026-06-06 16:32:05.883 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.3.2 created.
+2026-06-06 16:32:05.883 [restartedMain] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+2026-06-06 16:32:05.883 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.3.2) 'schedulerFactoryBean' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2026-06-06 16:32:05.884 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'schedulerFactoryBean' initialized from an externally provided properties instance.
+2026-06-06 16:32:05.884 [restartedMain] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.3.2
+2026-06-06 16:32:05.884 [restartedMain] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@50e8c26e
+2026-06-06 16:32:06.006 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2026-06-06 16:32:06.024 [restartedMain] INFO  o.s.b.a.web.servlet.WelcomePageHandlerMapping - Adding welcome page template: index
+2026-06-06 16:32:06.124 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-06-06 16:32:06.132 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8898"]
+2026-06-06 16:32:06.135 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8898 (http) with context path ''
+2026-06-06 16:32:06.135 [restartedMain] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Starting Quartz Scheduler now
+2026-06-06 16:32:06.135 [restartedMain] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED started.
+2026-06-06 16:32:06.138 [restartedMain] INFO  com.simatelex.admin.TimingTaskApplication - Started TimingTaskApplication in 1.232 seconds (JVM running for 1065.173)
+2026-06-06 16:32:06.140 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2026-06-06 16:32:47.096 [http-nio-8898-exec-2] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-06 16:32:47.096 [http-nio-8898-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-06-06 16:32:47.102 [http-nio-8898-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 6 ms
+2026-06-06 16:32:47.413 [http-nio-8898-exec-6] INFO  com.simatelex.admin.controller.MailController - 邮件列表展示！
+2026-06-06 16:32:49.379 [http-nio-8898-exec-3] INFO  com.simatelex.admin.controller.MailController - 进入邮件收件者添加/更新页面！
+2026-06-06 16:33:50.585 [http-nio-8898-exec-9] INFO  com.simatelex.admin.controller.MailController - 邮件列表展示！
+2026-06-06 16:33:52.700 [http-nio-8898-exec-1] INFO  com.simatelex.admin.controller.MailController - 进入邮件收件者添加/更新页面！
+2026-06-06 16:35:16.326 [http-nio-8898-exec-2] INFO  com.simatelex.admin.controller.MailController - 邮件列表展示！
+2026-06-06 16:35:18.195 [http-nio-8898-exec-8] INFO  com.simatelex.admin.controller.MailController - 进入邮件收件者添加/更新页面！
+2026-06-06 16:35:18.288 [http-nio-8898-exec-10] INFO  com.simatelex.admin.controller.MailController - 收件者列表展示！
+2026-06-06 16:58:57.242 [SpringContextShutdownHook] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 16:58:57.620 [SpringContextShutdownHook] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2026-06-06 16:58:57.620 [SpringContextShutdownHook] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Shutting down Quartz Scheduler
+2026-06-06 16:58:57.620 [SpringContextShutdownHook] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutting down.
+2026-06-06 16:58:57.620 [SpringContextShutdownHook] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED paused.
+2026-06-06 16:58:57.622 [SpringContextShutdownHook] INFO  org.quartz.core.QuartzScheduler - Scheduler schedulerFactoryBean_$_NON_CLUSTERED shutdown complete.

@@ -91,8 +91,21 @@
             {field: 'createUser', title: "创建者", align: 'center', width: 72},
             {field: 'createDate', title: "创建时间", align: 'center', width: 86, templet: '<div>{{ layui.util.toDateString(d.createDate, "yyyy-MM-dd HH:mm:ss") }}</div>'},
             {field: 'updateDate', title: "修改时间", align: 'center', width: 86, templet: '<div>{{ layui.util.toDateString(d.updateDate, "yyyy-MM-dd HH:mm:ss") }}</div>'},
-            {title: "操作", width: 150, templet: '#mailListBar', fixed: "right", align: "center"}
-        ]]
+            {title: "操作", width: 252, templet: '#mailListBar', fixed: "right", align: "center"}
+        ]],
+        /*done: function(data){
+            tableFilter.render({
+                'elem' : 'mailListTable',//table的选择器
+                'mode' : 'local',//过滤模式
+                'filters' : [
+                    {field: 'isDel', type:'checkbox'}
+                ],//过滤项配置
+                'done': function(filters){
+                    //结果回调
+                    console.log(filters)
+                }
+            })
+        }*/
     });
 
     //头工具栏事件
@@ -105,7 +118,7 @@
             case "del":
                 delLine(checkStatus.data);
                 break;
-        };
+        }
     });
 
     /**
@@ -117,7 +130,20 @@
             openAddOrUpdateDialog(obj.data.id);
         } else if (layEvent === "del") {
             layer.confirm("确定删除？", {icon: 3, title: "邮件管理"}, function (index) {
-                $.post(ctx + "/mail/delete", {ids: obj.data.id}, function (data) {
+                $.post(ctx + "/mail/delete", {ids: obj.data.id, flag: 1}, function (data) {
+                    if (data.code == 200) {
+                        layer.msg(data.message, {icon: 1});
+                        tableIns.reload();
+                    } else {
+                        layer.msg(data.message, {icon: 5});
+                    }
+                });
+            })
+        } else if (layEvent === "add") {
+            addReceiverDialog(obj.data);
+        } else if (layEvent === "restore") {
+            layer.confirm("确定恢复？", {icon: 3, title: "邮件管理"}, function (index) {
+                $.post(ctx + "/mail/delete", {ids: obj.data.id, flag: 2}, function (data) {
                     if (data.code == 200) {
                         layer.msg(data.message, {icon: 1});
                         tableIns.reload();
@@ -132,7 +158,6 @@
     form.on('switch(runEmail)', function(obj){
         var isRun = obj.elem.checked;
         // isRun = obj.elem.checked == false ? false : true;
-        console.log(isRun)
         $.ajax({
             type: "post",
             url: ctx + "/mail/runEmail",
@@ -251,15 +276,33 @@
         });
     }
 
-    var tableFilterIns = tableFilter.render({
-        'elem' : '#mailList',//table的选择器
-        'mode' : 'local',//过滤模式
-        'filters' : [
-            {field: 'isDel', type:'checkbox'}
-        ],//过滤项配置
-        'done': function(filters){
-            //结果回调
-            console.log(filters)
+    setTimeout(function () {
+        var tableFilterIns = tableFilter.render({
+            'elem' : '#mailList',//table的选择器
+            'mode' : 'local',//过滤模式
+            'filters' : [
+                {field: 'isDel', type:'checkbox'}
+            ],//过滤项配置
+            'done': function(filters){
+                //结果回调
+                console.log(filters)
+            }
+        })
+    }, 300); //300毫秒等layui完成table实例注册
+
+    function addReceiverDialog(datas) {
+        if(datas.isExport == true){
+            layer.msg("此报表只导出，不需要添加收件者", {icon: 5});
+            return;
         }
-    })
+        var url = ctx + "/mail/addReceiverPage?id=" + datas.id;
+        var title = "邮件管理-添加/更新分组收件者";
+        var toIndex = layui.layer.open({
+            title: title,
+            type: 2,
+            area: ["1154px", "661px"],
+            maxmin: true,
+            content: url
+        });
+    }
 });

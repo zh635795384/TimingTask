@@ -4,6 +4,7 @@ import com.simatelex.admin.config.mail.EmailJob;
 import com.simatelex.admin.pojo.Mail;
 import com.simatelex.admin.service.IEmailScheduleService;
 import com.simatelex.admin.service.IMailService;
+import lombok.extern.slf4j.Slf4j;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,12 +12,14 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * @Author Nancy Zhao
  * @Date 2025/09/29 17:04
  * @Version 1.0
  **/
+@Slf4j
 @Service
 public class EmailScheduleServiceImpl implements IEmailScheduleService {
 
@@ -33,7 +36,7 @@ public class EmailScheduleServiceImpl implements IEmailScheduleService {
         System.out.println("jobName:"+jobName);
         System.out.println("jobGroup:"+jobGroup);
 
-        // 如果任务已存在，先删除
+        // 第一步：存在旧任务 → 先删除（连带触发器一起清掉）
         if (scheduler.checkExists(jobKey)) {
             scheduler.deleteJob(jobKey);
         }
@@ -51,21 +54,32 @@ public class EmailScheduleServiceImpl implements IEmailScheduleService {
 
         scheduler.addJob(jobDetail, true);
 
-        // 创建Trigger,可创建多个Trigger
+        // 创建Trigger,可创建多个Trigger；拆分多Cron表达式，循环创建触发器
         String[] splitCron = cron.split(";");
         for (int i = 0; i < splitCron.length; i++) {
-            String realCron = splitCron[i];
+            String realCron = splitCron[i].trim();
             TriggerKey triggerKey = new TriggerKey("trigger"+(i+1)+"_" + jobName, jobGroup);
             System.out.println("triggerKey:"+triggerKey);
+            // 清同名旧触发器
+            if (scheduler.checkExists(triggerKey)) {
+                scheduler.unscheduleJob(triggerKey);
+            }
             Trigger trigger = TriggerBuilder.newTrigger()
                     .withIdentity(triggerKey)
-                    .withSchedule(CronScheduleBuilder.cronSchedule(realCron))
+                    .withSchedule(CronScheduleBuilder.cronSchedule(realCron)
+                            .inTimeZone(TimeZone.getTimeZone("Asia/Shanghai")))
+                    .startNow() //立即启动调度
                     .forJob(jobDetail)
                     .build();
             // 调度任务
 //        scheduler.scheduleJob(jobDetail, trigger);
+            //绑定调度
             scheduler.scheduleJob(trigger);
+            log.info("触发器 {} 调度成功，Cron:{}", triggerKey, realCron);
         }
+        // ========= 新增：手动立即执行一次 =========
+        log.info("任务注册完成，手动触发首次执行");
+        scheduler.triggerJob(jobKey);
     }
 
     @Override
@@ -95,6 +109,29 @@ public class EmailScheduleServiceImpl implements IEmailScheduleService {
         }
     }
 
+    @Override
+    public void startScheduler() throws SchedulerException {
+        // 如果是待机状态，恢复运行；如果已关闭，重新启动
+        if (scheduler.isInStandbyMode()) {
+            scheduler.start();
+        } else if (scheduler.isShutdown()) {
+            scheduler.start();
+        }
+    }
+
+    @Override
+    public boolean isStandbyMode() throws SchedulerException {
+        return scheduler.isInStandbyMode();
+    }
+
+    @Override
+    public void shutdownScheduler() throws SchedulerException {
+        if (!scheduler.isShutdown()) {
+            // true = 等待正在执行的任务完成再关闭
+            scheduler.shutdown(true);
+        }
+    }
+
     /**
      * 修改任务
      * @param jobName
@@ -108,7 +145,7 @@ public class EmailScheduleServiceImpl implements IEmailScheduleService {
                 throw new RuntimeException("Job不存在: " + jobKey);
             }
             //暂停调度器以避免状态不一致
-            scheduler.standby();
+//            scheduler.standby();
             //删除旧的Trigger
             List<? extends Trigger> oldTriggers = scheduler.getTriggersOfJob(jobKey);
             for (Trigger trigger : oldTriggers) {
@@ -140,8 +177,9 @@ public class EmailScheduleServiceImpl implements IEmailScheduleService {
                 Trigger trigger = TriggerBuilder.newTrigger()
                         .withIdentity(triggerKey)
                         .forJob(jobKey) //明确关联到jobKey
-                        .withSchedule(CronScheduleBuilder.cronSchedule(realCron))
-//                        .startNow() //确保立即开始调度,会马上执行一次调度
+                        .withSchedule(CronScheduleBuilder.cronSchedule(realCron)
+                                .inTimeZone(TimeZone.getTimeZone("Asia/Shanghai")))
+                        .startNow() //确保立即开始调度,会马上执行一次调度
                         .build();
                 newTriggers.add(trigger);
                 // 调度任务
@@ -162,7 +200,7 @@ public class EmailScheduleServiceImpl implements IEmailScheduleService {
                 }
             }
             // 重新启动调度器
-            scheduler.start();
+//            scheduler.start();
             System.out.println("所有触发器更新完成");
         } catch (SchedulerException e) {
             //异常时确保调度器重新启动

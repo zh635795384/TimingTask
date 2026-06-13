@@ -18,4 +18,13 @@ public interface IEmailScheduleService {
     void deleteJob(String jobName, String jobGroup) throws SchedulerException;
 
     void standby();
+
+    /** 启动/唤醒调度器 **/
+    void startScheduler() throws SchedulerException;
+
+    /** 判断调度器是否处于待机状态 **/
+    boolean isStandbyMode() throws SchedulerException;
+
+    /** 彻底关闭调度器 **/
+    void shutdownScheduler() throws SchedulerException;
 }

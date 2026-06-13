@@ -117,6 +117,17 @@ public class IpUtil {
 
     public static Map<String,String> setBrowser(HttpServletRequest request) {
         Map<String, String> mapUserAgent = new HashMap<String, String>();
+        // 先判空，兼容定时任务/异步线程
+        if (request == null) {
+            // 没有请求上下文时，填充默认值
+            mapUserAgent.put("clientType", "定时任务");
+            mapUserAgent.put("os", "定时任务");
+            mapUserAgent.put("ip", "定时任务");
+            mapUserAgent.put("method", "定时任务");
+            mapUserAgent.put("browser", "定时任务");
+            mapUserAgent.put("serverName", getHostName());
+            return mapUserAgent;
+        }
         try {
             UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("user-agent"));
             String clientType = userAgent.getOperatingSystem().getDeviceType().toString();
@@ -126,10 +137,10 @@ public class IpUtil {
             String browser = userAgent.getBrowser().toString();
             String serverName = InetAddress.getLocalHost().getHostName();
             //从浏览器获取的ip 如：127.0.0.1
-            System.out.println("------> IP ADDR: " + ip);    //IP address.
+//            System.out.println("------> IP ADDR: " + ip);    //IP address.
             //从电脑获取的ip 如：本机191.191.23.69
-            String hostAddress = InetAddress.getLocalHost().getHostAddress();
-            System.out.println("------> IP: " + hostAddress);
+//            String hostAddress = InetAddress.getLocalHost().getHostAddress();
+//            System.out.println("------> IP: " + hostAddress);
             //设备类型，如：COMPUTER
             mapUserAgent.put("clientType", clientType);
             //系统版本名 如：Windows 10
@@ -144,6 +155,7 @@ public class IpUtil {
             mapUserAgent.put("serverName", serverName);
         } catch (UnknownHostException e) {
             e.printStackTrace();
+            mapUserAgent.put("browser","unknown");
         }
         return mapUserAgent;
     }

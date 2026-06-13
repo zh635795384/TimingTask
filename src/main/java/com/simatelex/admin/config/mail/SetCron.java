@@ -14,9 +14,13 @@ import java.util.List;
 public class SetCron {
     public static String getCron(Mail mail) {   //暂只支持每天，其他待增加
         // sendTime为空直接返回10分钟一次的cron
-        if (mail == null || mail.getSendTime() == null) {
+        if (mail != null || mail.getSendTime() == null) {
             // 每10分钟执行：秒 分 时 日 月 星期 年
-            return "0 */10 * * * ?";
+//            return "0 */10 * * * ?";这个意思等10分钟再间隔10分钟执行
+            //这个意思是先执行一次，再间隔10分钟执行
+            return "0 0/10 * * * ?";
+            //10秒钟执行一次
+//            return "0/10 * * * * ?";
         }
         //秒
         String second = "*";

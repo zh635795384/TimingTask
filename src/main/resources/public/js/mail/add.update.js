@@ -3,11 +3,13 @@ layui.use(['form', 'layer'], function () {
         layer = parent.layer === undefined ? layui.layer : top.layer,
         $ = layui.jquery;
 
-    var isExport,
-        divExcel,
-        insertRow,
-        isRar,
-        isFtpUpload;
+    /**直接读取变量初始值**/
+    var isExport = $('#isExport').prop('checked');
+    var divExcel = $('#divExcel').prop('checked');
+    var insertRow = $('#insertRow').prop('checked');
+    var isRar = $('#isRar').prop('checked');
+    var isFtpUpload = $('#isFtpUpload').prop('checked');
+    var emptyAttach = $('#emptyAttach').prop('checked');
 
     isFtpUpload = $('#isFtpUpload').val();
     var hiddenFtpServer = document.getElementById('hiddenFtpServer');
@@ -52,6 +54,7 @@ layui.use(['form', 'layer'], function () {
         data.field.isRar = !!(isRar && isRar !== 'false');
         // data.field.isFtpUpload = isFtpUpload != undefined && isFtpUpload != '' && isFtpUpload != null ? isFtpUpload : false;
         data.field.isFtpUpload = !!(isFtpUpload && isFtpUpload !== 'false');
+        data.field.emptyAttach = !!(emptyAttach && emptyAttach !== 'false');
         data.field.tableStyle = selectTableStyle + ";" + (tableStyleDate != null && tableStyleDate != '' && tableStyleDate != undefined ? tableStyleDate : tableStyleDate + ";");
         // console.log(data.field)
         if (data.field.isFtpUpload) {
@@ -114,6 +117,9 @@ layui.use(['form', 'layer'], function () {
 
     form.on('switch(isRar)', function (data) {
         isRar = data.elem.checked;
+    });
+    form.on('switch(emptyAttach)', function (data) {
+        emptyAttach = data.elem.checked;
     });
 
     form.on('switch(isFtpUpload)', function (data) {

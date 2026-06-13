@@ -7,7 +7,7 @@
         ${ew.customSqlSegment}
     </select>
 
-    <select id="selectGroupBy" parameterType="String" resultType="java.util.Map">
+    <select id="selectGroupBy" resultType="java.util.Map">
         select distinct ${groupBy} from ${tableName}
     </select>
 

@@ -5,13 +5,9 @@ import com.simatelex.admin.mappers.xfstd01.SysLogMapper;
 import com.simatelex.admin.pojo.Mail;
 import com.simatelex.admin.pojo.SysLog;
 import com.simatelex.admin.service.ISystemLogService;
-import com.simatelex.admin.util.DateUtil;
 import com.simatelex.admin.util.IpUtil;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -50,8 +46,26 @@ public class SystemLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> impl
 
     @Override
     public void addToLog(Mail mail, String sendLog) {
-        shareMethod(mail,sendLog);
+        try {
+            shareMethod(mail, sendLog);
+        } catch (Exception e) {
+            // 日志写入失败，只打印错误，不抛出异常
+            log.error("写入系统日志失败：tableName={"+mail.getTableName()+"}, sendLog={"+sendLog+"}");
+        }
     }
+
+    @Override
+    public void addToLog(String tableName, String sendLog) {
+        try {
+            Mail mail = new Mail();
+            mail.setTableName(tableName);
+            shareMethod(mail,sendLog);
+        } catch (Exception e) {
+            // 日志写入失败，只打印错误，不抛出异常
+            log.error("写入系统日志失败：tableName={"+tableName+"}, sendLog={"+sendLog+"}");
+        }
+    }
+
 
     /**
      * 清除用户操作日志
@@ -88,13 +102,15 @@ public class SystemLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> impl
         this.baseMapper.insert(sysLog);*/
     }
 
-    public void shareMethod(Mail mail,String sendLog) {
+    public void shareMethod(Mail mail, String sendLog) {
         Map<String, String> mapLog = IpUtil.setBrowser(IpUtil.getHttpServletRequest());
         SysLog sysLog = new SysLog();
         sysLog.setTableName(mail.getTableName());
         sysLog.setIp(IpUtil.getLocalIp());
         sysLog.setServerName(IpUtil.getHostName());
-        sysLog.setBrowser(mapLog.get("browser"));
+        // 从map里取值时，用getOrDefault兜底，避免null
+        sysLog.setBrowser(mapLog.getOrDefault("browser","unknown"));
         sysLog.setSendLog(sendLog);
+        this.baseMapper.insert(sysLog);
     }
 }

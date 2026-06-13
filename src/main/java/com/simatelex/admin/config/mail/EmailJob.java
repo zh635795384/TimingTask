@@ -33,6 +33,8 @@ public class EmailJob implements Job {
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
+        // 强制打印入口日志，判断任务是否被触发
+        logger.info("===== Quartz 邮件任务【{}】进入 execute 方法 =====", context.getJobDetail().getKey().getName());
         // 从JobDataMap获取参数
         JobDataMap jobDataMap = context.getJobDetail().getJobDataMap();
         //获取当前重试次数，默认为0
@@ -50,8 +52,9 @@ public class EmailJob implements Job {
 
             // 成功完成，重置状态
             resetRetryState(jobDataMap);
-            logger.info("邮件发送成功");
+            logger.info("===== 邮件任务【{}】执行成功 =====", context.getJobDetail().getKey().getName());
         } catch (Exception e) {
+            logger.error("===== 邮件任务【{}】执行异常 =====", context.getJobDetail().getKey().getName(), e);
             handleExecutionFailure(e, jobDataMap, count, context);
         }
     }

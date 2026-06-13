@@ -28,6 +28,8 @@ public interface ISystemLogService {
 
     void addToLog(Mail mail, String sendLog);
 
+    void addToLog(String tableName, String sendLog);
+
     /**
      * 清除用户操作日志
      */

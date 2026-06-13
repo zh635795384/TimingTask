@@ -35,7 +35,7 @@ spring:
     restart:
       enabled: true
       #设置重启的目录，添加目录的文件需要restart
-      additional-paths: src/mian/java
+      additional-paths: src/main/java
       #解决项目自动重新编译后接口包404错误
       poll-interval: 3000
       quiet-period: 1000
@@ -46,9 +46,9 @@ spring:
     ##邮箱默认编码
     default-encoding: UTF-8
     ##邮箱服务器
-#    host: 191.191.9.121
+    host: 191.191.9.121
 #    host: 191.191.20.62
-    host: 191.191.23.30
+#    host: 191.191.23.30
     ##邮箱端口
     port: 25
     ##邮箱账户
@@ -101,11 +101,15 @@ mybatis-plus:
 # SQL 打印(方法接口所在的包，不是Mapper.xml所在的包)
 logging:
   group:
-    mygroup: com.simatelex.admin.**.mappers
+    mygroup: com.simatelex.admin.mappers
   level:
     root: info
     mygroup: debug
-  #    com.simatelex.admin.mappers: info
+#    org.apache.ibatis: warn
+    # 避免控制台刷屏：每个 mapper.xml 的 “Parsed mapper file” 等解析过程日志
+#    org.apache.ibatis.builder.xml: warn
+#    org.mybatis.spring.SqlSessionFactoryBean: warn
+#    com.simatelex.admin.mappers: debug
   ## 控制台日志输出格式
   pattern:
     console: '%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{50} - %msg%n'
@@ -117,4 +121,3 @@ logging:
     name: logs/user_operation.log
   config:
     classpath:logback-spring.xml
-

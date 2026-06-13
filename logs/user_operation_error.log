@@ -1,4 +1,4 @@
-2026-06-05 15:54:56.024 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+2026-06-13 14:10:51.263 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
 
 ***************************
 APPLICATION FAILED TO START
@@ -6,14 +6,14 @@ APPLICATION FAILED TO START
 
 Description:
 
-A component required a bean of type 'com.simatelex.admin.service.ISystemLogService' that could not be found.
+A component required a bean of type 'com.simatelex.admin.service.IMailService' that could not be found.
 
 
 Action:
 
-Consider defining a bean of type 'com.simatelex.admin.service.ISystemLogService' in your configuration.
+Consider defining a bean of type 'com.simatelex.admin.service.IMailService' in your configuration.
 
-2026-06-05 15:59:01.045 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+2026-06-13 14:48:30.631 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
 
 ***************************
 APPLICATION FAILED TO START
@@ -21,14 +21,14 @@ APPLICATION FAILED TO START
 
 Description:
 
-A component required a bean of type 'com.simatelex.admin.service.ISystemLogService' that could not be found.
+A component required a bean of type 'com.simatelex.admin.service.IMailService' that could not be found.
 
 
 Action:
 
-Consider defining a bean of type 'com.simatelex.admin.service.ISystemLogService' in your configuration.
+Consider defining a bean of type 'com.simatelex.admin.service.IMailService' in your configuration.
 
-2026-06-05 15:59:05.517 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+2026-06-13 15:15:38.533 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
 
 ***************************
 APPLICATION FAILED TO START
@@ -36,92 +36,10 @@ APPLICATION FAILED TO START
 
 Description:
 
-A component required a bean of type 'com.simatelex.admin.service.ISystemLogService' that could not be found.
+A component required a bean of type 'com.simatelex.admin.service.IMailService' that could not be found.
 
 
 Action:
 
-Consider defining a bean of type 'com.simatelex.admin.service.ISystemLogService' in your configuration.
+Consider defining a bean of type 'com.simatelex.admin.service.IMailService' in your configuration.
 
-2026-06-05 15:59:23.223 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
-
-***************************
-APPLICATION FAILED TO START
-***************************
-
-Description:
-
-A component required a bean of type 'com.simatelex.admin.service.ISystemLogService' that could not be found.
-
-
-Action:
-
-Consider defining a bean of type 'com.simatelex.admin.service.ISystemLogService' in your configuration.
-
-2026-06-05 15:59:36.995 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
-
-***************************
-APPLICATION FAILED TO START
-***************************
-
-Description:
-
-A component required a bean of type 'com.simatelex.admin.service.ISystemLogService' that could not be found.
-
-
-Action:
-
-Consider defining a bean of type 'com.simatelex.admin.service.ISystemLogService' in your configuration.
-
-2026-06-05 16:01:04.018 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
-
-***************************
-APPLICATION FAILED TO START
-***************************
-
-Description:
-
-A component required a bean of type 'com.simatelex.admin.service.ISystemLogService' that could not be found.
-
-
-Action:
-
-Consider defining a bean of type 'com.simatelex.admin.service.ISystemLogService' in your configuration.
-
-2026-06-05 16:15:49.570 [restartedMain] ERROR org.springframework.boot.SpringApplication - Application run failed
-org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.simatelex.admin.TimingTaskApplication]; nested exception is java.io.FileNotFoundException: class path resource [com/simatelex/admin/TimingTaskApplication.class] cannot be opened because it does not exist
-	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:188)
-	at org.springframework.context.annotation.ConfigurationClassPostProcessor.processConfigBeanDefinitions(ConfigurationClassPostProcessor.java:319)
-	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanDefinitionRegistry(ConfigurationClassPostProcessor.java:236)
-	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanDefinitionRegistryPostProcessors(PostProcessorRegistrationDelegate.java:280)
-	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:96)
-	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:706)
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:532)
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143)
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:758)
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:750)
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1237)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226)
-	at com.simatelex.admin.TimingTaskApplication.main(TimingTaskApplication.java:21)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
-	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
-Caused by: java.io.FileNotFoundException: class path resource [com/simatelex/admin/TimingTaskApplication.class] cannot be opened because it does not exist
-	at org.springframework.core.io.ClassPathResource.getInputStream(ClassPathResource.java:180)
-	at org.springframework.core.type.classreading.SimpleMetadataReader.getClassReader(SimpleMetadataReader.java:55)
-	at org.springframework.core.type.classreading.SimpleMetadataReader.<init>(SimpleMetadataReader.java:49)
-	at org.springframework.core.type.classreading.SimpleMetadataReaderFactory.getMetadataReader(SimpleMetadataReaderFactory.java:103)
-	at org.springframework.boot.type.classreading.ConcurrentReferenceCachingMetadataReaderFactory.createMetadataReader(ConcurrentReferenceCachingMetadataReaderFactory.java:86)
-	at org.springframework.boot.type.classreading.ConcurrentReferenceCachingMetadataReaderFactory.getMetadataReader(ConcurrentReferenceCachingMetadataReaderFactory.java:73)
-	at org.springframework.core.type.classreading.SimpleMetadataReaderFactory.getMetadataReader(SimpleMetadataReaderFactory.java:81)
-	at org.springframework.context.annotation.ConfigurationClassParser.asSourceClass(ConfigurationClassParser.java:695)
-	at org.springframework.context.annotation.ConfigurationClassParser.asSourceClass(ConfigurationClassParser.java:664)
-	at org.springframework.context.annotation.ConfigurationClassParser.asSourceClass(ConfigurationClassParser.java:642)
-	at org.springframework.context.annotation.ConfigurationClassParser.processConfigurationClass(ConfigurationClassParser.java:247)
-	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:206)
-	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:174)
-	... 19 common frames omitted

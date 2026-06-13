@@ -16,7 +16,7 @@ public interface MailTablesMapper {
 
     List<Map<String, Object>> selectTables(@Param("tableName") String tableName,@Param(Constants.WRAPPER) Wrapper<Object> queryWrapper);
 
-    List<Map<String, Object>> selectGroupBy(String tableName, String groupBy);
+    List<Map<String, Object>> selectGroupBy(@Param("tableName") String tableName,@Param("groupBy") String groupBy);
 
     Boolean truncateTable(String tableName);
 }

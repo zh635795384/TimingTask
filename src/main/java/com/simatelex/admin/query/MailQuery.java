@@ -9,5 +9,5 @@ import lombok.Data;
  **/
 @Data
 public class MailQuery extends BaseQuery{
-
+    Integer id;
 }
