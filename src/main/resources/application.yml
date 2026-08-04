@@ -20,16 +20,40 @@ spring:
   datasource:
     xfstd01:
       driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-      url: jdbc:sqlserver://191.191.22.143:1433;DatabaseName=Efficiency
+      url: jdbc:sqlserver://191.191.22.143:1433;DatabaseName=Efficiency;encrypt=true;trustServerCertificate=true;sslProtocol=TLSv1.2
       ##;allowMultiQueries=true
       username: sa
       password: k3pwd123,
+      hikari:
+        maximum-pool-size: 10
+        # 空闲连接超时(小于数据库超时)
+        idle-timeout: 240000
+        # 连接最大生命周期
+        max-lifetime: 540000
+        # 定时发送测试SQL保活
+        keepalive-time: 60000
+        # 获取连接前校验是否存活
+        validation-timeout: 3000
+        test-on-borrow: true
+        connection-test-query: SELECT 1
     xfbps01:
       driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-      url: jdbc:sqlserver://191.191.20.30:1433;DatabaseName=AutoDL
+      url: jdbc:sqlserver://191.191.20.30:1433;DatabaseName=AutoDL;encrypt=false;trustServerCertificate=false
       ##;allowMultiQueries=true
       username: tradm
       password: tradm
+      hikari:
+        maximum-pool-size: 10
+        # 空闲连接超时(小于数据库超时)
+        idle-timeout: 240000
+        # 连接最大生命周期
+        max-lifetime: 540000
+        # 定时发送测试SQL保活
+        keepalive-time: 60000
+        # 获取连接前校验是否存活
+        validation-timeout: 3000
+        test-on-borrow: true
+        connection-test-query: SELECT 1
   ##热部署配置
   devtools:
     restart:
@@ -93,10 +117,14 @@ mybatis-plus:
   #type-aliases-package: com.simatelex.admin.pojo
   configuration:
     # 自动驼峰命名，将实体类中驼峰命名的变量自动转换成_
-    map-underscore-to-camel-case: true
+    map-underscore-to-camel-case: false
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     # 禁用二级缓存
     #cache-enabled: false
+    # 关闭懒加载、完整加载结果集
+    lazy-loading-enabled: false
+    aggressive-lazy-loading: false
+    use-column-label: true
 
 # SQL 打印(方法接口所在的包，不是Mapper.xml所在的包)
 logging:

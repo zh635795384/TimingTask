@@ -11,7 +11,7 @@
     </script>
 </head>
 <body class="layui-padding-20">
-<div class="layui-card">
+<div class="layui-card" style="max-height: 100vh; overflow-y: auto;">
     <div class="layui-card-header">
         <button class="layui-btn layui-btn-sm layui-btn-success" id="addRow">+ 新增配置行</button>
         <button class="layui-btn layui-btn-sm layui-btn-normal" id="saveAll">保存全部配置</button>

@@ -4,7 +4,7 @@ layui.use(['jquery','layer'], function(){
     var mailReceiver = globalMailReceiver;
     var mail = globalMail;
 
-    console.log(mailReceiver)
+    // console.table(mail);
 
     var mailId = mail != null ? mail.id : null;
     console.log("mailId",mailId)
@@ -57,7 +57,7 @@ layui.use(['jquery','layer'], function(){
         },'json')
     }
 
-    //生成单行模板（这里是JS字符串模板，不要再写${gk}！！之前错误点）
+    //生成单行模板（这里是JS字符串模板，不要再写${gk}！！之前错误点，改为可拉伸文本域）
     function buildTr(id,gk,recv,cc,bcc){
         id = id || '';
         gk = gk || '';
@@ -66,9 +66,9 @@ layui.use(['jquery','layer'], function(){
         bcc = bcc || '';
         return '<tr data-id="' + id + '">'
             + '<td><input class="layui-input group_key" value="' + gk + '" placeholder="如：BJ、SH"></td>'
-            + '<td><input class="layui-input receiver" value="' + recv + '" placeholder="a@xx.com;b@xx.com"></td>'
-            + '<td><input class="layui-input cc" value="' + cc + '" placeholder="选填"></td>'
-            + '<td><input class="layui-input bcc" value="' + bcc + '" placeholder="选填"></td>'
+            + '<td><textarea class="layui-textarea receiver" style="min-height:60px;resize:vertical;" placeholder="a@xx.com;b@xx.com">' + recv + '</textarea></td>'
+            + '<td><textarea class="layui-textarea cc" style="min-height:60px;resize:vertical;" placeholder="选填">' + cc + '</textarea></td>'
+            + '<td><textarea class="layui-textarea bcc" style="min-height:60px;resize:vertical;" placeholder="选填">' + bcc + '</textarea></td>'
             + '<td><button class="layui-btn layui-btn-xs layui-btn-danger del">删除</button></td>'
             + '</tr>';
     }
@@ -79,7 +79,26 @@ layui.use(['jquery','layer'], function(){
     })
     //删除行
     $('body').on('click','.del',function(){
-        $(this).parents('tr').remove();
+        let $tr = $(this).parents('tr');
+        let id = $tr.data('id');
+        // 没有ID=新增未保存的空行，只删前端DOM即可
+        if(!id){
+            $tr.remove();
+            return;
+        }
+        // 确认弹窗
+        layer.confirm('确定要删除这条收件配置吗？', {icon: 3, title:'提示'}, function(index){
+            // 请求后台删除接口 deleteReceiver
+            $.post(ctx + "/mail/deleteReceiver", {id: id}, function(res){
+                if(res.code === 200){
+                    layer.msg('删除成功',{icon:1});
+                    $tr.remove(); // 后端删成功再移除前端行
+                }else{
+                    layer.msg(res.msg || '删除失败',{icon:5});
+                }
+            },'json');
+            layer.close(index);
+        });
     })
     //重置：重新从数据库拉原始数据
     $('#reset').click(()=>loadConfig())
@@ -94,8 +113,10 @@ layui.use(['jquery','layer'], function(){
             let recv = $(this).find('.receiver').val().trim();
             let cc = $(this).find('.cc').val().trim();
             let bcc = $(this).find('.bcc').val().trim();
+            let groupBy = mail.groupBy == undefined || mail.groupBy == '' ? false : true;
+            console.log("groupBy",groupBy);
             // 1. 分组编码非空校验
-            if(!gk){
+            if(!gk && groupBy){
                 layer.msg('分组编码不能为空');
                 checkOk = false;
                 return false;
@@ -136,6 +157,12 @@ layui.use(['jquery','layer'], function(){
                 if(res.code===200){
                     layer.msg('保存成功',{icon:1});
                     loadConfig();
+                    if(parent.tableMail){
+                        parent.tableMail.reload();
+                    }
+                    // 关闭当前弹出层（若为 layui layer 的 iframe 页）
+                    var index = parent.layer.getFrameIndex(window.name);
+                    parent.layer.close(index);
                     // setTimeout(()=>parent.layer.closeAll(),400)
                 }else{
                     layer.msg(res.msg||'保存失败')

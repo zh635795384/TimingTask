@@ -32,5 +32,17 @@ public interface IMailService extends IService<Mail> {
 
     Mail queryMail(MailQuery mailQuery);
 
+    /**
+     * 添加收件者信息
+     * @param receiverList
+     * @param mail
+     */
     void saveReceiver(List<MailReceiver> receiverList, Mail mail);
+
+    /**
+     * 删除收件者信息
+     *
+     * @param id
+     */
+    void deleteReceiver(Integer id);
 }

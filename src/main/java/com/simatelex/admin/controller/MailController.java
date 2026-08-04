@@ -124,4 +124,11 @@ public class MailController {
         systemLogService.addToLog(mailHeader, "邮箱收件者"+mailHeader.getTableName()+"信息添加成功");
         return RespBean.success("数据添加成功");
     }
+
+    @RequestMapping("deleteReceiver")
+    @ResponseBody
+    public RespBean deleteReceiver(Integer id) {
+        mailService.deleteReceiver(id);
+        return RespBean.success("收件者删除成功");
+    }
 }

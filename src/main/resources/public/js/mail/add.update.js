@@ -88,9 +88,12 @@ layui.use(['form', 'layer'], function () {
                 setTimeout(function () {
                     top.layer.close(index);
                     top.layer.msg(res.message, {icon: 1});
-                    layer.closeAll("iframe");
+                    if(parent.tableMail){
+                        parent.tableMail.reload();
+                    }
+                    parent.layer.closeAll();
                     //刷新父页面
-                    parent.location.reload();
+                    // parent.location.reload();
                 }, 500);
             } else {
                 layer.msg(
@@ -105,7 +108,7 @@ layui.use(['form', 'layer'], function () {
 
     form.on('switch(isExport)', function (data) {
         isExport = data.elem.checked;
-     });
+    });
 
     form.on('switch(divExcel)', function (data) {
         divExcel = data.elem.checked;

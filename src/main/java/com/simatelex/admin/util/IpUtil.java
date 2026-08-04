@@ -120,11 +120,11 @@ public class IpUtil {
         // 先判空，兼容定时任务/异步线程
         if (request == null) {
             // 没有请求上下文时，填充默认值
-            mapUserAgent.put("clientType", "定时任务");
-            mapUserAgent.put("os", "定时任务");
-            mapUserAgent.put("ip", "定时任务");
-            mapUserAgent.put("method", "定时任务");
-            mapUserAgent.put("browser", "定时任务");
+            mapUserAgent.put("clientType", "定时任务/邮箱定时任务");
+            mapUserAgent.put("os", "定时任务/邮箱定时任务");
+            mapUserAgent.put("ip", "定时任务/邮箱定时任务");
+            mapUserAgent.put("method", "定时任务/邮箱定时任务");
+            mapUserAgent.put("browser", "定时任务/邮箱定时任务");
             mapUserAgent.put("serverName", getHostName());
             return mapUserAgent;
         }

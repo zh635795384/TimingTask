@@ -1,5 +1,6 @@
 package com.simatelex.admin.config.datasource;
 
+import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
@@ -68,10 +69,11 @@ public class DataSourceConfig2 {
         bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:mapper/xfbps01/*Mapper.xml"));
         bean.setGlobalConfig(globalConfig);
         //配置多数据源需要设置驼峰规则，否则不生效
-        org.apache.ibatis.session.Configuration configuration=new org.apache.ibatis.session.Configuration();
+        MybatisConfiguration configuration=new MybatisConfiguration();
         configuration.setMapUnderscoreToCamelCase(true);
+        configuration.setCallSettersOnNulls(true);
         bean.setPlugins(mybatisPlusInterceptor);
-//        bean.setConfiguration(configuration);
+        bean.setConfiguration(configuration);
         return bean.getObject();
     }
 

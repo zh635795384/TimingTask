@@ -1,11 +1,12 @@
-﻿layui.use(['table', 'layer', 'element', "form",'tableFilter'], function () {
+﻿var tableMail;
+layui.use(['table', 'layer', 'element', "form",'tableFilter'], function () {
     var layer = parent.layer === undefined ? layui.layer : top.layer,
         $ = layui.jquery,
         form = layui.form,
         tableFilter = layui.tableFilter,
         table = layui.table;
     //邮箱信息列表展示
-    var tableIns = table.render({
+    tableMail = table.render({
         elem: '#mailList',
         tableRow: true,
         url: ctx + '/mail/list',
@@ -116,7 +117,10 @@
                 openAddOrUpdateDialog();
                 break;
             case "del":
-                delLine(checkStatus.data);
+                delLine(checkStatus.data,1);
+                break;
+            case "restore":
+                delLine(checkStatus.data,2);
                 break;
         }
     });
@@ -133,7 +137,7 @@
                 $.post(ctx + "/mail/delete", {ids: obj.data.id, flag: 1}, function (data) {
                     if (data.code == 200) {
                         layer.msg(data.message, {icon: 1});
-                        tableIns.reload();
+                        tableMail.reload();
                     } else {
                         layer.msg(data.message, {icon: 5});
                     }
@@ -146,7 +150,7 @@
                 $.post(ctx + "/mail/delete", {ids: obj.data.id, flag: 2}, function (data) {
                     if (data.code == 200) {
                         layer.msg(data.message, {icon: 1});
-                        tableIns.reload();
+                        tableMail.reload();
                     } else {
                         layer.msg(data.message, {icon: 5});
                     }
@@ -199,7 +203,7 @@
         var url = ctx + "/mail/update?isRun="+runEmail;
         $.post(url, mail, function (res) {
             if (res.code == 200) {
-                tableIns.reloadData('mailListTable',{});
+                tableMail.reloadData('mailListTable',{});
                 // $('#runEmail').prop('checked') = runEmail;
                 /*setTimeout(function () {
                     //top.layer.close(index);
@@ -241,13 +245,12 @@
      * 批量删除
      * @param datas
      */
-    function delLine(datas) {
+    function delLine(datas,type) {
         if (datas.length == 0) {
             layer.msg("请选择数据", {icon: 5});
             return;
         }
-
-        layer.confirm("确认删除？", {
+        layer.confirm(type == 1 ? "确认删除？" : "确认恢复？", {
             btn: ["确认", "取消"] //按钮
         }, function (index) {
             layer.close(index);
@@ -261,13 +264,13 @@
             }
             $.ajax({
                 type: "post",
-                url: ctx + "/mail/delete",
+                url: ctx + "/mail/delete?flag="+type,
                 data: ids,
                 dataType: "json",
                 success: function (data) {
                     if (data.code == 200) {
                         layer.msg(data.message, {icon: 1});
-                        tableIns.reload();
+                        tableMail.reload();
                     } else {
                         layer.msg(data.message, {icon: 5});
                     }

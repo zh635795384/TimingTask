@@ -38,9 +38,9 @@
             <version>1.18.24</version>
         </dependency>
         <dependency>
-            <groupId>com.microsoft.jdbc.sqlserver</groupId>
+            <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
-            <version>7.2.2.jre11</version>
+            <version>11.2.1.jre11</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
