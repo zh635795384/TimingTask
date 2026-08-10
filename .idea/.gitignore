@@ -2,7 +2,7 @@
 /target/
 
 # 忽略日志文件
-/logs/
+logs/
 *.log
 *.log.*
 
