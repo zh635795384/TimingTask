@@ -151,4 +151,23 @@ public class ZipUtils {
         ZipUtils.toZip(fileList, fos2);
     }*/
 
+    /**
+     * 递归删除目录（包含所有子文件子目录）
+     */
+    public static boolean deleteDir(File dir) {
+        if (!dir.exists()) {
+            return true;
+        }
+        if (dir.isDirectory()) {
+            File[] children = dir.listFiles();
+            if (children != null) {
+                for (File child : children) {
+                    deleteDir(child);
+                }
+            }
+        }
+        // 删除自身
+        return dir.delete();
+    }
+
 }

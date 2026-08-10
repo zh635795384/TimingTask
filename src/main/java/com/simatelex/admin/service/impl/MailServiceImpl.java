@@ -92,9 +92,8 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
     public void saveMail(Mail mail) {
         AssertUtil.isTrue(mail == null, "请输入数据");
         AssertUtil.isTrue(mail.getTableName().split("-").length > 2, "符号-不能超过1个");
-//        AssertUtil.isTrue((!mail.getIsExport() || !mail.getIsFtpUpload()) && StringUtils.isBlank(mail.getReceiver()) && !mail.getIsFtpUpload(), "收件人不能为空");
         AssertUtil.isTrue(mail.getDivExcel() && StringUtils.isBlank(mail.getGroupBy()), "分组数据不正确");
-        AssertUtil.isTrue(mail.getSendTarget().equals("每周") && mail.getSendTime().indexOf("-") == mail.getSendTime().lastIndexOf("-"), "格式错误");
+        AssertUtil.isTrue("每周".equals(mail.getSendTarget()) && mail.getSendTime().indexOf("-") == mail.getSendTime().lastIndexOf("-"), "格式错误");
         mail.setIsDel(false);
         AssertUtil.isTrue(!this.save(mail), "添加失败！");
     }
@@ -104,10 +103,8 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
     public void updateMail(Mail mail, boolean isRun) {
         AssertUtil.isTrue(mail == null, "请输入数据");
         AssertUtil.isTrue(mail.getTableName().split("-").length > 2, "符号-不能超过1个");
-//        AssertUtil.isTrue((!mail.getIsExport() || !mail.getIsFtpUpload()) && StringUtils.isBlank(mail.getReceiver()) && !mail.getIsFtpUpload(), "收件人不能为空");
         AssertUtil.isTrue(mail.getDivExcel() && StringUtils.isBlank(mail.getGroupBy()), "分组数据不正确");
-        AssertUtil.isTrue(mail.getSendTarget().equals("每周") && mail.getSendTime().indexOf("-") == mail.getSendTime().lastIndexOf("-"), "格式错误");
-//        Mail oldMail = this.getById(mail.getId());
+        AssertUtil.isTrue("每周".equals(mail.getSendTarget()) && mail.getSendTime().indexOf("-") == mail.getSendTime().lastIndexOf("-"), "格式错误");
         AssertUtil.isTrue(!this.updateById(mail), "更新失败");
         if (isRun) {
             emailScheduleService.modifyJob(mail.getTableName(), "group_" + mail.getTableName(), SetCron.getCron(mail));
@@ -270,51 +267,66 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
                             mailSender.send(mimeMessage);
                         } else {
                             //添加附件，可以设置多个附件
-                            try {
-                                String zipPath = null;
-                                //如果有附件的话
-                                if (mailGroup != null) {
+                            String zipPath = null;
+                            //如果有附件的话
+                            if (mailGroup != null) {
 //                helper.addAttachment(MimeUtility.encodeWord(mail.getTableName()+ DateUtil.formatCustomDate(LocalDateTime.now().plusDays(Long.parseLong(mail.getTableStyle().split(";")[1])), mail.getTableStyle().split(";")[0]) +".xlsx","UTF-8","B"), resource); //此方法不可行
-                    /*MimeBodyPart bodyPart = new MimeBodyPart();//设置消息正文
-                    bodyPart.setText(mail.getBody(), "UTF-8"); //设置正文编码为UTF-8
-                    //单个文件上传
-                    Multipart multipart = new MimeMultipart();
-                    //设置相关文件
-                    MimeBodyPart filePart = new MimeBodyPart();*/
-                                    String datePrefix = DateUtil.formatCustomDate(LocalDateTime.now().plusDays(Long.parseLong(mail.getTableStyle().split(";")[1])), mail.getTableStyle().split(";")[0]);
-                                    String fileFormat = ".xlsx";
-                                    //如果需要压缩
-                                    if (mail.getIsRar()) {
-                                        fileFormat = ".zip";
-                                        FileOutputStream fileOutputStream = new FileOutputStream(new File(mailGroup.getPath().substring(0, mailGroup.getPath().lastIndexOf("\\")) + "\\" + mail.getTableName() + datePrefix + fileFormat));
-                                        zipPath = ZipUtils.toZip(mailGroup.getPath(), fileOutputStream, true) + "\\" + mail.getTableName() + datePrefix + fileFormat;
-                                    }
-                                    FileDataSource dataSource = new FileDataSource(mail.getIsRar() ? zipPath : mailGroup.getPath());
-                                    //如果有别名就=文件名+tableStyle+文件后缀名,否则就是表名+tableStyle+文件后缀名
-                                    String tableName = dataSource.getName().substring(0, dataSource.getName().lastIndexOf(".")) + fileFormat;
-                                    if (StringUtils.isNotBlank(mail.getTablePrefix())) {
-                                        tableName = mail.getTablePrefix() + datePrefix + fileFormat;
-                                    }
-                /*filePart.setFileName(MimeUtility.encodeText(MimeUtility.encodeText(tableName)));
-                //文件处理
-                filePart.setDataHandler(new DataHandler(dataSource));
-                //放入正文(有先后顺序，所以在正文后面)
-                multipart.addBodyPart(filePart);
-                multipart.addBodyPart(bodyPart);
+                /*MimeBodyPart bodyPart = new MimeBodyPart();//设置消息正文
+                bodyPart.setText(mail.getBody(), "UTF-8"); //设置正文编码为UTF-8
+                //单个文件上传
+                Multipart multipart = new MimeMultipart();
+                //设置相关文件
+                MimeBodyPart filePart = new MimeBodyPart();*/
+                                String datePrefix = DateUtil.formatCustomDate(LocalDateTime.now().plusDays(Long.parseLong(mail.getTableStyle().split(";")[1])), mail.getTableStyle().split(";")[0]);
+                                String fileFormat = ".xlsx";
+                                //如果需要压缩
+                                if (mail.getIsRar()) {
+                                    // 源目录
+                                    String sourceDir = mailGroup.getPath();
+                                    fileFormat = ".zip";
+                                    // 压缩包输出路径
+                                    String zipFileParent = sourceDir.substring(0, sourceDir.lastIndexOf("\\")) + "\\";
+                                    String zipFileName = fileName + fileFormat; //mail.getTableName() + datePrefix + fileFormat;
+                                    File zipOutFile = new File(zipFileParent + zipFileName);
+                                   /* FileOutputStream fileOutputStream = new FileOutputStream(new File(sourceDir.substring(0, mailGroup.getPath().lastIndexOf("\\")) + "\\" + mail.getTableName() + datePrefix + fileFormat));
+                                    zipPath = ZipUtils.toZip(mailGroup.getPath(), fileOutputStream, true) + "\\" + mail.getTableName() + datePrefix + fileFormat;*/
+                                    try (FileOutputStream fileOutputStream = new FileOutputStream(zipOutFile)) {
+                                        // 执行压缩
+                                        ZipUtils.toZip(sourceDir, fileOutputStream, true);
+                                        zipPath = zipFileParent + zipFileName;
 
-                //设置邮件内容，混合模式
-                mimeMessage.setContent(multipart);*/
-                                    helper.addAttachment(tableName, dataSource);
-                                    tableList.add(tableName);
-                                    //发送邮件
-                                    mailSender.send(mimeMessage);
-                                    systemLogService.addToLog(mail, fileName + "发送成功！");
-                                    truncateTable(mail, tableNameList);
+                                        // ========== 压缩成功，删除源文件夹 ==========
+                                        File sourceFolder = new File(sourceDir);
+                                        if (sourceFolder.exists()) {
+                                            ZipUtils.deleteDir(sourceFolder);
+                                        }
+                                    } catch (Exception e) {
+                                        systemLogService.addToLog(zipFileName, "压缩失败，源文件保留");
+                                        // 压缩异常，不要删源文件，抛出/记录日志
+                                        throw new RuntimeException("压缩失败，源文件保留", e);
+                                    }
                                 }
-                            } catch (FileNotFoundException e) {
-                                e.printStackTrace();
-                                String msg = Optional.ofNullable(e.getMessage()).orElse("未知异常信息");
-                                systemLogService.addToLog(mail, "添加附件异常！原因："+ (msg.length() > 4970 ? msg.substring(0, 4970) : msg));
+                                FileDataSource dataSource = new FileDataSource(mail.getIsRar() ? zipPath : mailGroup.getPath());
+                                //如果有别名就=文件名+tableStyle+文件后缀名,否则就是表名+tableStyle+文件后缀名
+                                String tableName = dataSource.getName().substring(0, dataSource.getName().lastIndexOf(".")) + fileFormat;
+                                if (StringUtils.isNotBlank(mail.getTablePrefix())) {
+                                    tableName = mail.getTablePrefix() + datePrefix + fileFormat;
+                                }
+            /*filePart.setFileName(MimeUtility.encodeText(MimeUtility.encodeText(tableName)));
+            //文件处理
+            filePart.setDataHandler(new DataHandler(dataSource));
+            //放入正文(有先后顺序，所以在正文后面)
+            multipart.addBodyPart(filePart);
+            multipart.addBodyPart(bodyPart);
+
+            //设置邮件内容，混合模式
+            mimeMessage.setContent(multipart);*/
+                                helper.addAttachment(tableName, dataSource);
+                                tableList.add(tableName);
+                                //发送邮件
+                                mailSender.send(mimeMessage);
+                                systemLogService.addToLog(mail, fileName + "发送成功！");
+                                truncateTable(mail, tableNameList);
                             }
                         }
                     }
@@ -472,7 +484,7 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
         }
         String aliasTitleOld = String.join(",", fieldAliasMap.keySet());
         String aliasTitle = aliasTitleOld.toLowerCase().contains(mail.getGroupBy().toLowerCase()) ? aliasTitleOld : aliasTitleOld + "," + mail.getGroupBy();
-        String oldTitle = !column.equals("*") ? aliasTitle : "*";
+        String oldTitle = !"*".equals(column) ? aliasTitle : "*";
         queryWrapper.select(oldTitle);
         //查询xfbps01中的表数据   select * from ${tableName} where ${groupBy}=值
         List<LinkedHashMap<String, Object>> tableList = this.selectTables(mail.getTableName(), queryWrapper);
@@ -481,7 +493,7 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
             return mailReceiverList;
         }
         String newTitle = null;
-        if (column.equals("*")) {
+        if ("*".equals(column)) {
             if (tableList.size() > 0) {
                 newTitle = String.join(",", Arrays.asList(tableList.get(0).keySet().size() > 0 ? tableList.get(0).keySet().toArray(new String[tableList.get(0).size()]) : null));
                 aliasTitleOld =newTitle;
@@ -515,7 +527,7 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
                 List<LinkedHashMap<String, Object>> targetData = new ArrayList<>();
                 //场景一：分文件(多workbook)，按收件人分组过滤数据
                 if (workbookCount > 1 && StringUtils.isNotBlank(mail.getGroupBy()) && !mail.getDivExcel()) {
-                    String groupKey = mailReceiver.getGroupKey() == null ? "" : mailReceiver.getGroupKey().trim(); //.toLowerCase();
+                    String groupKey = mailReceiver.getGroupKey() == null ? "" : mailReceiver.getGroupKey().trim();
                     targetData = tableList.stream().filter(row -> groupKey.equalsIgnoreCase(StringUtil.getValueIgnoreCase(row, groupField))).collect(Collectors.toList());
 //                    targetData = tableList.stream().filter(row -> groupKey.equalsIgnoreCase((String) row.get(groupField))).collect(Collectors.toList());
                     //如果有分组并且要分sheet就直接取表名和分组值
@@ -668,9 +680,11 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
 //        split = tableList.get(0).keySet().size() > 0 ? tableList.get(0).keySet().toArray(new String[tableList.get(0).size()]) : null;
         if (split.length > 0) {
             for (int i = 0; i < split.length; i++) {
-                SXSSFCell cell1 = row1.createCell(i); //第1行标题
+                //第1行标题
+                SXSSFCell cell1 = row1.createCell(i);
                 cell1.setCellValue(split[i]);
-                cell1.setCellStyle(cellStyle1); //将上面设置的样式放进第一行第一列中
+                //将上面设置的样式放进第一行第一列中
+                cell1.setCellStyle(cellStyle1);
             }
         }
         /*String[] split;
@@ -700,46 +714,57 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
     private void setOtherRow(SXSSFSheet sheet, CellStyle cellStyle2, String newTitle, List<LinkedHashMap<String, Object>> tableList, Boolean insertRow) {
         // 解析标题列名（即需要导出的字段）
         List<String> titleColumns = Arrays.stream(newTitle.split(",")).map(String::trim).collect(Collectors.toList());
-        int dataStartRow = 1; // 默认数据从第1行开始（标题在第0行）
+        // 默认数据从第1行开始（标题在第0行）
+        int dataStartRow = 1;
         if (insertRow) {
             SXSSFRow emptyRow = sheet.createRow(1);
-//            Object[] columns = tableList.get(0).values().toArray();
             for (int j = 0; j < titleColumns.size(); j++) {
                 //插入行
                 SXSSFCell cells = emptyRow.createCell(j);
                 cells.setCellValue("");
                 cells.setCellStyle(cellStyle2);
             }
-//            tableList.add(0,null);
             dataStartRow = 2;
         }
         int rowIndex = dataStartRow;
         for (LinkedHashMap<String, Object> rowData : tableList) {
-            if (rowData == null) continue; // 跳过可能插入的空占位
-//            LinkedHashMap<String, Object> tableDataMap = tableList.get(i);
+            // 跳过可能插入的空占位
+            if (rowData == null) {continue;}
             SXSSFRow rows = sheet.createRow(rowIndex++);
             int colIndex = 0;
             if (rowData != null) {
-//                Object[] columns = rowData.values().toArray();
                 for (String colName: titleColumns) {
                     //其他数据
                     SXSSFCell cells = rows.createCell(colIndex++);
-                    Object cellVal = rowData.get(colName);  // 注意：此时键必须是别名
-                    String cellText = null;
+                    // 注意：此时键必须是别名
+                    Object cellVal = rowData.get(colName);
                     if (cellVal instanceof BigDecimal) {
                         // 是BigDecimal，去除末尾多余0、多余小数点
                         BigDecimal num = (BigDecimal) cellVal;
-                        cellText = NumberUtil.stripTrailingZeros(num).toPlainString();
+                        cells.setCellValue(NumberUtil.stripTrailingZeros(num).doubleValue());
                     } else if (cellVal instanceof Timestamp) {
                         // 时间戳，直接toString/格式化
-                        cellText = cellVal.toString();
+                        cells.setCellValue(cellVal.toString());
                     } else if (cellVal == null) {
-                        cellText = "";
+                        cells.setCellValue("");
+                    // 1. Date（java.util.Date，很多框架返回Date而非Timestamp）
+                    } else if (cellVal instanceof Date) {
+                        cells.setCellValue((Date) cellVal);
+                    // 2. Integer / Long 整数（可直接数值写入，不转字符串）
+                    } else if (cellVal instanceof Integer) {
+                        cells.setCellValue((Integer) cellVal);
+                    } else if (cellVal instanceof Long) {
+                        cells.setCellValue((Long) cellVal);
+                    // 3. Double（慎用，精度问题）
+                    } else if (cellVal instanceof Double) {
+                        cells.setCellValue((Double) cellVal);
+                    // 4. Boolean 布尔类型，Excel原生布尔单元格
+                    } else if (cellVal instanceof Boolean) {
+                        cells.setCellValue((Boolean) cellVal);
                     } else {
                         // 普通字符串、其他类型直接转字符串
-                        cellText = String.valueOf(cellVal);
+                        cells.setCellValue(String.valueOf(cellVal));
                     }
-                    cells.setCellValue(cellText);
                     cells.setCellStyle(cellStyle2);
                 }
             }
@@ -829,4 +854,5 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
         systemLogService.addToLog(mail, "收件人"+ mail.getTableName()+"信息删除成功");
         AssertUtil.isTrue(mailReceiverMapper.updateById(mailReceiver) == 0, "收件人信息更新失败");
     }
+
 }
