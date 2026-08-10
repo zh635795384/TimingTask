@@ -145,7 +145,7 @@ logging:
     rolling-file-name: /logs/spring-boot.%d{yyyy-MM-dd}.%i.log
     dateformat: yyyy-MM-dd HH:mm:ss
   file:
-    max-size: 10MB
-    name: logs/user_operation.log
+    max-size: 20MB
+    name: logs/email_send.log
   config:
     classpath:logback-spring.xml
