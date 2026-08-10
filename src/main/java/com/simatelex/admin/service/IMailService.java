@@ -26,7 +26,8 @@ public interface IMailService extends IService<Mail> {
 
     void runEmail(boolean run);
 
-    Map<String, Object> receiverList(MailQuery mailQuery);
+//    Map<String, Object> receiverList(MailQuery mailQuery);
+    List<MailReceiver> receiverList(MailQuery mailQuery);
 
     List<MailReceiver> receiverToList(MailQuery mailQuery);
 

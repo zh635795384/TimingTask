@@ -46,8 +46,9 @@ layui.use(['jquery','layer'], function(){
     function loadConfig(){
         $.get(ctx + "/mail/receiverList",{id: mailId},function(res){
             let html = '';
-            if(res.data && res.data.length>0){
-                res.data.forEach(item=>{
+            console.log(res)
+            if(res && res.length>0){
+                res.forEach(item=>{
                     html += buildTr(item.id,item.groupKey, item.receiver, item.cc, item.bcc)
                 })
             }else{

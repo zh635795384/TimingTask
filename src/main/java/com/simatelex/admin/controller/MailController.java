@@ -98,7 +98,7 @@ public class MailController {
 
     @RequestMapping("addReceiverPage")
     public String addReceiverPage(MailQuery mailQuery, Model model){
-        model.addAttribute("mailReceiver", JSON.toJSONString(mailService.receiverList(mailQuery).get("data")));
+        model.addAttribute("mailReceiver", JSON.toJSONString(mailService.receiverList(mailQuery)));
         model.addAttribute("mail", JSON.toJSONString(mailService.getById(mailQuery.getId())));
         log.info("进入邮件收件者添加/更新页面！");
         //返回页面
@@ -107,7 +107,7 @@ public class MailController {
 
     @RequestMapping("receiverList")
     @ResponseBody
-    public Map<String, Object> receiverList(MailQuery mailQuery){
+    public List<MailReceiver> receiverList(MailQuery mailQuery){
         log.info("收件者列表展示！");
         return mailService.receiverList(mailQuery);
     }

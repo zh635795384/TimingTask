@@ -765,17 +765,18 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
     }
 
     @Override
-    public Map<String, Object> receiverList(MailQuery mailQuery) {
+    public List<MailReceiver> receiverList(MailQuery mailQuery) {
         //分页，两个参数，一个当前页，一个条数
-        IPage<MailReceiver> page = new Page<>(mailQuery.getPage(), mailQuery.getLimit());
+//        IPage<MailReceiver> page = new Page<>(mailQuery.getPage(), mailQuery.getLimit());
         QueryWrapper<MailReceiver> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("isnull(is_del,0)",0);
         if (mailQuery.getId() != null) {
             queryWrapper.eq("mail_id", mailQuery.getId());
         }
         //将查询结果返回给Page
-        page = mailReceiverMapper.selectPage(page, queryWrapper);
-        return PageResultUtil.getResult(page.getTotal(), page.getRecords());
+//        page = mailReceiverMapper.selectPage(page, queryWrapper);
+//        return PageResultUtil.getResult(page.getTotal(), page.getRecords());
+        return mailReceiverMapper.selectList(queryWrapper);
     }
 
     @Override
