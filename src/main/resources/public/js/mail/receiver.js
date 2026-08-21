@@ -7,7 +7,7 @@ layui.use(['jquery','layer'], function(){
     // console.table(mail);
 
     var mailId = mail != null ? mail.id : null;
-    console.log("mailId",mailId)
+    console.log("mail",mail)
 
     $(function(){
         // 页面加载执行查询
@@ -117,7 +117,7 @@ layui.use(['jquery','layer'], function(){
             let groupBy = mail.groupBy == undefined || mail.groupBy == '' ? false : true;
             console.log("groupBy",groupBy);
             // 1. 分组编码非空校验
-            if(!gk && groupBy){
+            if(!gk && groupBy && !mail.divExcel){
                 layer.msg('分组编码不能为空');
                 checkOk = false;
                 return false;

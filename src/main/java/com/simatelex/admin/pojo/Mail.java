@@ -115,6 +115,9 @@ public class Mail implements Serializable {
     //是否空主旨发送
     private Boolean emptyAttach;
 
+    //排序
+    private String orderBy;
+
     private Boolean isDel;
 
     private String createUser;

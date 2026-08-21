@@ -123,6 +123,12 @@
                 <input type="text" class="layui-input tableStyleDate" lay-verify="required" name="tableStyleDate" id="tableStyleDate" value="${(mail.tableStyle?substring(mail.tableStyle?index_of(";")+1))!}" placeholder="格式:需要-/+天,用;隔开">
             </div>
         </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">排序</label>
+            <div class="layui-input-inline" style="width: 215px;">
+                <input type="text" class="layui-input" name="orderBy" id="orderBy" value="${(mail.orderBy)!}" placeholder="范例:P1USER ASC,P1PUC ASC">
+            </div>
+        </div>
     </div>
     <div class="layui-form-item layui-row layui-col-xs12">
         <div class="layui-inline" style="width: 100%">

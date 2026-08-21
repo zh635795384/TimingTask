@@ -486,6 +486,21 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
         String aliasTitle = aliasTitleOld.toLowerCase().contains(mail.getGroupBy().toLowerCase()) ? aliasTitleOld : aliasTitleOld + "," + mail.getGroupBy();
         String oldTitle = !"*".equals(column) ? aliasTitle : "*";
         queryWrapper.select(oldTitle);
+        if (StringUtils.isNotBlank(mail.getOrderBy())) {
+            String[] orderByList = mail.getOrderBy().split(",");
+            for (String orderBy : orderByList) {
+                if (" ".equals(orderBy)) {
+                    String[] s = orderBy.split(" ");
+                    if (s[1].equalsIgnoreCase("desc")) {
+                        queryWrapper.orderByDesc(s[0].trim());
+                    } else {
+                        queryWrapper.orderByAsc(s[0].trim());
+                    }
+                } else {
+                    queryWrapper.orderByAsc(orderBy);
+                }
+            }
+        }
         //查询xfbps01中的表数据   select * from ${tableName} where ${groupBy}=值
         List<LinkedHashMap<String, Object>> tableList = this.selectTables(mail.getTableName(), queryWrapper);
         if (tableList.isEmpty()) {
@@ -738,33 +753,8 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
                     SXSSFCell cells = rows.createCell(colIndex++);
                     // 注意：此时键必须是别名
                     Object cellVal = rowData.get(colName);
-                    if (cellVal instanceof BigDecimal) {
-                        // 是BigDecimal，去除末尾多余0、多余小数点
-                        BigDecimal num = (BigDecimal) cellVal;
-                        cells.setCellValue(NumberUtil.stripTrailingZeros(num).doubleValue());
-                    } else if (cellVal instanceof Timestamp) {
-                        // 时间戳，直接toString/格式化
-                        cells.setCellValue(cellVal.toString());
-                    } else if (cellVal == null) {
-                        cells.setCellValue("");
-                    // 1. Date（java.util.Date，很多框架返回Date而非Timestamp）
-                    } else if (cellVal instanceof Date) {
-                        cells.setCellValue((Date) cellVal);
-                    // 2. Integer / Long 整数（可直接数值写入，不转字符串）
-                    } else if (cellVal instanceof Integer) {
-                        cells.setCellValue((Integer) cellVal);
-                    } else if (cellVal instanceof Long) {
-                        cells.setCellValue((Long) cellVal);
-                    // 3. Double（慎用，精度问题）
-                    } else if (cellVal instanceof Double) {
-                        cells.setCellValue((Double) cellVal);
-                    // 4. Boolean 布尔类型，Excel原生布尔单元格
-                    } else if (cellVal instanceof Boolean) {
-                        cells.setCellValue((Boolean) cellVal);
-                    } else {
-                        // 普通字符串、其他类型直接转字符串
-                        cells.setCellValue(String.valueOf(cellVal));
-                    }
+                    // 设置单元格值（复用原有的类型判断逻辑）
+                    setCellValue(cells, cellVal);
                     cells.setCellStyle(cellStyle2);
                 }
             }
@@ -853,6 +843,32 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
         Mail mail = this.baseMapper.selectById(mailReceiverMapper.selectById(id).getMailId());
         systemLogService.addToLog(mail, "收件人"+ mail.getTableName()+"信息删除成功");
         AssertUtil.isTrue(mailReceiverMapper.updateById(mailReceiver) == 0, "收件人信息更新失败");
+    }
+
+    /**
+     * 抽取的公共方法：根据对象类型设置单元格值
+     */
+    private void setCellValue(SXSSFCell cell, Object cellVal) {
+        if (cellVal instanceof BigDecimal) {
+            BigDecimal num = (BigDecimal) cellVal;
+            cell.setCellValue(NumberUtil.stripTrailingZeros(num).doubleValue());
+        } else if (cellVal instanceof Timestamp) {
+            cell.setCellValue(cellVal.toString());
+        } else if (cellVal == null) {
+            cell.setCellValue("");
+        } else if (cellVal instanceof Date) {
+            cell.setCellValue((Date) cellVal);
+        } else if (cellVal instanceof Integer) {
+            cell.setCellValue((Integer) cellVal);
+        } else if (cellVal instanceof Long) {
+            cell.setCellValue((Long) cellVal);
+        } else if (cellVal instanceof Double) {
+            cell.setCellValue((Double) cellVal);
+        } else if (cellVal instanceof Boolean) {
+            cell.setCellValue((Boolean) cellVal);
+        } else {
+            cell.setCellValue(String.valueOf(cellVal));
+        }
     }
 
 }
