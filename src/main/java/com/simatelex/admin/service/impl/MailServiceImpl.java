@@ -382,7 +382,7 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
                         String jobName = mail.getTableName();
                         String jobGroup = "group_"+mail.getTableName();
                         //重新加载任务（会自动删除旧任务、重建触发器）
-                        emailScheduleService.scheduleEmailJob(mail.getTableName(), "group_"+mail.getTableName(), mail,cron);
+                        emailScheduleService.scheduleEmailJob(mail.getTableName(), jobGroup, mail,cron);
                         log.info("任务【{}】加载完成", jobName);
                     } catch (SchedulerException e) {
                         log.error("加载定时任务异常", e);
