@@ -5,18 +5,18 @@ import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import com.simatelex.admin.config.MyMetaObjectHandler;
+import com.zaxxer.hikari.HikariDataSource;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.annotation.Resource;
@@ -27,6 +27,7 @@ import javax.sql.DataSource;
  * @Date 2023/10/16 11:02
  * @Version 1.0
  **/
+@Slf4j
 @Configuration
 @MapperScan(basePackages = "com.simatelex.admin.mappers.xfbps01", sqlSessionFactoryRef = "xfbps01SqlSessionFactory")
 public class DataSourceConfig2 {
@@ -42,19 +43,36 @@ public class DataSourceConfig2 {
     @Value("${spring.datasource.xfbps01.password}")
     String password;
 
+    @Value("${spring.datasource.xfbps01.hikari.maximum-pool-size:10}")
+    int maximumPoolSize;
+
+    @Value("${spring.datasource.xfbps01.hikari.idle-timeout:240000}")
+    long idleTimeout;
+
+    @Value("${spring.datasource.xfbps01.hikari.max-lifetime:540000}")
+    long maxLifetime;
+
+    @Value("${spring.datasource.xfbps01.hikari.validation-timeout:3000}")
+    long validationTimeout;
+
     @Resource
     private MybatisPlusInterceptor mybatisPlusInterceptor;
 
     @Bean(name = "xfbps01DataSource")
-    @ConfigurationProperties(prefix = "spring.datasource.xfbps01")
-    public DataSource getXfbps01DataSource(){
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+    public DataSource getXfbps01DataSource() {
+        HikariDataSource dataSource = new HikariDataSource();
+        dataSource.setPoolName("xfbps01");
         dataSource.setDriverClassName(driverClass);
-        dataSource.setUrl(url);
+        dataSource.setJdbcUrl(url);
         dataSource.setUsername(username);
         dataSource.setPassword(password);
+        dataSource.setMaximumPoolSize(maximumPoolSize);
+        dataSource.setIdleTimeout(idleTimeout);
+        dataSource.setMaxLifetime(maxLifetime);
+        dataSource.setValidationTimeout(validationTimeout);
+        dataSource.setConnectionTestQuery("SELECT 1");
+        log.info("xfbps01 DataSource init, jdbcUrl={}, username={}", url, username);
         return dataSource;
-//        return DataSourceBuilder.create().build();
     }
 
     @Bean("xfbps01SqlSessionFactory")
@@ -88,12 +106,5 @@ public class DataSourceConfig2 {
     public PlatformTransactionManager xfbps01Manager(@Qualifier("xfbps01DataSource") DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
     }
-
-    /*@Bean
-    public MybatisPlusInterceptor mybatisPlusInterceptor() {
-        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.SQL_SERVER2005));
-        return interceptor;
-    }*/
 
 }

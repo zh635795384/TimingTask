@@ -4,18 +4,18 @@ import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import com.simatelex.admin.config.MyMetaObjectHandler;
+import com.zaxxer.hikari.HikariDataSource;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.annotation.Resource;
@@ -27,6 +27,7 @@ import javax.sql.DataSource;
  * @Version 1.0
  **/
 //表示这个类为一个配置类
+@Slf4j
 @Configuration
 @MapperScan(basePackages = "com.simatelex.admin.mappers.xfstd01", sqlSessionFactoryRef = "xfstd01SqlSessionFactory")
 public class DataSourceConfig1 {
@@ -42,20 +43,37 @@ public class DataSourceConfig1 {
     @Value("${spring.datasource.xfstd01.password}")
     String password;
 
+    @Value("${spring.datasource.xfstd01.hikari.maximum-pool-size:10}")
+    int maximumPoolSize;
+
+    @Value("${spring.datasource.xfstd01.hikari.idle-timeout:240000}")
+    long idleTimeout;
+
+    @Value("${spring.datasource.xfstd01.hikari.max-lifetime:540000}")
+    long maxLifetime;
+
+    @Value("${spring.datasource.xfstd01.hikari.validation-timeout:3000}")
+    long validationTimeout;
+
     @Resource
     private MybatisPlusInterceptor mybatisPlusInterceptor;
 
     @Primary // 表示这个数据源是默认数据源, 这个注解必须要加，因为不加的话spring将分不清楚那个为主数据源（默认数据源）
     @Bean("xfstd01DataSource")  //将这个对象放入Spring容器中
-    @ConfigurationProperties(prefix = "spring.datasource.xfstd01") //读取application.yml中的配置参数映射成为一个对象
-    public DataSource getXfstd01DataSource(){
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+    public DataSource getXfstd01DataSource() {
+        HikariDataSource dataSource = new HikariDataSource();
+        dataSource.setPoolName("xfstd01");
         dataSource.setDriverClassName(driverClass);
-        dataSource.setUrl(url);
+        dataSource.setJdbcUrl(url);
         dataSource.setUsername(username);
         dataSource.setPassword(password);
+        dataSource.setMaximumPoolSize(maximumPoolSize);
+        dataSource.setIdleTimeout(idleTimeout);
+        dataSource.setMaxLifetime(maxLifetime);
+        dataSource.setValidationTimeout(validationTimeout);
+        dataSource.setConnectionTestQuery("SELECT 1");
+        log.info("xfstd01 DataSource init, jdbcUrl={}, username={}", url, username);
         return dataSource;
-//        return DataSourceBuilder.create().build();
     }
 
     @Primary
@@ -94,10 +112,4 @@ public class DataSourceConfig1 {
         return new SqlSessionTemplate(sqlSessionFactory);
     }
 
-    /*@Bean
-    public MybatisPlusInterceptor mybatisPlusInterceptor() {
-        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.SQL_SERVER2005));
-        return interceptor;
-    }*/
 }

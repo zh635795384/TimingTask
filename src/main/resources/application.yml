@@ -38,10 +38,11 @@ spring:
         connection-test-query: SELECT 1
     xfbps01:
       driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-      url: jdbc:sqlserver://191.191.20.30:1433;DatabaseName=AutoDL;encrypt=false;trustServerCertificate=false
+      # SQL Server 2008 只支持 TLS 1.0。encrypt=true 会整段加密并被重置；这里只加密登录包。
+      url: jdbc:sqlserver://191.191.20.30:1433;DatabaseName=AutoDL;encrypt=false;trustServerCertificate=true;sslProtocol=TLSv1
       ##;allowMultiQueries=true
-      username: tradm
-      password: tradm
+      username: "tradm"
+      password: "tradm"
       hikari:
         maximum-pool-size: 10
         # 空闲连接超时(小于数据库超时)

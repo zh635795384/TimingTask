@@ -130,17 +130,13 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
         try {
             //如果是ftp上传
             if (mail.getIsFtpUpload()){
-                //拆分YYYYMMDD;-1格式
-                String[] tableStyle = mail.getTableStyle().split(";");
-                //根据需求设置后缀的日期格式
-                String customDate = DateUtil.formatCustomDate(LocalDateTime.now().plusDays(Long.parseLong(tableStyle[1])), tableStyle[0]);
+                String customDate = DateUtil.formatTableStyleDate(mail.getTableStyle());
                 String localPath = mail.getFtpLocalPath() + (StringUtils.isNotBlank(mail.getTablePrefix()) ? mail.getTablePrefix() : mail.getTableName()) + customDate + "."+ mail.getTableSuffix();
                 if (StringUtils.isNotBlank(mail.getSubject())) {
                     //根据字段查需要检测的报表
                     Mail checkMail = this.baseMapper.selectOne(new QueryWrapper<Mail>().eq("table_name", mail.getSubject()));
                     if (checkMail != null) {
-                        String[] checkStyle = checkMail.getTableStyle().split(";");
-                        String checkDate = DateUtil.formatCustomDate(LocalDateTime.now().plusDays(Long.parseLong(checkStyle[1])), checkStyle[0]);
+                        String checkDate = DateUtil.formatTableStyleDate(checkMail.getTableStyle());
                         String checkPath = checkMail.getFtpLocalPath() + (StringUtils.isNotBlank(checkMail.getTablePrefix()) ? checkMail.getTablePrefix() : checkMail.getTableName()) + checkDate + "." + checkMail.getTableSuffix();
                         if (StringUtils.isNotBlank(checkPath)) {
                             if (!isFileExist(checkPath)) {
@@ -213,7 +209,15 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
                     //如果需要报表合并
                     if (StringUtils.isNotBlank(mail.getContact())) {
                         for (String contact : mail.getContact().split(";")) {
+                            contact = contact == null ? "" : contact.trim();
+                            if (StringUtils.isBlank(contact)) {
+                                continue;
+                            }
                             Mail mailContactList = this.baseMapper.selectOne(new QueryWrapper<Mail>().eq("table_name", contact).eq("isnull(is_del,0)",0));
+                            if (mailContactList == null) {
+                                log.warn("关联报表[{}]不存在或已删除，已跳过", contact);
+                                continue;
+                            }
                             List<MailReceiver> contactList = new ArrayList<>();
                             List<MailReceiver> contactPathList = exportExcelPath(mailContactList);
                             if (contactPathList != null) {
@@ -277,7 +281,7 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
                 Multipart multipart = new MimeMultipart();
                 //设置相关文件
                 MimeBodyPart filePart = new MimeBodyPart();*/
-                                String datePrefix = DateUtil.formatCustomDate(LocalDateTime.now().plusDays(Long.parseLong(mail.getTableStyle().split(";")[1])), mail.getTableStyle().split(";")[0]);
+                                String datePrefix = DateUtil.formatTableStyleDate(mail.getTableStyle());
                                 String fileFormat = ".xlsx";
                                 //如果需要压缩
                                 if (mail.getIsRar()) {
@@ -417,10 +421,14 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
      * @return
      */
     public List<MailReceiver> exportExcelPath(Mail mail){
-        //查询条件
-        QueryWrapper<Object> queryWrapper = new QueryWrapper<>();
         //返回的实体
         List<MailReceiver> mailReceiverList = new ArrayList<>();
+        if (mail == null) {
+            log.warn("导出失败：邮件配置为空");
+            return mailReceiverList;
+        }
+        //查询条件
+        QueryWrapper<Object> queryWrapper = new QueryWrapper<>();
         //sheet个数
         int sheetCount = 1;
         //工作表个数
@@ -449,10 +457,7 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
             //分组之后的sheet个数
             sheetCount = divExcelMapList.size();
         }
-        //拆分YYYYMMDD;-1格式
-        String[] tableStyle = mail.getTableStyle().split(";");
-        //根据需求设置后缀的日期格式
-        String customDate = DateUtil.formatCustomDate(LocalDateTime.now().plusDays(Long.parseLong(tableStyle[1])), tableStyle[0]);
+        String customDate = DateUtil.formatTableStyleDate(mail.getTableStyle());
         //如果有自定义的字段
         String column = null;
         if (StringUtils.isNotBlank(mail.getOutColumn())) {
@@ -463,27 +468,20 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
         // ========== 新增：构建 原字段名 -> 最终别名Key 映射 ==========
         LinkedHashMap<String, String> fieldAliasMap = new LinkedHashMap<>();
         if (StringUtils.isNotBlank(mail.getOutColumn())) {
-            String[] colArr = mail.getOutColumn().split(",");
-            for (String expr : colArr) {
-                expr = expr.trim();
-                // 忽略大小写匹配 AS
-                if (expr.toUpperCase().contains(" AS ")) {
-                    String[] parts = expr.split("(?i) AS ");
-                    String realField = parts[0].trim();
-                    String aliasRaw = parts[1].trim();
-                    // 去掉前后[]，得到Map实际存储的key
-                    String finalMapKey = aliasRaw.replaceAll("^\\[|\\]$", "");
-                    String finalFieldKey = realField.replaceAll("^\\[|\\]$", "");
-//                    realField = "ISNULL("+ realField + ",'')";
-                    fieldAliasMap.put(finalFieldKey, finalMapKey);
-                } else {
-                    // 没有别名，字段名就是Map的key
-                    fieldAliasMap.put(expr.trim(), expr.trim());
+            // 按逗号拆列时忽略 [] 内的逗号；兼容 AS 别名 与 [字段] [别名]
+            for (String expr : splitOutColumns(mail.getOutColumn())) {
+                String[] fieldAlias = parseOutColumnExpr(expr);
+                if (fieldAlias != null) {
+                    fieldAliasMap.put(fieldAlias[0], fieldAlias[1]);
                 }
             }
         }
         String aliasTitleOld = String.join(",", fieldAliasMap.keySet());
-        String aliasTitle = aliasTitleOld.toLowerCase().contains(mail.getGroupBy().toLowerCase()) ? aliasTitleOld : aliasTitleOld + "," + mail.getGroupBy();
+        String aliasTitle = aliasTitleOld;
+        if (StringUtils.isNotBlank(mail.getGroupBy())
+                && !aliasTitleOld.toLowerCase().contains(mail.getGroupBy().toLowerCase())) {
+            aliasTitle = aliasTitleOld + "," + mail.getGroupBy();
+        }
         String oldTitle = !"*".equals(column) ? aliasTitle : "*";
         queryWrapper.select(oldTitle);
         if (StringUtils.isNotBlank(mail.getOrderBy())) {
@@ -507,14 +505,17 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
             // 无数据直接返回
             return mailReceiverList;
         }
-        String newTitle = null;
+        List<String> excelTitles = new ArrayList<>();
+        List<String> dataColumns = new ArrayList<>();
         if ("*".equals(column)) {
-            if (tableList.size() > 0) {
-                newTitle = String.join(",", Arrays.asList(tableList.get(0).keySet().size() > 0 ? tableList.get(0).keySet().toArray(new String[tableList.get(0).size()]) : null));
-                aliasTitleOld =newTitle;
+            if (!tableList.isEmpty() && tableList.get(0) != null) {
+                excelTitles.addAll(tableList.get(0).keySet());
+                dataColumns.addAll(tableList.get(0).keySet());
+                aliasTitleOld = String.join(",", dataColumns);
             }
         } else {
-            newTitle = String.join(",", fieldAliasMap.values());
+            excelTitles.addAll(fieldAliasMap.values());
+            dataColumns.addAll(fieldAliasMap.keySet());
         }
         /*titleWrapper.select(newTitle);
         //为了保证标题行不变
@@ -529,7 +530,7 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
                     return lowerRow;
                 })
                 .collect(Collectors.toList());*/
-        String groupField = mail.getGroupBy().trim();
+        String groupField = StringUtils.isBlank(mail.getGroupBy()) ? "" : mail.getGroupBy().trim();
         //要有数据
         if (tableList.size() > 0) {
             //循环工作表
@@ -595,10 +596,10 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
                         //设置其他行不加粗
                         CellStyle cellStyle2 = ExcelStyleUtil.getCellStyle2(workbook, ExcelStyleUtil.getXssfFont16(workbook, StringUtils.isNotBlank(mail.getFonts()) ? mail.getFonts() : "Times New Roman", mail.getFontSize() != null ? mail.getFontSize() : 9));
                         //设置标题行
-                        setRowTitle(mail, newTitle, sheet, cellStyle1);
+                        setRowTitle(excelTitles, sheet, cellStyle1);
 //                        setRow1(mail, titleList, sheet, cellStyle1);
                         //设置数据行
-                        setOtherRow(sheet, cellStyle2, aliasTitleOld, sheetData, mail.getInsertRow());
+                        setOtherRow(sheet, cellStyle2, dataColumns, sheetData, mail.getInsertRow());
                     }
                     //输出到模板中
                     BufferedOutputStream out = null;
@@ -682,53 +683,119 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
     }
 
     /**
-     * 设置第一行标题
-     * @param mail  邮箱
-     * @param sheet 表格
-     * @param cellStyle1 格式1
+     * 按逗号拆分导出列，忽略方括号 [] 内的逗号。
      */
-    private void setRowTitle(Mail mail, String newTitle, SXSSFSheet sheet, CellStyle cellStyle1) {
-//    private void setRow1(Mail mail, List<LinkedHashMap<String, Object>> tableList, SXSSFSheet sheet, CellStyle cellStyle1) {
-        SXSSFRow row1 = sheet.createRow(0);
-        String[] split;
-        split = newTitle != null ? newTitle.split(",") : null;
-//        split = tableList.get(0).keySet().size() > 0 ? tableList.get(0).keySet().toArray(new String[tableList.get(0).size()]) : null;
-        if (split.length > 0) {
-            for (int i = 0; i < split.length; i++) {
-                //第1行标题
-                SXSSFCell cell1 = row1.createCell(i);
-                cell1.setCellValue(split[i]);
-                //将上面设置的样式放进第一行第一列中
-                cell1.setCellStyle(cellStyle1);
+    private List<String> splitOutColumns(String outColumn) {
+        List<String> columns = new ArrayList<>();
+        if (StringUtils.isBlank(outColumn)) {
+            return columns;
+        }
+        StringBuilder current = new StringBuilder();
+        int bracketDepth = 0;
+        for (int i = 0; i < outColumn.length(); i++) {
+            char c = outColumn.charAt(i);
+            if (c == '[') {
+                bracketDepth++;
+                current.append(c);
+            } else if (c == ']') {
+                if (bracketDepth > 0) {
+                    bracketDepth--;
+                }
+                current.append(c);
+            } else if (c == ',' && bracketDepth == 0) {
+                String part = current.toString().trim();
+                if (StringUtils.isNotBlank(part)) {
+                    columns.add(part);
+                }
+                current.setLength(0);
+            } else {
+                current.append(c);
             }
         }
-        /*String[] split;
-        if (StringUtils.isNotBlank(mail.getOutColumn())) {  //如果导出的字段不为空，就代表要按照自己自定义的字段名查询
-            String outColumn = mail.getOutColumn();
-            split = outColumn.split(",");
+        String last = current.toString().trim();
+        if (StringUtils.isNotBlank(last)) {
+            columns.add(last);
+        }
+        return columns;
+    }
+
+    /**
+     * 解析单列表达式，返回 [原字段名, Excel标题别名]。
+     * 兼容：
+     * 1) H1POF AS [PO Hardcopy (1=By Planner,2=By Buyer)]
+     * 2) [DEBNO] [Batch No.]
+     * 3) DEBNO [Batch No.]
+     * 4) [DEBNO] / DEBNO（无别名）
+     */
+    private String[] parseOutColumnExpr(String expr) {
+        if (StringUtils.isBlank(expr)) {
+            return null;
+        }
+        expr = expr.trim();
+        String realField;
+        String aliasRaw;
+        if (expr.toUpperCase().contains(" AS ")) {
+            String[] parts = expr.split("(?i) AS ", 2);
+            realField = parts[0].trim();
+            aliasRaw = parts[1].trim();
         } else {
-            split = tableList.get(0).keySet().size() > 0 ? tableList.get(0).keySet().toArray(new String[tableList.get(0).size()]) : null;
-        }
-        if (split.length > 0) {
-            for (int i = 0; i < split.length; i++) {
-                SXSSFCell cell1 = row1.createCell(i); //第1行标题
-                String column = split[i].substring(split[i].indexOf("AS") + 1);
-                cell1.setCellValue(column);
-                cell1.setCellStyle(cellStyle1); //将上面设置的样式放进第一行第一列中
+            // [Field] [Alias] 或 Field [Alias]
+            java.util.regex.Matcher matcher = java.util.regex.Pattern
+                    .compile("^(\\[[^\\]]+\\]|[^\\s\\[\\]]+)\\s+(\\[[^\\]]+\\])$")
+                    .matcher(expr);
+            if (matcher.matches()) {
+                realField = matcher.group(1).trim();
+                aliasRaw = matcher.group(2).trim();
+            } else {
+                realField = expr;
+                aliasRaw = expr;
             }
-        }*/
+        }
+        String fieldKey = stripSqlBrackets(realField);
+        String aliasKey = stripSqlBrackets(aliasRaw);
+        if (StringUtils.isBlank(fieldKey)) {
+            return null;
+        }
+        if (StringUtils.isBlank(aliasKey)) {
+            aliasKey = fieldKey;
+        }
+        return new String[]{fieldKey, aliasKey};
+    }
+
+    private String stripSqlBrackets(String name) {
+        if (name == null) {
+            return null;
+        }
+        return name.trim().replaceAll("^\\[|\\]$", "").trim();
+    }
+
+    /**
+     * 设置第一行标题
+     */
+    private void setRowTitle(List<String> titles, SXSSFSheet sheet, CellStyle cellStyle1) {
+        SXSSFRow row1 = sheet.createRow(0);
+        if (titles == null || titles.isEmpty()) {
+            return;
+        }
+        for (int i = 0; i < titles.size(); i++) {
+            SXSSFCell cell1 = row1.createCell(i);
+            cell1.setCellValue(titles.get(i));
+            cell1.setCellStyle(cellStyle1);
+        }
     }
 
     /**
      * 设置其他行
      * @param sheet 表格
      * @param cellStyle2 格式2
+     * @param titleColumns 导出字段（与结果集 Map 的 key 对应）
      * @param tableList 表值
-     * @param insertRow
+     * @param insertRow 是否插入空行
      */
-    private void setOtherRow(SXSSFSheet sheet, CellStyle cellStyle2, String newTitle, List<LinkedHashMap<String, Object>> tableList, Boolean insertRow) {
-        // 解析标题列名（即需要导出的字段）
-        List<String> titleColumns = Arrays.stream(newTitle.split(",")).map(String::trim).collect(Collectors.toList());
+    private void setOtherRow(SXSSFSheet sheet, CellStyle cellStyle2, List<String> titleColumns, List<LinkedHashMap<String, Object>> tableList, Boolean insertRow) {
+        if (titleColumns == null) {
+            titleColumns = Collections.emptyList();
+        }
         // 默认数据从第1行开始（标题在第0行）
         int dataStartRow = 1;
         if (insertRow) {
@@ -747,16 +814,13 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
             if (rowData == null) {continue;}
             SXSSFRow rows = sheet.createRow(rowIndex++);
             int colIndex = 0;
-            if (rowData != null) {
-                for (String colName: titleColumns) {
-                    //其他数据
-                    SXSSFCell cells = rows.createCell(colIndex++);
-                    // 注意：此时键必须是别名
-                    Object cellVal = rowData.get(colName);
-                    // 设置单元格值（复用原有的类型判断逻辑）
-                    setCellValue(cells, cellVal);
-                    cells.setCellStyle(cellStyle2);
-                }
+            for (String colName: titleColumns) {
+                //其他数据
+                SXSSFCell cells = rows.createCell(colIndex++);
+                Object cellVal = getRowValueIgnoreCase(rowData, colName);
+                // 设置单元格值（复用原有的类型判断逻辑）
+                setCellValue(cells, cellVal);
+                cells.setCellStyle(cellStyle2);
             }
         }
     }
@@ -843,6 +907,21 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
         Mail mail = this.baseMapper.selectById(mailReceiverMapper.selectById(id).getMailId());
         systemLogService.addToLog(mail, "收件人"+ mail.getTableName()+"信息删除成功");
         AssertUtil.isTrue(mailReceiverMapper.updateById(mailReceiver) == 0, "收件人信息更新失败");
+    }
+
+    private Object getRowValueIgnoreCase(Map<String, Object> row, String fieldName) {
+        if (row == null || StringUtils.isBlank(fieldName)) {
+            return null;
+        }
+        if (row.containsKey(fieldName)) {
+            return row.get(fieldName);
+        }
+        for (Map.Entry<String, Object> entry : row.entrySet()) {
+            if (entry.getKey() != null && entry.getKey().equalsIgnoreCase(fieldName)) {
+                return entry.getValue();
+            }
+        }
+        return null;
     }
 
     /**

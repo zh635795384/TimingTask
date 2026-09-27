@@ -46,6 +46,59 @@ public class DateUtil {
     }
 
     /**
+     * 按 table_style 生成文件名日期后缀。
+     * 兼容：
+     * 1) yyyyMMdd;-1         → 单日偏移（plusDays，负数为向前）
+     * 2) yyyyMMdd;7-2        → 向后区间：2天后 到 7天后
+     * 3) yyyyMMdd;-(7-2);    → 向前区间：7天前 到 2天前（兼容末尾分号）
+     */
+    public static String formatTableStyleDate(String tableStyle) {
+        if (tableStyle == null || tableStyle.trim().isEmpty()) {
+            return "";
+        }
+        // 兼容末尾多余分号：yyyyMMdd;-(7-2);
+        String normalized = tableStyle.trim().replaceAll(";+$", "");
+        String[] parts = normalized.split(";", 2);
+        String pattern = parts[0].trim();
+        String offsetPart = parts.length > 1 ? parts[1].trim().replaceAll(";+$", "") : "0";
+        if (offsetPart.isEmpty()) {
+            offsetPart = "0";
+        }
+        LocalDateTime now = LocalDateTime.now();
+
+        // 向前区间：-(7-2) → 7天前 到 2天前
+        java.util.regex.Matcher pastRange = java.util.regex.Pattern
+                .compile("^\\-\\((\\d+)-(\\d+)\\)$")
+                .matcher(offsetPart);
+        if (pastRange.matches()) {
+            long first = Long.parseLong(pastRange.group(1));
+            long second = Long.parseLong(pastRange.group(2));
+            long startOffset = Math.max(first, second);
+            long endOffset = Math.min(first, second);
+            String startDate = formatCustomDate(now.minusDays(startOffset), pattern);
+            String endDate = formatCustomDate(now.minusDays(endOffset), pattern);
+            return startDate + "-" + endDate;
+        }
+
+        // 向后区间：7-2 → 2天后 到 7天后
+        java.util.regex.Matcher futureRange = java.util.regex.Pattern
+                .compile("^(\\d+)-(\\d+)$")
+                .matcher(offsetPart);
+        if (futureRange.matches()) {
+            long first = Long.parseLong(futureRange.group(1));
+            long second = Long.parseLong(futureRange.group(2));
+            long startOffset = Math.min(first, second);
+            long endOffset = Math.max(first, second);
+            String startDate = formatCustomDate(now.plusDays(startOffset), pattern);
+            String endDate = formatCustomDate(now.plusDays(endOffset), pattern);
+            return startDate + "-" + endDate;
+        }
+
+        // 单日：0 / -1 / 1
+        return formatCustomDate(now.plusDays(Long.parseLong(offsetPart)), pattern);
+    }
+
+    /**
      * 格式化时间
      *
      * @param date
