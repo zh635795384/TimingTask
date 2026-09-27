@@ -88,12 +88,7 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, transactionManager = "xfstd01Manager")   //事务控制
     public void saveMail(Mail mail) {
-        AssertUtil.isTrue(mail == null, "请输入数据");
-        AssertUtil.isTrue(mail.getTableName().split("-").length > 2, "符号-不能超过1个");
-        AssertUtil.isTrue(Boolean.TRUE.equals(mail.getDivExcel()) && StringUtils.isBlank(mail.getGroupBy()), "分组数据不正确");
-        AssertUtil.isTrue(("每周".equals(mail.getSendTarget()) || "每星期".equals(mail.getSendTarget()))
-                && mail.getSendTime() != null
-                && mail.getSendTime().indexOf("-") == mail.getSendTime().lastIndexOf("-"), "格式错误");
+        validateMail(mail);
         mail.setIsDel(false);
         AssertUtil.isTrue(!this.save(mail), "添加失败！");
     }
@@ -101,15 +96,36 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, transactionManager = "xfstd01Manager")   //事务控制
     public void updateMail(Mail mail, boolean isRun) {
-        AssertUtil.isTrue(mail == null, "请输入数据");
-        AssertUtil.isTrue(mail.getTableName().split("-").length > 2, "符号-不能超过1个");
-        AssertUtil.isTrue(Boolean.TRUE.equals(mail.getDivExcel()) && StringUtils.isBlank(mail.getGroupBy()), "分组数据不正确");
-        AssertUtil.isTrue(("每周".equals(mail.getSendTarget()) || "每星期".equals(mail.getSendTarget()))
-                && mail.getSendTime() != null
-                && mail.getSendTime().indexOf("-") == mail.getSendTime().lastIndexOf("-"), "格式错误");
+        validateMail(mail);
         AssertUtil.isTrue(!this.updateById(mail), "更新失败");
         if (isRun) {
             emailScheduleService.modifyJob(mail.getTableName(), "group_" + mail.getTableName(), SetCron.getCron(mail), mail);
+        }
+    }
+
+    /** 新增/更新共用校验（与 SetCron 一致：类型;时间） */
+    private void validateMail(Mail mail) {
+        AssertUtil.isTrue(mail == null, "请输入数据");
+        AssertUtil.isTrue(StringUtils.isBlank(mail.getTableName()), "表名不能为空");
+        AssertUtil.isTrue(mail.getTableName().split("-").length > 2, "符号-不能超过1个");
+        AssertUtil.isTrue(Boolean.TRUE.equals(mail.getDivExcel()) && StringUtils.isBlank(mail.getGroupBy()), "开启分sheet时必须填写分组名称");
+        // sendTime 为空时 SetCron 默认每 10 分钟执行，不强制填写
+        String sendTarget = mail.getSendTarget();
+        String sendTime = mail.getSendTime();
+        if (StringUtils.isBlank(sendTime)) {
+            return;
+        }
+        if ("每星期".equals(sendTarget) || "每周".equals(sendTarget)
+                || "每月".equals(sendTarget) || "每年".equals(sendTarget)) {
+            String[] parts = sendTime.split(";");
+            AssertUtil.isTrue(parts.length < 2
+                            || StringUtils.isBlank(parts[0].trim())
+                            || StringUtils.isBlank(parts[1].trim())
+                            || !parts[1].contains(":"),
+                    "发送时间格式错误，应为：类型;时间，如 1;08:00:00");
+        } else if ("每天".equals(sendTarget)) {
+            String timePart = sendTime.contains(";") ? sendTime.substring(sendTime.indexOf(';') + 1) : sendTime;
+            AssertUtil.isTrue(!timePart.contains(":"), "每天发送时间格式错误，应为 hh:mm:ss");
         }
     }
 
