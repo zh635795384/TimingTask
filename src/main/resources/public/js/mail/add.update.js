@@ -11,7 +11,7 @@ layui.use(['form', 'layer'], function () {
     var isFtpUpload = $('#isFtpUpload').prop('checked');
     var emptyAttach = $('#emptyAttach').prop('checked');
 
-    isFtpUpload = $('#isFtpUpload').val();
+    isFtpUpload = $('#isFtpUpload').prop('checked');
     var hiddenFtpServer = document.getElementById('hiddenFtpServer');
     var hiddenFtpPort = document.getElementById('hiddenFtpPort');
     var hiddenUserId = document.getElementById('hiddenUserId');
@@ -55,7 +55,10 @@ layui.use(['form', 'layer'], function () {
         // data.field.isFtpUpload = isFtpUpload != undefined && isFtpUpload != '' && isFtpUpload != null ? isFtpUpload : false;
         data.field.isFtpUpload = !!(isFtpUpload && isFtpUpload !== 'false');
         data.field.emptyAttach = !!(emptyAttach && emptyAttach !== 'false');
-        data.field.tableStyle = selectTableStyle + ";" + (tableStyleDate != null && tableStyleDate != '' && tableStyleDate != undefined ? tableStyleDate : tableStyleDate + ";");
+        var styleOffset = (tableStyleDate != null && tableStyleDate !== '' && tableStyleDate !== undefined)
+            ? String(tableStyleDate).replace(/;+$/, '')
+            : '0';
+        data.field.tableStyle = selectTableStyle + ";" + styleOffset + ";";
         // console.log(data.field)
         if (data.field.isFtpUpload) {
             if (data.field.ftpServer == null || data.field.ftpServer === '') {

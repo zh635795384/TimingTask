@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -100,8 +99,7 @@ public class DataSourceConfig2 {
         return new SqlSessionTemplate(sqlSessionFactory);
     }
 
-    // 创建事务管理器1
-    @Primary
+    // 创建事务管理器（不要标 @Primary，避免与 xfstd01Manager 冲突）
     @Bean(name = "xfbps01Manager")
     public PlatformTransactionManager xfbps01Manager(@Qualifier("xfbps01DataSource") DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);

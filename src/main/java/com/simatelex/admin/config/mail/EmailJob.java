@@ -108,8 +108,8 @@ public class EmailJob implements Job {
         JobExecutionException retryException = new JobExecutionException(e);
 
         if (count < MAX_RETRIES) {
-            // 设置延迟重试
-            setupSmartRetry(retryException, count);
+            // 用一次性 Trigger 延迟重试，避免占用 Quartz 工作线程 sleep
+            setupSmartRetry(retryException, count, context);
             logger.info("将在 {} 秒后重试", RETRY_INTERVALS[count-1]/1000);
         } else {
             logger.error("达到最大重试次数，停止重试");
@@ -121,18 +121,21 @@ public class EmailJob implements Job {
     /**
      * 智能重试策略
      */
-    private void setupSmartRetry(JobExecutionException retryException, int retryCount) {
+    private void setupSmartRetry(JobExecutionException retryException, int retryCount, JobExecutionContext context) {
         try {
-            // 使用递增的重试间隔
             long retryInterval = RETRY_INTERVALS[Math.min(retryCount, RETRY_INTERVALS.length) - 1];
-            logger.info("等待 {} 毫秒后进行第 {} 次重试", retryInterval, retryCount + 1);
-
-            Thread.sleep(retryInterval);
-            retryException.setRefireImmediately(true);
-
-        } catch (InterruptedException ie) {
-            Thread.currentThread().interrupt();
+            logger.info("安排 {} 毫秒后进行第 {} 次重试", retryInterval, retryCount + 1);
+            Trigger retryTrigger = TriggerBuilder.newTrigger()
+                    .withIdentity("retry_" + context.getJobDetail().getKey().getName() + "_" + retryCount + "_" + System.currentTimeMillis(),
+                            context.getJobDetail().getKey().getGroup())
+                    .forJob(context.getJobDetail().getKey())
+                    .startAt(new Date(System.currentTimeMillis() + retryInterval))
+                    .build();
+            context.getScheduler().scheduleJob(retryTrigger);
             retryException.setRefireImmediately(false);
+        } catch (Exception e) {
+            logger.error("安排延迟重试失败，改为立即重试", e);
+            retryException.setRefireImmediately(true);
         }
     }
 

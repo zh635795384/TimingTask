@@ -7,8 +7,6 @@ import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jcraft.jsch.ChannelSftp;
-import com.simatelex.admin.config.datasource.DataSourceKey;
-import com.simatelex.admin.config.datasource.TargetDataSource;
 import com.simatelex.admin.config.mail.SetCron;
 import com.simatelex.admin.mappers.xfbps01.MailTablesMapper;
 import com.simatelex.admin.mappers.xfstd01.MailMapper;
@@ -92,8 +90,10 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
     public void saveMail(Mail mail) {
         AssertUtil.isTrue(mail == null, "请输入数据");
         AssertUtil.isTrue(mail.getTableName().split("-").length > 2, "符号-不能超过1个");
-        AssertUtil.isTrue(mail.getDivExcel() && StringUtils.isBlank(mail.getGroupBy()), "分组数据不正确");
-        AssertUtil.isTrue("每周".equals(mail.getSendTarget()) && mail.getSendTime().indexOf("-") == mail.getSendTime().lastIndexOf("-"), "格式错误");
+        AssertUtil.isTrue(Boolean.TRUE.equals(mail.getDivExcel()) && StringUtils.isBlank(mail.getGroupBy()), "分组数据不正确");
+        AssertUtil.isTrue(("每周".equals(mail.getSendTarget()) || "每星期".equals(mail.getSendTarget()))
+                && mail.getSendTime() != null
+                && mail.getSendTime().indexOf("-") == mail.getSendTime().lastIndexOf("-"), "格式错误");
         mail.setIsDel(false);
         AssertUtil.isTrue(!this.save(mail), "添加失败！");
     }
@@ -103,11 +103,13 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
     public void updateMail(Mail mail, boolean isRun) {
         AssertUtil.isTrue(mail == null, "请输入数据");
         AssertUtil.isTrue(mail.getTableName().split("-").length > 2, "符号-不能超过1个");
-        AssertUtil.isTrue(mail.getDivExcel() && StringUtils.isBlank(mail.getGroupBy()), "分组数据不正确");
-        AssertUtil.isTrue("每周".equals(mail.getSendTarget()) && mail.getSendTime().indexOf("-") == mail.getSendTime().lastIndexOf("-"), "格式错误");
+        AssertUtil.isTrue(Boolean.TRUE.equals(mail.getDivExcel()) && StringUtils.isBlank(mail.getGroupBy()), "分组数据不正确");
+        AssertUtil.isTrue(("每周".equals(mail.getSendTarget()) || "每星期".equals(mail.getSendTarget()))
+                && mail.getSendTime() != null
+                && mail.getSendTime().indexOf("-") == mail.getSendTime().lastIndexOf("-"), "格式错误");
         AssertUtil.isTrue(!this.updateById(mail), "更新失败");
         if (isRun) {
-            emailScheduleService.modifyJob(mail.getTableName(), "group_" + mail.getTableName(), SetCron.getCron(mail));
+            emailScheduleService.modifyJob(mail.getTableName(), "group_" + mail.getTableName(), SetCron.getCron(mail), mail);
         }
     }
 
@@ -129,15 +131,17 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
     public void sendMail(Mail mail) {
         try {
             //如果是ftp上传
-            if (mail.getIsFtpUpload()){
+            if (Boolean.TRUE.equals(mail.getIsFtpUpload())){
                 String customDate = DateUtil.formatTableStyleDate(mail.getTableStyle());
-                String localPath = mail.getFtpLocalPath() + (StringUtils.isNotBlank(mail.getTablePrefix()) ? mail.getTablePrefix() : mail.getTableName()) + customDate + "."+ mail.getTableSuffix();
+                String fileStem = (StringUtils.isNotBlank(mail.getTablePrefix()) ? mail.getTablePrefix() : mail.getTableName()) + customDate + "." + mail.getTableSuffix();
+                String localPath = joinPath(mail.getFtpLocalPath(), fileStem);
                 if (StringUtils.isNotBlank(mail.getSubject())) {
                     //根据字段查需要检测的报表
                     Mail checkMail = this.baseMapper.selectOne(new QueryWrapper<Mail>().eq("table_name", mail.getSubject()));
                     if (checkMail != null) {
                         String checkDate = DateUtil.formatTableStyleDate(checkMail.getTableStyle());
-                        String checkPath = checkMail.getFtpLocalPath() + (StringUtils.isNotBlank(checkMail.getTablePrefix()) ? checkMail.getTablePrefix() : checkMail.getTableName()) + checkDate + "." + checkMail.getTableSuffix();
+                        String checkStem = (StringUtils.isNotBlank(checkMail.getTablePrefix()) ? checkMail.getTablePrefix() : checkMail.getTableName()) + checkDate + "." + checkMail.getTableSuffix();
+                        String checkPath = joinPath(checkMail.getFtpLocalPath(), checkStem);
                         if (StringUtils.isNotBlank(checkPath)) {
                             if (!isFileExist(checkPath)) {
                                 systemLogService.addToLog(mail,"ftp-"+mail.getTableName()+"上传失败！原因："+mail.getSubject()+ "不存在！");
@@ -187,152 +191,115 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
             //下载一个文件
             FtpUtil.downloadFtpFile(ftpHost, ftpUserName, ftpPassword, ftpPort, ftpPath, localPath, fileName);*/
             } else {
-                //如果只导出
-                if (mail.getIsExport()) {
-                    exportExcelPath(mail);
-                    this.truncateTable(mail);
-//                    log.info(mailTablesMapper.truncateTable(mail.getTableName()) ? "清空表" + mail.getTableName() + "成功！" : "清空表" + mail.getTableName() + "失败！");
-                } else {
-                    List<MailReceiver> attachList = new ArrayList<>();
-                    //得到表名，为了清理数据使用
-                    List<String> tableNameList = new ArrayList<>();
-                    //为了不让它执行多次，执行多次会降低效率
-                    List<MailReceiver> mailGroupList = exportExcelPath(mail);
-                    if (mailGroupList != null) {
-                        //得到导出的数据路径,为了防止第一个导出路径为空
-                        attachList.addAll(mailGroupList);
-                        //先将本来的表插入，比如test
-                        tableNameList.add(mail.getTableName());
+                //如果只导出：有有效导出文件才清表
+                if (Boolean.TRUE.equals(mail.getIsExport())) {
+                    List<MailReceiver> exported = exportExcelPath(mail);
+                    if (hasValidExportFiles(exported)) {
+                        this.truncateTable(mail);
+                    } else {
+                        systemLogService.addToLog(mail, mail.getTableName() + "导出无有效文件，跳过清表");
                     }
-                    //得到导出文件的文件名
-                    List<String> tableList = new ArrayList<>();
-                    //如果需要报表合并
+                } else {
+                    // 主报表按收件人/分组导出（一封邮件可带多个附件）
+                    List<MailReceiver> mailGroupList = exportExcelPath(mail);
+                    List<String> tableNameList = new ArrayList<>();
+                    List<String> mergedExtraPaths = new ArrayList<>();
+                    if (hasValidExportFiles(mailGroupList)) {
+                        tableNameList.add(mail.getTableName());
+                    } else {
+                        mailGroupList = new ArrayList<>();
+                    }
+                    // 关联报表只导出文件，合并到主邮件附件中（使用主报表收件人）
                     if (StringUtils.isNotBlank(mail.getContact())) {
                         for (String contact : mail.getContact().split(";")) {
                             contact = contact == null ? "" : contact.trim();
                             if (StringUtils.isBlank(contact)) {
                                 continue;
                             }
-                            Mail mailContactList = this.baseMapper.selectOne(new QueryWrapper<Mail>().eq("table_name", contact).eq("isnull(is_del,0)",0));
-                            if (mailContactList == null) {
+                            Mail mailContact = this.baseMapper.selectOne(new QueryWrapper<Mail>().eq("table_name", contact).eq("isnull(is_del,0)",0));
+                            if (mailContact == null) {
                                 log.warn("关联报表[{}]不存在或已删除，已跳过", contact);
                                 continue;
                             }
-                            List<MailReceiver> contactList = new ArrayList<>();
-                            List<MailReceiver> contactPathList = exportExcelPath(mailContactList);
-                            if (contactPathList != null) {
-                                contactList.addAll(contactPathList);
+                            List<MailReceiver> contactPathList = exportExcelPath(mailContact);
+                            if (hasValidExportFiles(contactPathList)) {
                                 tableNameList.add(contact);
+                                for (MailReceiver c : contactPathList) {
+                                    if (c != null && StringUtils.isNotBlank(c.getPath()) && new File(c.getPath()).exists()) {
+                                        mergedExtraPaths.add(c.getPath());
+                                    }
+                                }
                             }
-                            attachList.addAll(contactList);
                         }
                     }
-                    for (MailReceiver mailGroup : attachList) {
+                    // 主报表无文件但有关联附件时，用收件人配置发一封合并邮件
+                    if (mailGroupList.isEmpty() && !mergedExtraPaths.isEmpty()) {
+                        List<MailReceiver> receivers = this.selectGroupBy(mail.getId());
+                        if (receivers == null || receivers.isEmpty()) {
+                            MailReceiver fallback = new MailReceiver();
+                            fallback.setReceiver(null);
+                            receivers = Collections.singletonList(fallback);
+                        }
+                        for (MailReceiver receiver : receivers) {
+                            MailReceiver group = new MailReceiver();
+                            group.setReceiver(receiver.getReceiver());
+                            group.setCc(receiver.getCc());
+                            group.setBcc(receiver.getBcc());
+                            group.setPath(null);
+                            group.setTableName(mail.getTableName());
+                            mailGroupList.add(group);
+                        }
+                    }
+                    int successCount = 0;
+                    for (MailReceiver mailGroup : mailGroupList) {
                         MimeMessage mimeMessage = mailSender.createMimeMessage();
-                        //加上true代表此封邮件是多资源的，多附件的
                         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
                         String path = mailGroup.getPath();
-                        String fileName = "";
-                        if (StringUtils.isNotBlank(path)) {
-                            int lastSlash = Math.max(path.lastIndexOf('\\'), path.lastIndexOf('/'));
-                            int dotIdx = path.lastIndexOf(".xlsx");
-                            if(lastSlash != -1 && dotIdx > lastSlash){
-                                fileName = path.substring(lastSlash + 1, dotIdx);
-                            }
+                        String fileName = extractFileBaseName(path);
+                        if (StringUtils.isBlank(fileName)) {
+                            fileName = StringUtils.isNotBlank(mail.getTablePrefix()) ? mail.getTablePrefix() : mail.getTableName();
                         }
-                        //主旨
-                        helper.setSubject(mail.getSubject()+"_"+fileName);
-                        //设置收件者
+                        helper.setSubject((mail.getSubject() == null ? "" : mail.getSubject()) + "_" + fileName);
+                        AssertUtil.isTrue(StringUtils.isBlank(mailGroup.getReceiver()), "收件者为空，无法发送");
                         helper.setTo(mailGroup.getReceiver().trim().replaceAll(";+$", "").split(";"));
-                        //设置发送者
                         helper.setFrom(mail.getSender());
                         if (StringUtils.isNotBlank(mailGroup.getCc())) {
-                            //设置抄送者
                             helper.setCc(mailGroup.getCc().trim().replaceAll(";+$", "").split(";"));
                         }
                         if (StringUtils.isNotBlank(mailGroup.getBcc())) {
-                            //设置秘密抄送
                             helper.setBcc(mailGroup.getBcc().trim().replaceAll(";+$", "").split(";"));
                         }
-//        helper.setText("<h1>图片：</h1><img src='cid:"+ id +"'/>",true); //发送html的正文
-                        //主体内容
-                        String body = mail.getBody().replace("{subject}", mail.getSubject());
-                        if (body != null) {
-                            // 把所有换行统一转为 \r\n，兼容所有邮件客户端
-                            body = body.replaceAll("\\r?\\n", "\r\n");
-                        }
+                        String body = mail.getBody() == null ? "" : mail.getBody().replace("{subject}", mail.getSubject() == null ? "" : mail.getSubject());
+                        body = body.replaceAll("\\r?\\n", "\r\n");
                         helper.setText(body);
-//                        helper.setText(mail.getBody());
-            /*FileSystemResource resource = new FileSystemResource(new File(attachPath));//转换成资源路径
-            helper.addInline("test", resource);//添加行*/
-                        //如果不需要发送附件的，就直接发送出去，不需要再添加附件
-                        if (mail.getEmptyAttach()) {
-                            //发送邮件
+
+                        if (Boolean.TRUE.equals(mail.getEmptyAttach())) {
                             mailSender.send(mimeMessage);
+                            successCount++;
+                            systemLogService.addToLog(mail, fileName + "发送成功！");
                         } else {
-                            //添加附件，可以设置多个附件
-                            String zipPath = null;
-                            //如果有附件的话
-                            if (mailGroup != null) {
-//                helper.addAttachment(MimeUtility.encodeWord(mail.getTableName()+ DateUtil.formatCustomDate(LocalDateTime.now().plusDays(Long.parseLong(mail.getTableStyle().split(";")[1])), mail.getTableStyle().split(";")[0]) +".xlsx","UTF-8","B"), resource); //此方法不可行
-                /*MimeBodyPart bodyPart = new MimeBodyPart();//设置消息正文
-                bodyPart.setText(mail.getBody(), "UTF-8"); //设置正文编码为UTF-8
-                //单个文件上传
-                Multipart multipart = new MimeMultipart();
-                //设置相关文件
-                MimeBodyPart filePart = new MimeBodyPart();*/
-                                String datePrefix = DateUtil.formatTableStyleDate(mail.getTableStyle());
-                                String fileFormat = ".xlsx";
-                                //如果需要压缩
-                                if (mail.getIsRar()) {
-                                    // 源目录
-                                    String sourceDir = mailGroup.getPath();
-                                    fileFormat = ".zip";
-                                    // 压缩包输出路径
-                                    String zipFileParent = sourceDir.substring(0, sourceDir.lastIndexOf("\\")) + "\\";
-                                    String zipFileName = fileName + fileFormat; //mail.getTableName() + datePrefix + fileFormat;
-                                    File zipOutFile = new File(zipFileParent + zipFileName);
-                                   /* FileOutputStream fileOutputStream = new FileOutputStream(new File(sourceDir.substring(0, mailGroup.getPath().lastIndexOf("\\")) + "\\" + mail.getTableName() + datePrefix + fileFormat));
-                                    zipPath = ZipUtils.toZip(mailGroup.getPath(), fileOutputStream, true) + "\\" + mail.getTableName() + datePrefix + fileFormat;*/
-                                    try (FileOutputStream fileOutputStream = new FileOutputStream(zipOutFile)) {
-                                        // 执行压缩
-                                        ZipUtils.toZip(sourceDir, fileOutputStream, true);
-                                        zipPath = zipFileParent + zipFileName;
-
-                                        // ========== 压缩成功，删除源文件夹 ==========
-                                        File sourceFolder = new File(sourceDir);
-                                        if (sourceFolder.exists()) {
-                                            ZipUtils.deleteDir(sourceFolder);
-                                        }
-                                    } catch (Exception e) {
-                                        systemLogService.addToLog(zipFileName, "压缩失败，源文件保留");
-                                        // 压缩异常，不要删源文件，抛出/记录日志
-                                        throw new RuntimeException("压缩失败，源文件保留", e);
-                                    }
-                                }
-                                FileDataSource dataSource = new FileDataSource(mail.getIsRar() ? zipPath : mailGroup.getPath());
-                                //如果有别名就=文件名+tableStyle+文件后缀名,否则就是表名+tableStyle+文件后缀名
-                                String tableName = dataSource.getName().substring(0, dataSource.getName().lastIndexOf(".")) + fileFormat;
-                                if (StringUtils.isNotBlank(mail.getTablePrefix())) {
-                                    tableName = mail.getTablePrefix() + datePrefix + fileFormat;
-                                }
-            /*filePart.setFileName(MimeUtility.encodeText(MimeUtility.encodeText(tableName)));
-            //文件处理
-            filePart.setDataHandler(new DataHandler(dataSource));
-            //放入正文(有先后顺序，所以在正文后面)
-            multipart.addBodyPart(filePart);
-            multipart.addBodyPart(bodyPart);
-
-            //设置邮件内容，混合模式
-            mimeMessage.setContent(multipart);*/
-                                helper.addAttachment(tableName, dataSource);
-                                tableList.add(tableName);
-                                //发送邮件
-                                mailSender.send(mimeMessage);
-                                systemLogService.addToLog(mail, fileName + "发送成功！");
-                                truncateTable(mail, tableNameList);
+                            List<String> attachPaths = new ArrayList<>();
+                            if (StringUtils.isNotBlank(path) && new File(path).exists()) {
+                                attachPaths.add(path);
                             }
+                            attachPaths.addAll(mergedExtraPaths);
+                            AssertUtil.isTrue(attachPaths.isEmpty(), "没有可发送的附件");
+                            for (String attachPath : attachPaths) {
+                                String readyPath = prepareAttachPath(mail, attachPath);
+                                FileDataSource dataSource = new FileDataSource(readyPath);
+                                // 附件名使用实际文件名，保留别名/分组信息
+                                helper.addAttachment(dataSource.getName(), dataSource);
+                            }
+                            mailSender.send(mimeMessage);
+                            systemLogService.addToLog(mail, fileName + "发送成功！");
+                            successCount++;
                         }
+                    }
+                    // 全部发送成功后再清表，避免中途失败导致无法重试
+                    if (successCount > 0 && successCount == mailGroupList.size() && !tableNameList.isEmpty()) {
+                        truncateTable(mail, tableNameList);
+                    } else if (!mailGroupList.isEmpty() && successCount < mailGroupList.size()) {
+                        systemLogService.addToLog(mail, "部分邮件未发送成功，跳过清表");
                     }
                 }
             }
@@ -350,6 +317,7 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
      */
     private void truncateTable(Mail mail, List<String> tableNameList) {
         for (String truncateTable : tableNameList) {
+            assertSafeSqlIdentifier(truncateTable, "清表名");
             mailTablesMapper.truncateTable(truncateTable);
             systemLogService.addToLog(mail, truncateTable + "清理成功！");
         }
@@ -360,6 +328,7 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
      * @param mail
      */
     private void truncateTable(Mail mail) {
+            assertSafeSqlIdentifier(mail.getTableName(), "清表名");
             mailTablesMapper.truncateTable(mail.getTableName());
             systemLogService.addToLog(mail, mail.getTableName() + "清理成功！");
     }
@@ -427,6 +396,10 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
             log.warn("导出失败：邮件配置为空");
             return mailReceiverList;
         }
+        assertSafeSqlIdentifier(mail.getTableName(), "表名");
+        if (StringUtils.isNotBlank(mail.getGroupBy())) {
+            assertSafeSqlIdentifier(mail.getGroupBy().replaceAll("^\\[|\\]$", ""), "分组字段");
+        }
         //查询条件
         QueryWrapper<Object> queryWrapper = new QueryWrapper<>();
         //sheet个数
@@ -446,12 +419,12 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
             divExcelMapList = this.selectDivExcel(mail.getTableName(), mail.getGroupBy());
         }
         //场景一：只有在收件者表不为空，并且分组字段不为空，并且不分sheet的时候才分table，即使查出来实际table中的分组数>收件者列表的个数，依然取收件者列表中的个数
-        if (!groupByList.isEmpty() && StringUtils.isNotBlank(mail.getGroupBy()) && !mail.getDivExcel()) {
+        if (!groupByList.isEmpty() && StringUtils.isNotBlank(mail.getGroupBy()) && !Boolean.TRUE.equals(mail.getDivExcel())) {
             //设置工作表个数
             workbookCount = groupByList.size();
         }
         //场景二：如果根据group by分sheet
-        if (mail.getDivExcel() && !divExcelMapList.isEmpty()){
+        if (Boolean.TRUE.equals(mail.getDivExcel()) && !divExcelMapList.isEmpty()){
             //如果要分sheet，就只能是一个工作表
             workbookCount = 1;
             //分组之后的sheet个数
@@ -487,15 +460,17 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
         if (StringUtils.isNotBlank(mail.getOrderBy())) {
             String[] orderByList = mail.getOrderBy().split(",");
             for (String orderBy : orderByList) {
-                if (" ".equals(orderBy)) {
-                    String[] s = orderBy.split(" ");
-                    if (s[1].equalsIgnoreCase("desc")) {
-                        queryWrapper.orderByDesc(s[0].trim());
-                    } else {
-                        queryWrapper.orderByAsc(s[0].trim());
-                    }
+                orderBy = orderBy == null ? "" : orderBy.trim();
+                if (StringUtils.isBlank(orderBy)) {
+                    continue;
+                }
+                String[] s = orderBy.split("\\s+");
+                String orderColumn = s[0].trim();
+                assertSafeSqlIdentifier(orderColumn.replaceAll("^\\[|\\]$", ""), "排序字段");
+                if (s.length >= 2 && "desc".equalsIgnoreCase(s[1])) {
+                    queryWrapper.orderByDesc(orderColumn);
                 } else {
-                    queryWrapper.orderByAsc(orderBy);
+                    queryWrapper.orderByAsc(orderColumn);
                 }
             }
         }
@@ -542,17 +517,23 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
                 //用来装分组之后的数据
                 List<LinkedHashMap<String, Object>> targetData = new ArrayList<>();
                 //场景一：分文件(多workbook)，按收件人分组过滤数据
-                if (workbookCount > 1 && StringUtils.isNotBlank(mail.getGroupBy()) && !mail.getDivExcel()) {
+                String fileBaseName;
+                if (workbookCount > 1 && StringUtils.isNotBlank(mail.getGroupBy()) && !Boolean.TRUE.equals(mail.getDivExcel())) {
                     String groupKey = mailReceiver.getGroupKey() == null ? "" : mailReceiver.getGroupKey().trim();
                     targetData = tableList.stream().filter(row -> groupKey.equalsIgnoreCase(StringUtil.getValueIgnoreCase(row, groupField))).collect(Collectors.toList());
 //                    targetData = tableList.stream().filter(row -> groupKey.equalsIgnoreCase((String) row.get(groupField))).collect(Collectors.toList());
                     //如果有分组并且要分sheet就直接取表名和分组值
                     tableName = mail.getTableName() + "_" + groupKey;
+                    // 文件名优先用别名+分组
+                    String namePrefix = StringUtils.isNotBlank(mail.getTablePrefix()) ? mail.getTablePrefix() : mail.getTableName();
+                    fileBaseName = namePrefix + "_" + groupKey;
                 } else {
                     //场景二：单个文件、多sheet，外层先赋值全量，内层sheet循环再细分
 //                    targetData = titleList;
                     targetData = tableList;
                     tableName = mail.getTableName();
+                    // 有别名则：别名+table_style；否则：表名+table_style
+                    fileBaseName = StringUtils.isNotBlank(mail.getTablePrefix()) ? mail.getTablePrefix() : mail.getTableName();
                 }
                 //如果有数据才需要创建，否则不需要创建workbook
                 if (targetData.size() > 0) {
@@ -568,7 +549,7 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
                         String sheetGroupVal = divExcelMap.get(mail.getGroupBy()) == null ? ""
                                 : String.valueOf(divExcelMap.get(mail.getGroupBy())).trim();//.toLowerCase();
                         //如果groupBy没有值就直接用全量数据；如果groupBy有值并且divExcel=false就是要分table的，就取targetData；如果groupBy有值并且divExcel=true就是要分sheet的，就取sheetData
-                        if (sheetCount > 1 && StringUtils.isNotBlank(mail.getGroupBy()) && mail.getDivExcel()) {
+                        if (sheetCount > 1 && StringUtils.isNotBlank(mail.getGroupBy()) && Boolean.TRUE.equals(mail.getDivExcel())) {
                             /*List<LinkedHashMap<String, Object>> newSheetTitle = new ArrayList<>();
                             for (int idx = 0; idx < tableList.size(); idx++) {
                                 LinkedHashMap<String, Object> lowerRow = originLowerCaseTableList.get(idx);
@@ -584,13 +565,25 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
 //                            sheetData = targetData.stream().filter(row -> sheetGroupVal.equalsIgnoreCase(String.valueOf(row.get(groupField)).trim())).collect(Collectors.toList());
                         } else if (sheetCount == 1 && workbookCount == 1){
                             sheetData = tableList;
-                        } else if (workbookCount > 1 && StringUtils.isNotBlank(mail.getGroupBy()) && !mail.getDivExcel()) {
+                        } else if (workbookCount > 1 && StringUtils.isNotBlank(mail.getGroupBy()) && !Boolean.TRUE.equals(mail.getDivExcel())) {
                             sheetData = targetData;
                         }
                         //工作表
                         SXSSFSheet sheet = workbook.createSheet();
                         //设置sheet表名，如果只有一个sheet就是报表名，否则就是分组值
-                        workbook.setSheetName(j, sheetCount == 1 ? tableName : (String) divExcelMap.get(mail.getGroupBy()));
+                        Object groupVal = null;
+                        if (sheetCount > 1 && StringUtils.isNotBlank(mail.getGroupBy())) {
+                            groupVal = divExcelMap.get(mail.getGroupBy());
+                            if (groupVal == null) {
+                                for (Map.Entry<String, Object> e : divExcelMap.entrySet()) {
+                                    if (e.getKey() != null && e.getKey().equalsIgnoreCase(mail.getGroupBy())) {
+                                        groupVal = e.getValue();
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        workbook.setSheetName(j, sanitizeSheetName(sheetCount == 1 ? tableName : String.valueOf(groupVal), j));
                         //设置首行加粗字体
                         CellStyle cellStyle1 = ExcelStyleUtil.getCellStyle2(workbook, ExcelStyleUtil.getXssfFont15(workbook, StringUtils.isNotBlank(mail.getFonts()) ? mail.getFonts() : "Times New Roman", mail.getFontSize() != null ? mail.getFontSize() : 10));
                         //设置其他行不加粗
@@ -599,16 +592,16 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
                         setRowTitle(excelTitles, sheet, cellStyle1);
 //                        setRow1(mail, titleList, sheet, cellStyle1);
                         //设置数据行
-                        setOtherRow(sheet, cellStyle2, dataColumns, sheetData, mail.getInsertRow());
+                        setOtherRow(sheet, cellStyle2, dataColumns, sheetData, Boolean.TRUE.equals(mail.getInsertRow()));
                     }
                     //输出到模板中
                     BufferedOutputStream out = null;
                     try {
-                        // 生成源文件路径
+                        // 生成源文件路径（文件名：别名优先，否则表名）+ table_style
                         String parentDirPath = new File(System.getProperty("user.dir")).getParent()
                                 + "\\doc\\" + mail.getTableName();
-                        //格式：G:\Program\doc\test\test.xlsx
-                        sourcePath = parentDirPath + "\\" + tableName + customDate + ".xlsx";
+                        //格式：G:\Program\doc\test\XF202609.xlsx
+                        sourcePath = parentDirPath + "\\" + fileBaseName + customDate + ".xlsx";
                         File sourceFile = new File(sourcePath);
                         //获取上级目录
 //                        boolean dr = sourceFile.getParentFile().mkdirs();
@@ -628,28 +621,53 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
                         workbook.write(out);
                         //flush是把流里的缓冲数据输出，flush以后还能继续使用这个OutputStream
                         out.flush();
-                        //如果只需要导出，不需要发送邮件
-                        if (StringUtils.isNotBlank(mail.getPath())) {
-                            String targetPath = mail.getPath() + "\\" + tableName + customDate + ".xlsx";
-//                            String targetPath = mail.getPath() + "\\" + mail.getTableName() + "\\" + tableName + customDate + ".xlsx";
-                            /*String targetParentDir = mail.getPath() + "\\" + mail.getTableName();
-                            String targetPath = targetParentDir + "\\" + tableName + customDate + ".xlsx";*/
-                            //新建file到目标路径
-                            File targetFile = new File(targetPath);
-                            //自动创建目标目录
-                            File targetDir = targetFile.getParentFile();
-                            //如果目标路径的文件夹不存在则创建文件夹
-                            if (!targetDir.exists()) {
-                                targetFile.mkdirs();
+                        String attachPath = sourcePath;
+                        // 开启压缩：本地与导出路径都生成 zip，邮件附件也走这个路径
+                        if (Boolean.TRUE.equals(mail.getIsRar())) {
+                            String zipFileName = fileBaseName + customDate + ".zip";
+                            File zipLocal = new File(parentDirPath, zipFileName);
+                            try (FileOutputStream zipOut = new FileOutputStream(zipLocal)) {
+                                ZipUtils.toZip(sourcePath, zipOut, true);
                             }
-                            //将源文件复制到目标路径文件中
-                            Files.copy(Paths.get(sourcePath), Paths.get(targetPath), StandardCopyOption.REPLACE_EXISTING);
+                            attachPath = zipLocal.getAbsolutePath();
+                            // 压缩成功后删除本地 xlsx，避免重复占用
+                            if (sourceFile.exists()) {
+                                sourceFile.delete();
+                            }
+                        }
+                        if (StringUtils.isNotBlank(mail.getPath())) {
+                            File targetDir = new File(mail.getPath());
+                            if (!targetDir.exists()) {
+                                targetDir.mkdirs();
+                            }
+                            if (Boolean.TRUE.equals(mail.getIsRar())) {
+                                String zipFileName = fileBaseName + customDate + ".zip";
+                                String targetZipPath = joinPath(mail.getPath(), zipFileName);
+                                Files.copy(Paths.get(attachPath), Paths.get(targetZipPath), StandardCopyOption.REPLACE_EXISTING);
+                                File oldXlsx = new File(joinPath(mail.getPath(), fileBaseName + customDate + ".xlsx"));
+                                if (oldXlsx.exists()) {
+                                    oldXlsx.delete();
+                                }
+                                // 清理旧的“表名+日期”命名文件，避免残留
+                                File legacyXlsx = new File(joinPath(mail.getPath(), mail.getTableName() + customDate + ".xlsx"));
+                                if (legacyXlsx.exists()) {
+                                    legacyXlsx.delete();
+                                }
+                                File legacyZip = new File(joinPath(mail.getPath(), mail.getTableName() + customDate + ".zip"));
+                                if (legacyZip.exists()) {
+                                    legacyZip.delete();
+                                }
+                                log.info("压缩导出完成：{}", targetZipPath);
+                            } else {
+                                String targetPath = joinPath(mail.getPath(), fileBaseName + customDate + ".xlsx");
+                                Files.copy(Paths.get(sourcePath), Paths.get(targetPath), StandardCopyOption.REPLACE_EXISTING);
+                            }
                         }
                         //添加路径到返回路径中
 //                        pathList.add(sourcePath);
                         mailGroup.setTableName(tableName);
                         mailGroup.setReceiver(mailReceiver.getReceiver());
-                        mailGroup.setPath(sourcePath);
+                        mailGroup.setPath(attachPath);
                         mailGroup.setCc(mailReceiver.getCc());
                         mailGroup.setBcc(mailReceiver.getBcc());
                         mailReceiverList.add(mailGroup);
@@ -677,9 +695,91 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
         return mailReceiverList;
     }
 
-    @TargetDataSource(dataSourceKey = DataSourceKey.DB_XFBPS01)
     public List<Map<String, Object>> selectDivExcel(String tableName, String groupBy) {
+        assertSafeSqlIdentifier(tableName, "表名");
+        assertSafeSqlIdentifier(groupBy == null ? null : groupBy.replaceAll("^\\[|\\]$", ""), "分组字段");
         return mailTablesMapper.selectGroupBy(tableName.trim(), groupBy.trim());
+    }
+
+    /**
+     * 校验表名/字段名，降低 ${} 动态 SQL 注入风险（仅允许字母数字下划线）
+     */
+    private void assertSafeSqlIdentifier(String name, String label) {
+        AssertUtil.isTrue(StringUtils.isBlank(name), label + "不能为空");
+        AssertUtil.isTrue(!name.matches("^[A-Za-z_][A-Za-z0-9_-]*$"), label + "不合法：" + name);
+    }
+
+    private boolean hasValidExportFiles(List<MailReceiver> exported) {
+        if (exported == null || exported.isEmpty()) {
+            return false;
+        }
+        for (MailReceiver item : exported) {
+            if (item != null && StringUtils.isNotBlank(item.getPath()) && new File(item.getPath()).exists()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private String extractFileBaseName(String path) {
+        if (StringUtils.isBlank(path)) {
+            return "";
+        }
+        int lastSlash = Math.max(path.lastIndexOf('\\'), path.lastIndexOf('/'));
+        int dotIdx = path.lastIndexOf('.');
+        if (lastSlash != -1 && dotIdx > lastSlash) {
+            return path.substring(lastSlash + 1, dotIdx);
+        }
+        if (lastSlash != -1 && lastSlash < path.length() - 1) {
+            return path.substring(lastSlash + 1);
+        }
+        return path;
+    }
+
+    /** 如需压缩且附件仍是 xlsx，则现场压成 zip */
+    private String prepareAttachPath(Mail mail, String attachPath) {
+        if (!Boolean.TRUE.equals(mail.getIsRar())) {
+            return attachPath;
+        }
+        if (attachPath != null && attachPath.toLowerCase().endsWith(".zip")) {
+            return attachPath;
+        }
+        File source = new File(attachPath);
+        String zipFileName = extractFileBaseName(attachPath) + ".zip";
+        File zipOutFile = new File(source.getParentFile(), zipFileName);
+        try (FileOutputStream fileOutputStream = new FileOutputStream(zipOutFile)) {
+            ZipUtils.toZip(attachPath, fileOutputStream, true);
+            if (source.exists() && source.isFile()) {
+                source.delete();
+            }
+            return zipOutFile.getAbsolutePath();
+        } catch (Exception e) {
+            systemLogService.addToLog(zipFileName, "压缩失败，源文件保留");
+            throw new RuntimeException("压缩失败，源文件保留", e);
+        }
+    }
+
+    private String sanitizeSheetName(String raw, int index) {
+        String sheetName = StringUtils.isBlank(raw) ? ("Sheet" + (index + 1)) : raw.trim();
+        sheetName = sheetName.replaceAll("[\\\\/?*\\[\\]:]", "_");
+        if (sheetName.length() > 31) {
+            sheetName = sheetName.substring(0, 31);
+        }
+        if (StringUtils.isBlank(sheetName)) {
+            sheetName = "Sheet" + (index + 1);
+        }
+        return sheetName;
+    }
+
+    private String joinPath(String dir, String fileName) {
+        if (StringUtils.isBlank(dir)) {
+            return fileName;
+        }
+        String normalized = dir.replace('/', File.separatorChar).replace('\\', File.separatorChar);
+        if (!normalized.endsWith(File.separator)) {
+            normalized = normalized + File.separator;
+        }
+        return normalized + fileName;
     }
 
     /**
@@ -831,12 +931,11 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
      * @param tableName 表名
      * @return 返回list map对象
      */
-    @TargetDataSource(dataSourceKey = DataSourceKey.DB_XFBPS01)
     public List<LinkedHashMap<String, Object>> selectTables(String tableName, @Param(Constants.WRAPPER) Wrapper<Object> queryWrapper){
+        assertSafeSqlIdentifier(tableName, "表名");
         return mailTablesMapper.selectTables(tableName,queryWrapper);
     }
 
-    @TargetDataSource(dataSourceKey = DataSourceKey.DB_XFSTD01)
     public List<MailReceiver> selectGroupBy(Integer mailId){
         MailQuery mailQuery = new MailQuery();
         mailQuery.setId(mailId);
@@ -882,7 +981,7 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
     public void saveReceiver(List<MailReceiver> receiverList, Mail mail) {
         AssertUtil.isTrue(receiverList.isEmpty() || receiverList.size() == 0, "请输入资料");
         for (MailReceiver mailReceiver : receiverList) {
-            AssertUtil.isTrue(mail.getIsExport(), "已设置只导出，不需要设置收件者");
+            AssertUtil.isTrue(Boolean.TRUE.equals(mail.getIsExport()), "已设置只导出，不需要设置收件者");
             AssertUtil.isTrue(StringUtils.isBlank(mailReceiver.getReceiver()), "请设置收件者");
             AssertUtil.isTrue(!EmailUtil.checkMultiEmail(mailReceiver.getReceiver()), "收件者邮箱格式不正确");
             AssertUtil.isTrue(!EmailUtil.checkMultiEmail(mailReceiver.getCc()), "抄送者邮箱格式不正确");

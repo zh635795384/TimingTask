@@ -137,15 +137,26 @@ public class EmailScheduleServiceImpl implements IEmailScheduleService {
      * @param jobName
      * @param cron
      */
-    public void modifyJob(String jobName, String jobGroup, String cron) {
+    public void modifyJob(String jobName, String jobGroup, String cron, Mail mail) {
         try {
             JobKey jobKey = new JobKey(jobName, jobGroup);
             //首先验证job是否存在
             if (!scheduler.checkExists(jobKey)) {
                 throw new RuntimeException("Job不存在: " + jobKey);
             }
-            //暂停调度器以避免状态不一致
-//            scheduler.standby();
+            // 刷新 JobDataMap 中的 Mail，避免仍发送旧配置
+            JobDetail oldDetail = scheduler.getJobDetail(jobKey);
+            if (oldDetail != null && mail != null) {
+                JobDataMap dataMap = new JobDataMap(oldDetail.getJobDataMap());
+                dataMap.put("mail", mail);
+                dataMap.put("retryCount", 0);
+                dataMap.put("lastError", "");
+                JobDetail newDetail = oldDetail.getJobBuilder()
+                        .usingJobData(dataMap)
+                        .storeDurably()
+                        .build();
+                scheduler.addJob(newDetail, true);
+            }
             //删除旧的Trigger
             List<? extends Trigger> oldTriggers = scheduler.getTriggersOfJob(jobKey);
             for (Trigger trigger : oldTriggers) {
@@ -182,10 +193,6 @@ public class EmailScheduleServiceImpl implements IEmailScheduleService {
                         .startNow() //确保立即开始调度,会马上执行一次调度
                         .build();
                 newTriggers.add(trigger);
-                // 调度任务
-//        scheduler.scheduleJob(jobDetail, trigger);
-//                scheduler.scheduleJob(trigger);
-//                scheduler.rescheduleJob(triggerKey,trigger);
             }
             //批量调度新触发器
             for (Trigger trigger : newTriggers) {
@@ -199,8 +206,6 @@ public class EmailScheduleServiceImpl implements IEmailScheduleService {
                     rollbackCreatedTriggers(newTriggers, trigger);
                 }
             }
-            // 重新启动调度器
-//            scheduler.start();
             System.out.println("所有触发器更新完成");
         } catch (SchedulerException e) {
             //异常时确保调度器重新启动
@@ -213,22 +218,6 @@ public class EmailScheduleServiceImpl implements IEmailScheduleService {
             }
             throw new RuntimeException("更新调度失败: " + e.getMessage(), e);
         }
-        /*for (int i = 0; i < oldCron.split(",").length; i++) {
-            //获取任务唯一标识
-            TriggerKey triggerKey = TriggerKey.triggerKey("group_"+jobName+".trigger"+(i+1)+"_" + jobName);
-            try {
-                //获取任务的触发器
-                CronTrigger oldTrigger = (CronTrigger) scheduler.getTrigger(triggerKey);
-                //重新构建任务的触发器
-                CronTrigger newTrigger = oldTrigger.getTriggerBuilder()
-                        .withSchedule(CronScheduleBuilder.cronSchedule(cron))
-                        .build();
-                //重新设置任务的触发器
-                scheduler.rescheduleJob(triggerKey, newTrigger);
-            } catch (SchedulerException e) {
-                throw new RuntimeException(e);
-            }
-        }*/
     }
 
     /**

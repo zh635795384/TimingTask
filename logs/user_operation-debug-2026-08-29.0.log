@@ -1,6 +1,0 @@
-2026-08-29 08:17:51.073 [http-nio-8898-exec-3] DEBUG c.s.a.m.xfstd01.MailMapper.selectPage_mpCount - ==>  Preparing: SELECT COUNT(*) FROM t_mail
-2026-08-29 08:17:51.102 [http-nio-8898-exec-3] DEBUG c.s.a.m.xfstd01.MailMapper.selectPage_mpCount - ==> Parameters: 
-2026-08-29 08:17:51.182 [http-nio-8898-exec-3] DEBUG c.s.a.m.xfstd01.MailMapper.selectPage_mpCount - <==      Total: 1
-2026-08-29 08:17:51.191 [http-nio-8898-exec-3] DEBUG c.s.admin.mappers.xfstd01.MailMapper.selectPage - ==>  Preparing: WITH selectTemp AS (SELECT TOP 100 PERCENT ROW_NUMBER() OVER (ORDER BY CURRENT_TIMESTAMP) as __row_number__, id,table_name,table_prefix,table_suffix,table_style,post_prefix,send_target,send_time,is_rar,group_by,file_name,div_excel,out_column,fonts,font_size,insert_row,path,subject,sender,attach,body,contact,is_export,is_ftp_upload,ftp_server,ftp_port,ftp_user_id,ftp_user_pwd,ftp_local_path,empty_attach,order_by,is_del,create_user,create_date,update_date FROM t_mail) SELECT * FROM selectTemp WHERE __row_number__ BETWEEN 1 AND 50 ORDER BY __row_number__
-2026-08-29 08:17:51.199 [http-nio-8898-exec-3] DEBUG c.s.admin.mappers.xfstd01.MailMapper.selectPage - ==> Parameters: 
-2026-08-29 08:17:51.264 [http-nio-8898-exec-3] DEBUG c.s.admin.mappers.xfstd01.MailMapper.selectPage - <==      Total: 43

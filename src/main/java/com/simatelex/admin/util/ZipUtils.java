@@ -35,7 +35,9 @@ public class ZipUtils {
             compress(sourceFile, zos, sourceFile.getName(), KeepDirStructure);
             long end = System.currentTimeMillis();
             System.out.println("压缩完成，耗时：" + (end - start) + " ms");
-            return sourceFile.getPath().substring(0, sourceFile.getPath().lastIndexOf("\\"));
+            String path = sourceFile.getPath();
+            int idx = Math.max(path.lastIndexOf('\\'), path.lastIndexOf('/'));
+            return idx >= 0 ? path.substring(0, idx) : path;
         } catch (Exception e) {
             throw new RuntimeException("zip error from ZipUtils", e);
         } finally {
