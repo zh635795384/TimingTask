@@ -146,6 +146,11 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
     @Override
     public void sendMail(Mail mail) {
         try {
+            // 合并子报表（contact=NO，或被其他报表的 contact 引用）不单独发信，由主报表合并发送
+            if (isMergeChildOnly(mail)) {
+                systemLogService.addToLog(mail, mail.getTableName() + "为合并子报表，跳过独立发送（由主报表合并附件）");
+                return;
+            }
             //如果是ftp上传
             if (Boolean.TRUE.equals(mail.getIsFtpUpload())){
                 String customDate = DateUtil.formatTableStyleDate(mail.getTableStyle());
@@ -219,17 +224,18 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
                     // 主报表按收件人/分组导出（一封邮件可带多个附件）
                     List<MailReceiver> mailGroupList = exportExcelPath(mail);
                     List<String> tableNameList = new ArrayList<>();
-                    List<String> mergedExtraPaths = new ArrayList<>();
+                    // 关联报表导出结果（带 groupKey，按分组值合并到对应邮件）
+                    List<MailReceiver> mergedExtras = new ArrayList<>();
                     if (hasValidExportFiles(mailGroupList)) {
                         tableNameList.add(mail.getTableName());
                     } else {
                         mailGroupList = new ArrayList<>();
                     }
-                    // 关联报表只导出文件，合并到主邮件附件中（使用主报表收件人）
-                    if (StringUtils.isNotBlank(mail.getContact())) {
+                    // 关联报表只导出文件，合并到主邮件附件中（使用主报表收件人；有 groupBy 时按分组值对齐）
+                    if (StringUtils.isNotBlank(mail.getContact()) && !"NO".equalsIgnoreCase(mail.getContact().trim())) {
                         for (String contact : mail.getContact().split(";")) {
                             contact = contact == null ? "" : contact.trim();
-                            if (StringUtils.isBlank(contact)) {
+                            if (StringUtils.isBlank(contact) || "NO".equalsIgnoreCase(contact)) {
                                 continue;
                             }
                             Mail mailContact = this.baseMapper.selectOne(new QueryWrapper<Mail>().eq("table_name", contact).eq("isnull(is_del,0)",0));
@@ -242,14 +248,14 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
                                 tableNameList.add(contact);
                                 for (MailReceiver c : contactPathList) {
                                     if (c != null && StringUtils.isNotBlank(c.getPath()) && new File(c.getPath()).exists()) {
-                                        mergedExtraPaths.add(c.getPath());
+                                        mergedExtras.add(c);
                                     }
                                 }
                             }
                         }
                     }
                     // 主报表无文件但有关联附件时，用收件人配置发一封合并邮件
-                    if (mailGroupList.isEmpty() && !mergedExtraPaths.isEmpty()) {
+                    if (mailGroupList.isEmpty() && !mergedExtras.isEmpty()) {
                         List<MailReceiver> receivers = this.selectGroupBy(mail.getId());
                         if (receivers == null || receivers.isEmpty()) {
                             MailReceiver fallback = new MailReceiver();
@@ -261,6 +267,7 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
                             group.setReceiver(receiver.getReceiver());
                             group.setCc(receiver.getCc());
                             group.setBcc(receiver.getBcc());
+                            group.setGroupKey(receiver.getGroupKey());
                             group.setPath(null);
                             group.setTableName(mail.getTableName());
                             mailGroupList.add(group);
@@ -298,7 +305,7 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
                             if (StringUtils.isNotBlank(path) && new File(path).exists()) {
                                 attachPaths.add(path);
                             }
-                            attachPaths.addAll(mergedExtraPaths);
+                            attachPaths.addAll(matchExtrasByGroupKey(mailGroup, mergedExtras));
                             AssertUtil.isTrue(attachPaths.isEmpty(), "没有可发送的附件");
                             for (String attachPath : attachPaths) {
                                 String readyPath = prepareAttachPath(mail, attachPath);
@@ -684,6 +691,12 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
                         mailGroup.setTableName(tableName);
                         mailGroup.setReceiver(mailReceiver.getReceiver());
                         mailGroup.setPath(attachPath);
+                        // 分文件发送时带上分组值，供关联报表按 groupBy 合并
+                        if (workbookCount > 1 && StringUtils.isNotBlank(mail.getGroupBy()) && !Boolean.TRUE.equals(mail.getDivExcel())) {
+                            mailGroup.setGroupKey(mailReceiver.getGroupKey() == null ? "" : mailReceiver.getGroupKey().trim());
+                        } else {
+                            mailGroup.setGroupKey(mailReceiver.getGroupKey());
+                        }
                         mailGroup.setCc(mailReceiver.getCc());
                         mailGroup.setBcc(mailReceiver.getBcc());
                         mailReceiverList.add(mailGroup);
@@ -735,6 +748,64 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
             }
         }
         return false;
+    }
+
+    /**
+     * 是否仅为合并子报表（不应独立发信）：
+     * 1) contact 配置为 NO
+     * 2) 被其他未删除报表的 contact 引用（如 IHPONH.contact=IHPONL）
+     */
+    private boolean isMergeChildOnly(Mail mail) {
+        if (mail == null || StringUtils.isBlank(mail.getTableName())) {
+            return false;
+        }
+        if (StringUtils.isNotBlank(mail.getContact()) && "NO".equalsIgnoreCase(mail.getContact().trim())) {
+            return true;
+        }
+        List<Mail> parents = this.list(new QueryWrapper<Mail>()
+                .eq("isnull(is_del,0)", 0)
+                .isNotNull("contact")
+                .ne("contact", "")
+                .ne("table_name", mail.getTableName()));
+        if (parents == null || parents.isEmpty()) {
+            return false;
+        }
+        String selfName = mail.getTableName().trim();
+        for (Mail parent : parents) {
+            if (parent == null || StringUtils.isBlank(parent.getContact())
+                    || "NO".equalsIgnoreCase(parent.getContact().trim())) {
+                continue;
+            }
+            for (String c : parent.getContact().split(";")) {
+                if (selfName.equalsIgnoreCase(c == null ? "" : c.trim())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 关联报表附件按 groupBy 值对齐：
+     * - 主/关联双方都有 groupKey 时，仅合并相同分组（如 Meow 只带 Meow 附件）
+     * - 任一方无 groupKey（未分组）时，全部合并（兼容旧逻辑）
+     */
+    private List<String> matchExtrasByGroupKey(MailReceiver mailGroup, List<MailReceiver> mergedExtras) {
+        List<String> matched = new ArrayList<>();
+        if (mergedExtras == null || mergedExtras.isEmpty()) {
+            return matched;
+        }
+        String mainKey = mailGroup == null || mailGroup.getGroupKey() == null ? "" : mailGroup.getGroupKey().trim();
+        for (MailReceiver extra : mergedExtras) {
+            if (extra == null || StringUtils.isBlank(extra.getPath()) || !new File(extra.getPath()).exists()) {
+                continue;
+            }
+            String extraKey = extra.getGroupKey() == null ? "" : extra.getGroupKey().trim();
+            if (StringUtils.isBlank(mainKey) || StringUtils.isBlank(extraKey) || mainKey.equalsIgnoreCase(extraKey)) {
+                matched.add(extra.getPath());
+            }
+        }
+        return matched;
     }
 
     private String extractFileBaseName(String path) {
