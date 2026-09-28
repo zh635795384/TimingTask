@@ -212,13 +212,11 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
             //下载一个文件
             FtpUtil.downloadFtpFile(ftpHost, ftpUserName, ftpPassword, ftpPort, ftpPath, localPath, fileName);*/
             } else {
-                //如果只导出：有有效导出文件才清表
+                //如果只导出：有有效导出文件才清表；无数据不写日志
                 if (Boolean.TRUE.equals(mail.getIsExport())) {
                     List<MailReceiver> exported = exportExcelPath(mail);
                     if (hasValidExportFiles(exported)) {
                         this.truncateTable(mail);
-                    } else {
-                        systemLogService.addToLog(mail, mail.getTableName() + "导出无有效文件，跳过清表");
                     }
                 } else {
                     // 主报表按收件人/分组导出（一封邮件可带多个附件）
@@ -253,6 +251,10 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
                                 }
                             }
                         }
+                    }
+                    // 主报表与关联报表均无数据：不发信、不写日志
+                    if (mailGroupList.isEmpty() && mergedExtras.isEmpty()) {
+                        return;
                     }
                     // 主报表无文件但有关联附件时，用收件人配置发一封合并邮件
                     if (mailGroupList.isEmpty() && !mergedExtras.isEmpty()) {
@@ -667,23 +669,23 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
                                 String zipFileName = fileBaseName + customDate + ".zip";
                                 String targetZipPath = joinPath(mail.getPath(), zipFileName);
                                 Files.copy(Paths.get(attachPath), Paths.get(targetZipPath), StandardCopyOption.REPLACE_EXISTING);
-                                File oldXlsx = new File(joinPath(mail.getPath(), fileBaseName + customDate + ".xlsx"));
-                                if (oldXlsx.exists()) {
-                                    oldXlsx.delete();
-                                }
-                                // 清理旧的“表名+日期”命名文件，避免残留
-                                File legacyXlsx = new File(joinPath(mail.getPath(), mail.getTableName() + customDate + ".xlsx"));
-                                if (legacyXlsx.exists()) {
-                                    legacyXlsx.delete();
-                                }
-                                File legacyZip = new File(joinPath(mail.getPath(), mail.getTableName() + customDate + ".zip"));
-                                if (legacyZip.exists()) {
-                                    legacyZip.delete();
+                                // 仅清理「与本次目标文件不同」的旧命名，避免无别名时把刚导出的 zip 删掉
+                                deleteIfDifferent(joinPath(mail.getPath(), fileBaseName + customDate + ".xlsx"), targetZipPath);
+                                deleteIfDifferent(joinPath(mail.getPath(), mail.getTableName() + customDate + ".xlsx"), targetZipPath);
+                                deleteIfDifferent(joinPath(mail.getPath(), mail.getTableName() + customDate + ".zip"), targetZipPath);
+                                if (!new File(targetZipPath).exists()) {
+                                    throw new IOException("导出到目录失败，目标文件不存在：" + targetZipPath);
                                 }
                                 log.info("压缩导出完成：{}", targetZipPath);
                             } else {
                                 String targetPath = joinPath(mail.getPath(), fileBaseName + customDate + ".xlsx");
                                 Files.copy(Paths.get(sourcePath), Paths.get(targetPath), StandardCopyOption.REPLACE_EXISTING);
+                                deleteIfDifferent(joinPath(mail.getPath(), mail.getTableName() + customDate + ".xlsx"), targetPath);
+                                deleteIfDifferent(joinPath(mail.getPath(), mail.getTableName() + customDate + ".zip"), targetPath);
+                                if (!new File(targetPath).exists()) {
+                                    throw new IOException("导出到目录失败，目标文件不存在：" + targetPath);
+                                }
+                                log.info("导出完成：{}", targetPath);
                             }
                         }
                         //添加路径到返回路径中
@@ -867,6 +869,27 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
             normalized = normalized + File.separator;
         }
         return normalized + fileName;
+    }
+
+    /** 删除旧文件；若与本次导出目标为同一路径则跳过，防止刚写出就被删 */
+    private void deleteIfDifferent(String candidatePath, String keepPath) {
+        if (StringUtils.isBlank(candidatePath) || StringUtils.isBlank(keepPath)) {
+            return;
+        }
+        try {
+            File candidate = new File(candidatePath);
+            File keep = new File(keepPath);
+            if (!candidate.exists()) {
+                return;
+            }
+            if (candidate.getCanonicalFile().equals(keep.getCanonicalFile())) {
+                return;
+            }
+            candidate.delete();
+        } catch (IOException e) {
+            // 路径异常时保守跳过，避免误删
+            log.warn("清理旧导出文件跳过：{}", candidatePath, e);
+        }
     }
 
     /**
