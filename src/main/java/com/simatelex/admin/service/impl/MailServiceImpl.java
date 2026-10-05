@@ -148,7 +148,10 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
         try {
             // 合并子报表（contact=NO，或被其他报表的 contact 引用）不单独发信，由主报表合并发送
             if (isMergeChildOnly(mail)) {
-                systemLogService.addToLog(mail, mail.getTableName() + "为合并子报表，跳过独立发送（由主报表合并附件）");
+                // 无数据不写日志，避免误以为任务已处理
+                if (hasTableData(mail.getTableName())) {
+                    systemLogService.addToLog(mail, mail.getTableName() + "为合并子报表，跳过独立发送（由主报表合并附件）");
+                }
                 return;
             }
             //如果是ftp上传
@@ -595,20 +598,13 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
                         }
                         //工作表
                         SXSSFSheet sheet = workbook.createSheet();
-                        //设置sheet表名，如果只有一个sheet就是报表名，否则就是分组值
-                        Object groupVal = null;
+                        //设置sheet表名，如果只有一个sheet就是报表名，否则就是分组值（重名时自动加后缀）
+                        String sheetRawName = tableName;
                         if (sheetCount > 1 && StringUtils.isNotBlank(mail.getGroupBy())) {
-                            groupVal = divExcelMap.get(mail.getGroupBy());
-                            if (groupVal == null) {
-                                for (Map.Entry<String, Object> e : divExcelMap.entrySet()) {
-                                    if (e.getKey() != null && e.getKey().equalsIgnoreCase(mail.getGroupBy())) {
-                                        groupVal = e.getValue();
-                                        break;
-                                    }
-                                }
-                            }
+                            String groupVal = StringUtil.getValueIgnoreCase(divExcelMap, mail.getGroupBy());
+                            sheetRawName = StringUtils.isBlank(groupVal) ? ("Sheet" + (j + 1)) : groupVal;
                         }
-                        workbook.setSheetName(j, sanitizeSheetName(sheetCount == 1 ? tableName : String.valueOf(groupVal), j));
+                        workbook.setSheetName(j, uniqueSheetName(workbook, sheetRawName, j));
                         //设置首行加粗字体
                         CellStyle cellStyle1 = ExcelStyleUtil.getCellStyle2(workbook, ExcelStyleUtil.getXssfFont15(workbook, StringUtils.isNotBlank(mail.getFonts()) ? mail.getFonts() : "Times New Roman", mail.getFontSize() != null ? mail.getFontSize() : 10));
                         //设置其他行不加粗
@@ -733,11 +729,13 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
     }
 
     /**
-     * 校验表名/字段名，降低 ${} 动态 SQL 注入风险（仅允许字母数字下划线）
+     * 校验表名/字段名，降低 ${} 动态 SQL 注入风险。
+     * SQL Server 标识符允许字母、数字、下划线、#、$、-（如 HPO#L99A1）。
      */
     private void assertSafeSqlIdentifier(String name, String label) {
         AssertUtil.isTrue(StringUtils.isBlank(name), label + "不能为空");
-        AssertUtil.isTrue(!name.matches("^[A-Za-z_][A-Za-z0-9_-]*$"), label + "不合法：" + name);
+        String id = name.replaceAll("^\\[|\\]$", "").trim();
+        AssertUtil.isTrue(!id.matches("^[A-Za-z_#][A-Za-z0-9_#$-]*$"), label + "不合法：" + name);
     }
 
     private boolean hasValidExportFiles(List<MailReceiver> exported) {
@@ -785,6 +783,17 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
             }
         }
         return false;
+    }
+
+    /** 表中是否有数据（只查 1 行，空表不写业务日志） */
+    private boolean hasTableData(String tableName) {
+        if (StringUtils.isBlank(tableName)) {
+            return false;
+        }
+        QueryWrapper<Object> qw = new QueryWrapper<>();
+        qw.select("TOP 1 1");
+        List<LinkedHashMap<String, Object>> rows = this.selectTables(tableName, qw);
+        return rows != null && !rows.isEmpty();
     }
 
     /**
@@ -858,6 +867,25 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
             sheetName = "Sheet" + (index + 1);
         }
         return sheetName;
+    }
+
+    /** Excel sheet 名不区分大小写，且最长 31；重名时追加 _2/_3… */
+    private String uniqueSheetName(SXSSFWorkbook workbook, String raw, int index) {
+        String base = sanitizeSheetName(raw, index);
+        String candidate = base;
+        int n = 2;
+        while (true) {
+            int existing = workbook.getSheetIndex(candidate);
+            if (existing < 0 || existing == index) {
+                return candidate;
+            }
+            String extra = "_" + n++;
+            int keep = Math.max(1, 31 - extra.length());
+            candidate = (base.length() <= keep ? base : base.substring(0, keep)) + extra;
+            if (candidate.length() > 31) {
+                candidate = candidate.substring(0, 31);
+            }
+        }
     }
 
     private String joinPath(String dir, String fileName) {
